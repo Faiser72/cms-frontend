@@ -1,0 +1,70 @@
+<mat-nav-list>
+  <div class="profile-card">
+    <img src="assets/img/doctor/doctor.png" alt="{{ currentUserAvatar }}" class="my-3" />
+    <div class="header">
+      <h5>{{currentUserName}}</h5>
+      <h6>doc.{{currentUserName}}@cms.com</h6>
+    </div>
+  </div>
+
+  <mat-divider></mat-divider>
+  <h2 matSubheader>Pages</h2>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="">
+    <mat-icon>dvr</mat-icon>Dashboard
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/doctorshome/listdoctor">
+    <mat-icon> local_hospital</mat-icon>Doctors
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/patientshome/listpatient">
+    <mat-icon> local_hotel</mat-icon>Patients
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/appointmenthome/listappointment">
+    <mat-icon>meeting_room</mat-icon>Appointment
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/patientshome/patienthistoryanddiagnosis">
+    <mat-icon>change_history</mat-icon>Patient History & Diagnosis
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/addprescription">
+    <mat-icon>library_books</mat-icon>Prescription
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/listpatienthistory">
+    <mat-icon>history</mat-icon>Patient History
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/labtest">
+    <mat-icon>history</mat-icon>Lab Test
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/labreports">
+    <mat-icon>history</mat-icon>Lab Reports
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/addbillconfiguration">
+    <mat-icon>history</mat-icon>Bill Configuration
+  </a>
+  
+  <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/posts">
+      <mat-icon>notifications</mat-icon>Posts
+    </a> -->
+
+
+  <!-- <mat-divider></mat-divider> -->
+
+  <!-- <h2 matSubheader>Tools</h2>
+  
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+      <mat-icon>import_contacts</mat-icon>
+      Contacts
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+      <mat-icon>contact_phone</mat-icon>
+      Leads
+    </a> -->
+</mat-nav-list>

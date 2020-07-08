@@ -1,0 +1,141 @@
+<div class="container-fluid mt-3 p-0">
+    <div class="card shadow">
+        <div class="card-title">
+            <h4 class="text-center main-bg pt-3 mt-1">- Add Patients -</h4>
+        </div>
+        <mat-divider class="mx-5"></mat-divider>
+        <form action="" class="form-group customhover">
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="col-lg-4 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Patient Name</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Date Of Birth</mat-label>
+                        <input matInput [matDatepicker]="picker" placeholder="Ex. 7/2/1995" value="" #dob
+                            (change)='ageFromDateOfBirth(dob.value)' />
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-6 text-center mt-3">
+                    <mat-label>Gender </mat-label>
+                    <mat-radio-group aria-label="Select Your Gender" color="primary">
+                        <mat-radio-button value="1">Male</mat-radio-button>
+                        <mat-radio-button value="2">Female</mat-radio-button>
+                        <!-- <mat-radio-button value="3">Others</mat-radio-button> -->
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around ml-5 mr-5">
+                <!-- <div class="col-lg-4 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Maital Status</mat-label>
+                        <input matInput placeholder="Ex. Dr. Sudhakar" value="" />
+                    </mat-form-field>
+                </div> -->
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Telephone</mat-label>
+                        <span matPrefix>+91 &nbsp;</span>
+                        <input type="tel" matInput placeholder="555-555-1234">
+                        <mat-icon matSuffix color="primary">phone</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Email Id</mat-label>
+                        <input matInput type="email" placeholder="Ex. example@abc.com" value="" />
+                        <mat-icon matSuffix color="primary">email</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput
+                            placeholder="Ex. #83, 6th cross opposite to kfc, jalahalli bangalore"></textarea>
+                        <mat-icon matSuffix color="primary">home</mat-icon>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Reason For Visit</mat-label>
+                        <textarea matInput placeholder="Ex. fever, cold, chest pain etc..,"></textarea>
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Registered Date</mat-label>
+                        <input matInput [matDatepicker]="regdate" placeholder="Ex. 7/2/1995" value="" />
+                        <mat-datepicker-toggle matSuffix [for]="regdate"></mat-datepicker-toggle>
+                        <mat-datepicker #regdate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Doctor Assigned</mat-label>
+                        <input matInput placeholder="Ex. example@abc.com" value="" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <h4 class="text-center main-bg-2">Emergency Contact Details</h4>
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12">
+
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Telephone</mat-label>
+                        <span matPrefix>+91 &nbsp;</span>
+                        <input type="tel" matInput placeholder="555-555-1234">
+                        <mat-icon matSuffix color="primary">phone</mat-icon>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Relation</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
+                    <button type="submit" mat-raised-button color="primary">
+                        <mat-icon class="mr-2">save</mat-icon>Submit
+                    </button>
+                    <button type="reset" mat-raised-button color="accent">
+                        <mat-icon class="mr-2">360</mat-icon>Reset
+                    </button>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

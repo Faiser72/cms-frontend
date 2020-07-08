@@ -1,0 +1,77 @@
+<div class="container-fluid mt-3 p-0">
+    <div class="card shadow">
+        <div class="card-title">
+            <h4 class="text-center main-bg pt-3 mt-1">- Add Appointment -</h4>
+        </div>
+        <mat-divider class="mx-5"></mat-divider>
+        <form action="" class="form-group customhover">
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-50 mx-auto">
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Patient Number</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Patient Name</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-50 mx-auto">
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Doctor Name</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Telephone</mat-label>
+                        <span matPrefix>+91 &nbsp;</span>
+                        <input type="tel" matInput placeholder="555-555-1234">
+                        <mat-icon matSuffix color="primary">phone</mat-icon>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-50 mx-auto">
+                <div class="col-lg-6 col-sm-12 col-md-6 mt-2">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Appointment Date</mat-label>
+                        <input matInput [matDatepicker]="appointdate" placeholder="Ex. 7/2/1995" value="" />
+                        <mat-datepicker-toggle matSuffix [for]="appointdate"></mat-datepicker-toggle>
+                        <mat-datepicker #appointdate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Appointment Time</mat-label>
+                        <input matInput type="time" placeholder="Ex. xyz" value="" class="time" />
+                        <mat-icon matSuffix color="primary">access_time</mat-icon>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
+                    <button type="submit" mat-raised-button color="primary">
+                        <mat-icon class="mr-2">save</mat-icon>Submit
+                    </button>
+                    <button type="reset" mat-raised-button color="accent">
+                        <mat-icon class="mr-2">360</mat-icon>Reset
+                    </button>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

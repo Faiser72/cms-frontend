@@ -1,0 +1,86 @@
+.container-fluid {
+  animation: fadeInAnimation ease 2s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.parallax {
+  background-image: url("/../assets/img/blockchain.gif");
+  min-height: 500px;
+
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.txt {
+  font-weight: bold;
+}
+
+.button {
+  background-color: #1c87c9;
+  -webkit-border-radius: 60px;
+  border-radius: 60px;
+  border: none;
+  //   color: #eeeeee;
+  color: black;
+  cursor: pointer;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 20px;
+  padding: 10px 10px;
+  text-align: center;
+  text-decoration: none;
+}
+@keyframes glowing {
+  0% {
+    background-color: #2ba805;
+    box-shadow: 0 0 5px #2ba805;
+  }
+  50% {
+    background-color: #49e819;
+    box-shadow: 0 0 20px #49e819;
+  }
+  100% {
+    background-color: #2ba805;
+    box-shadow: 0 0 5px #2ba805;
+  }
+}
+.button {
+  animation: glowing 1300ms infinite;
+}
+
+button {
+  outline: none;
+}
+
+.one{
+  color:rgba(250,175,63,1) ;
+}
+
+.two{
+  color: #137779;
+}
+
+.one_o{
+  color:rgba(254,201,94,1) ;
+}
+
+.two_t{
+  color: #32AEB1;
+}
