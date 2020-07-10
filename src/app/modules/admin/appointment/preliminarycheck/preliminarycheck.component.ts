@@ -12,7 +12,7 @@ export class PreliminarycheckComponent implements OnInit {
   patientNumber;
   doctorName;
   date;
-  thyroidValue;
+  thyroidValue:String;
 
 
   // fileUploads

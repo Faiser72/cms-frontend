@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class LabtestComponent implements OnInit {
 
   patientNumber;
-  patientrName;
+  patientName;
   date;
 
   constructor() { }

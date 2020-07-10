@@ -105,11 +105,11 @@
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <mat-label>Thyroid </mat-label>
                     <mat-radio-group aria-label="Select Your Gender" color="primary" (change)='thyroid($event)'>
-                        <mat-radio-button value="1">Yes</mat-radio-button>
-                        <mat-radio-button value="2">No</mat-radio-button>
+                        <mat-radio-button value="yes">Yes</mat-radio-button>
+                        <mat-radio-button value="no">No</mat-radio-button>
                     </mat-radio-group>
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12" *ngIf='[(thyroidValue)]==1'>
+                <div class="col-lg-6 col-md-12 col-sm-12" *ngIf="thyroidValue=='yes'">
                     <!-- <p>reports chose file name</p> -->
 
                     <!-- <label for="resumeFile">Resume/CV <sup class="text-danger">*</sup></label> -->

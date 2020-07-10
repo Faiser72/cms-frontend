@@ -11,7 +11,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
   patientNumber;
   patientName;
   date;
-  thyroidValue;
+  thyroidValue:String;
 
 
   // fileUploads
