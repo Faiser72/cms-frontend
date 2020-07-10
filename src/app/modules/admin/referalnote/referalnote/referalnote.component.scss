@@ -1,3 +1,37 @@
+
+.referal-text{
+color:var(--main-font-4-color) ;
+font-size: x-large;
+}
+
+.logo{
+    color: var(--main-font-3-color);
+}
+
+.address{
+     font-style:normal;
+     font-size: larger;
+}
+
+.date{
+    color: var(--main-font-3-color);
+
+}
+
+.field-full-width {
+    width: 100%;
+}
+
+.referal{
+    color: var(--main-font-3-color);
+    margin-top: 10px;
+    padding-top: 20px;
+  }
+
+.names{
+    color: var(--main-font-3-color);
+}
+
 * {
     border-radius: 0px;
   }
@@ -55,27 +89,3 @@
   button{
     outline: none;
   }
-
-  .header-text p{
-    color:  var(--main-font-3-color);
-  }
-
-  .tablecss th{
-    color: var(--main-font-3-color); 
-}
-
-.tablecss td{
-  color: var(--main-font-4-color); 
-}
-
-.rowAddIcon{
-  // color: green;
-  cursor: pointer;
-  font-size: xx-large
-}
-
-.rowDeleteIcon{
-  // color:red;
-  cursor: pointer;
-  font-size: xx-large
-}

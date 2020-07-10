@@ -25,3 +25,27 @@
 a:hover{
   background: -webkit-linear-gradient(top,rgba(250,175,63,1) 0%,rgba(254,201,94,1) 100%);
 }
+
+/* for submenu Start here... */
+.menu-button {
+  transition: 300ms ease-in-out;
+  transform: rotate(0deg);
+}
+.menu-button.rotated {
+  transform: rotate(180deg);
+}
+.full-width {
+  width: 75%;
+}
+.submenu {
+  overflow-y: hidden;
+  transition: transform 300ms ease;
+  transform: scaleY(0);
+  transform-origin: top;
+  padding-left: 30px;
+  display: none;
+}
+.submenu.expanded {
+  transform: scaleY(1);
+}
+/* Ends here. */

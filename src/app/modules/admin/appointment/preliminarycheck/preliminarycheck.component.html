@@ -130,22 +130,20 @@
 
                     <!-- <label for="resumeFile">Resume/CV <sup class="text-danger">*</sup></label> -->
                     <input type="file" class="form-control fileUpload" accept="application/pdf" id="fileUpload"
-                        #uploadResume  hidden
-                        (change)="getResumeFile(uploadResume,$event)" />
+                        #uploadThyroid  hidden
+                        (change)="getThyroidFile(uploadThyroid,$event)" />
                     <div>
                         <button type="button" class="upload-resume-btn" mat-raised-button color="primary"
-                            (click)="uploadResume.click()">
+                            (click)="uploadThyroid.click()">
                             Upload Reports
                         </button>
-                        <span class="file-name">&nbsp;{{resumeFileName}}&nbsp;</span>
-                        <span style="color:red;" *ngIf="resumeMessage">{{resumeMessage}}</span>
+                        <span class="file-name">&nbsp;{{thyroidFileName}}&nbsp;</span>
+                        <span style="color:red;" *ngIf="thyroidMessage">{{thyroidMessage}}</span>
                     </div>
-
-                    
                 </div>
             </div>
-            <h4 class="text-center main-bg-2 mt-5">Test Reports</h4>
-            <div class="row d-flex justify-content-around  ml-5 mr-5 w-50 mx-auto mt-3">
+             <h4 class="text-center main-bg-2 mt-5">Test Reports</h4>
+            <!--<div class="row d-flex justify-content-around  ml-5 mr-5 w-50 mx-auto mt-3">
 
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="field-full-width">
@@ -166,7 +164,61 @@
                     <span style="color:red;" *ngIf="resumeMessage">{{resumeMessage}}</span>
                 </div>
                 </div>
+            </div> -->
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 mx-auto">
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                    <!-- Dynamic Row Starts here -->
+                    <table class="table table-striped table-bordered mt-5 tablecss text-center shadow">
+                        <thead>
+                            <tr class="theading">
+                                <th>Sl.no</th>
+                                <th>Test Name</th>
+                                <th>Upload Reports</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let dynamic of dynamicArray; let i = index;">
+                                <td>
+                                    {{i+1}}.
+                                </td>
+                                <td>
+                                    <mat-form-field class="field-full-width">
+                                        <input matInput value="" [(ngModel)]="dynamicArray[i].testName"
+                                            [ngModelOptions]="{standalone: true}" />
+                                    </mat-form-field>
+                                </td>
+                                <td>
+                                    <input type="file" class="form-control fileUpload" accept="application/pdf" id="fileUpload"
+                                    #uploadResume  hidden
+                                    (change)="getResumeFile(uploadResume,$event)" [(ngModel)]="dynamicArray[i].uploadReport"
+                                    [ngModelOptions]="{standalone: true}"/>
+                                <div>
+                                    <button type="button" class="upload-resume-btn" mat-raised-button color="primary"
+                                        (click)="uploadResume.click()">
+                                        Upload Reports
+                                    </button>
+                                    <span class="file-name">&nbsp;{{resumeFileName}}&nbsp;</span>
+                                    <span style="color:red;" *ngIf="resumeMessage">{{resumeMessage}}</span>
+                                </div>
+                                </td>
+                                <td (click)="addRow()" class="text-center">
+                                    <!-- <i class="fa fa-plus fa-1x  text-light"></i> -->
+                                    <mat-icon class="rowAddIcon" title="Add" color="primary">add</mat-icon>
+                                </td>
+                                <!-- <span  > -->
+                                <td (click)="deleteRow(i)" class=" text-center" *ngIf='i!=0'>
+                                    <!-- <i class="fa fa-trash fa-1x  text-light"></i> -->
+                                    <mat-icon class="rowDeleteIcon" title="Delete" color="accent">delete</mat-icon>
+                                </td>
+                                <!-- </span> -->
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- Dynamic Row ends here -->
+                </div>
             </div>
+
 
 
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">

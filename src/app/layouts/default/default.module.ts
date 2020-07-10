@@ -35,6 +35,8 @@ import { PostsComponent } from 'src/app/modules/posts/posts.component';
 import { AddbillconfigurationComponent } from 'src/app/modules/master/billconfiguration/addbillconfiguration/addbillconfiguration.component';
 import { MasterModule } from 'src/app/modules/master/master.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { PrinthomeComponent } from 'src/app/modules/admin/print/printhome/printhome.component';
+import { ReferalnoteModule } from 'src/app/modules/admin/referalnote/referalnote.module';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -46,6 +48,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ListpatienthistoryComponent,
     PrescriptionhomeComponent,
     AddbillconfigurationComponent,
+    PrinthomeComponent,
     PostsComponent],
   imports: [
     CommonModule,
@@ -72,6 +75,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     MatRadioModule,
     MatButtonModule,
     ReactiveFormsModule,
+    ReferalnoteModule,
     FormsModule
   ],
 })

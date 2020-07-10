@@ -1,0 +1,34 @@
+<!-- <div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="card">
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div class="container-fluid">
+  <div class="card-deck ">
+    <div class="card shadow onhover" (click)="routeToPrintReferal()">
+      <div class="card-img">
+        <mat-icon>print</mat-icon>
+        <h5 class="text-center text-capitalize">Print Referal Note</h5>
+      </div>
+    </div>
+    <div class="card shadow onhover" (click)="routeToPrintPrescription()">
+      <div class="card-img">
+        <mat-icon> list_alt</mat-icon>
+        <h5 class="text-center text-capitalize">Print Prescription</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-divider></mat-divider>
+<router-outlet></router-outlet>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
+import { TestReport } from '../testreportmodel';
 
 @Component({
   selector: 'app-preliminarycheck',
@@ -26,6 +27,14 @@ export class PreliminarycheckComponent implements OnInit {
   photoMessage: string;
   resumeMessage: string;
 
+   // thyroid files
+   thyroidFile:FileList;
+   thyroidFileName: string;
+   thyroidcvFile: string | Blob;
+   thyroidMessage: string;
+
+
+
   //  for dropdown starts
 
   heightUnits = [
@@ -49,12 +58,26 @@ export class PreliminarycheckComponent implements OnInit {
 
   //  for dropdown ends
 
+  dynamicArray: Array<TestReport> = [];
+  newDynamic: any = {};
+
   constructor() {
     this.resumeFileName = "No File Chosen";
+    this.thyroidFileName = "No File Chosen";
+
   }
 
   ngOnInit() {
+     // for multile contact form starts
+     this.newDynamic = {
+      testName: "",
+      uploadReport: ""
+    };
+    this.dynamicArray.push(this.newDynamic);
+    // for multile contact form ends
   }
+
+  
 
 
   getResumeFile(resumeUpload: HTMLInputElement, event: any) {
@@ -80,5 +103,66 @@ export class PreliminarycheckComponent implements OnInit {
   thyroid(tradio: MatRadioChange) {
     this.thyroidValue = tradio.value;
   }
+
+  
+  getThyroidFile(thyroidUpload: HTMLInputElement, event: any) {
+      const thyroidName = event.target.files[0].name;
+      this.thyroidFile = thyroidUpload.files;
+      if (this.thyroidFile.length === 0) return;
+  
+      let mimeType = this.thyroidFile[0].type;
+      if (mimeType.match(/application\/pdf/) == null) {
+        this.thyroidMessage = "Only pdf files are supported.";
+        this.thyroidFileName = "No File Chosen";
+        return;
+      } else {
+        this.thyroidMessage = null;
+        this.thyroidFileName = thyroidName;
+        var form_data = new FormData();
+        form_data.append("file", event.target.files[0]);
+        this.thyroidcvFile = event.target.files[0];
+      }
+    }
+
+  addRow() {
+    this.newDynamic = {
+      testName: "",
+      uploadReport: ""
+    };
+    this.dynamicArray.push(this.newDynamic);
+    // this.toastr.success('New row added successfully', 'New Row');
+    return true;
+  }
+
+  // contact(): boolean {
+  //   let cName: any = [];
+  //   let cNo: any = [];
+  //   let cEmailId: any = [];
+  //   this.dynamicArray.forEach((object, i) => {
+  //     cName[i] = object.contactPersonName;
+  //     cNo[i] = object.contactPersonNo;
+  //     cEmailId[i] = object.contactPersonEmailId;
+  //   });
+
+  //   this.addCompanyForm.patchValue({
+  //     contactPersonName: cName.join(),
+  //     contactPersonNo: cNo.join(),
+  //     contactPersonEmailId: cEmailId.join(),
+  //   });
+  //   return true;
+  // }
+
+  deleteRow(index) {
+    if (this.dynamicArray.length == 1) {
+      // this.toastr.error("Can't delete the row when there is only one row", 'Warning');
+      return false;
+    } else {
+      this.dynamicArray.splice(index, 1);
+      // this.toastr.warning('Row deleted successfully', 'Delete row');
+      return true;
+    }
+  }
+  // for multile contact form ends (Dynamic Row)
+
 
 }

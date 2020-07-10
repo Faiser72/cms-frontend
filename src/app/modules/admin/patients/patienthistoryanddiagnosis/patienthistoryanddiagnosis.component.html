@@ -114,14 +114,14 @@
 
                     <!-- <label for="resumeFile">Resume/CV <sup class="text-danger">*</sup></label> -->
                     <input type="file" class="form-control fileUpload" accept="application/pdf" id="fileUpload"
-                        #uploadResume hidden (change)="getResumeFile(uploadResume,$event)" />
+                        #uploadThyroid hidden (change)="getThyroidFile(uploadThyroid,$event)" />
                     <div>
                         <button type="button" class="upload-resume-btn" mat-raised-button color="primary"
-                            (click)="uploadResume.click()">
+                            (click)="uploadThyroid.click()">
                             Upload Reports
                         </button>
-                        <span class="file-name">&nbsp;{{resumeFileName}}&nbsp;</span>
-                        <span style="color:red;" *ngIf="resumeMessage">{{resumeMessage}}</span>
+                        <span class="file-name">&nbsp;{{thyroidFileName}}&nbsp;</span>
+                        <span style="color:red;" *ngIf="thyroidMessage">{{thyroidMessage}}</span>
                     </div>
                 </div>
             </div>

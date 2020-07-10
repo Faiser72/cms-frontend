@@ -1,14 +1,13 @@
 <br />
 <h4 class="title-header">- Prescription List -</h4>
 
-<div class="text-center">
+<!-- <div class="text-center">
     <mat-form-field>
-        <!-- <mat-label>Search Source</mat-label> -->
         <input matInput (keyup)="applyFilter($event)" placeholder="Search here..." />
     </mat-form-field>
-</div>
+</div> -->
 
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 mt-5">
     <table mat-table [dataSource]="dataSource" matSort>
         <!-- ID Column -->
         <ng-container matColumnDef="slNo">

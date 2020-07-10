@@ -23,6 +23,8 @@ import { LabtestComponent } from './modules/admin/lab/labtest/labtest.component'
 import { LabreportsComponent } from './modules/admin/lab/labreports/labreports.component';
 import { AddbillconfigurationComponent } from './modules/master/billconfiguration/addbillconfiguration/addbillconfiguration.component';
 import { ListbillconfigurationComponent } from './modules/master/billconfiguration/listbillconfiguration/listbillconfiguration.component';
+import { PrinthomeComponent } from './modules/admin/print/printhome/printhome.component';
+import { ReferalnoteComponent } from './modules/admin/referalnote/referalnote/referalnote.component';
 
 const routes: Routes = [
   {
@@ -75,6 +77,13 @@ const routes: Routes = [
 
       { path: "labreports", component: LabreportsComponent },
 
+      {
+        path: "printhome", component: PrinthomeComponent, children: [
+          { path: "referalnote", component: ReferalnoteComponent },
+        ]
+      },
+
+      { path: "referalnote", component: ReferalnoteComponent },
 
       {
         path: "appointmenthome",
