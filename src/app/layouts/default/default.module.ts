@@ -18,6 +18,7 @@ import {
   MatProgressBarModule,
   MatRadioModule,
   MatButtonModule,
+  MatSelectModule,
 } from "@angular/material";
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
@@ -76,7 +77,8 @@ import { ReferalnoteModule } from 'src/app/modules/admin/referalnote/referalnote
     MatButtonModule,
     ReactiveFormsModule,
     ReferalnoteModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule
   ],
 })
 export class DefaultModule { }

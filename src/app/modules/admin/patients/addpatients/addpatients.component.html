@@ -14,6 +14,12 @@
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
+                        <mat-label>Patient Number</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-6">
+                    <mat-form-field class="field-full-width">
                         <mat-label>Date Of Birth</mat-label>
                         <input matInput [matDatepicker]="picker" placeholder="Ex. 7/2/1995" value="" #dob
                             (change)='ageFromDateOfBirth(dob.value)' />
@@ -21,24 +27,10 @@
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-4 col-sm-12 col-md-6 text-center mt-3">
-                    <mat-label>Gender </mat-label>
-                    <mat-radio-group aria-label="Select Your Gender" color="primary">
-                        <mat-radio-button value="1">Male</mat-radio-button>
-                        <mat-radio-button value="2">Female</mat-radio-button>
-                        <!-- <mat-radio-button value="3">Others</mat-radio-button> -->
-                    </mat-radio-group>
-                </div>
             </div>
 
             <div class="row d-flex justify-content-around ml-5 mr-5">
-                <!-- <div class="col-lg-4 col-sm-12 col-md-6">
-                    <mat-form-field class="field-full-width">
-                        <mat-label>Maital Status</mat-label>
-                        <input matInput placeholder="Ex. Dr. Sudhakar" value="" />
-                    </mat-form-field>
-                </div> -->
-                <div class="col-lg-6 col-sm-12 col-md-6">
+                <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Telephone</mat-label>
                         <span matPrefix>+91 &nbsp;</span>
@@ -46,12 +38,20 @@
                         <mat-icon matSuffix color="primary">phone</mat-icon>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-6 col-sm-12 col-md-6">
+                <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Email Id</mat-label>
                         <input matInput type="email" placeholder="Ex. example@abc.com" value="" />
                         <mat-icon matSuffix color="primary">email</mat-icon>
                     </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-6 mt-4 text-center">
+                    <mat-label>Gender : </mat-label>
+                    <mat-radio-group aria-label="Select Your Gender" color="primary">
+                        <mat-radio-button value="1">Male</mat-radio-button>
+                        <mat-radio-button value="2">Female</mat-radio-button>
+                        <!-- <mat-radio-button value="3">Others</mat-radio-button> -->
+                    </mat-radio-group>
                 </div>
             </div>
 

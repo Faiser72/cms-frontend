@@ -14,6 +14,19 @@
     <mat-icon>dvr</mat-icon>Dashboard
   </a>
 
+  <span>
+    <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent mb-1" (click)="toggleSubmenu('master_submenu')">
+      <mat-icon>menu_book</mat-icon>
+      <span class="full-width">Master</span>
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">expand_more</mat-icon>
+    </mat-list-item>
+    <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" id="master_submenu">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/addbillconfiguration">
+        <mat-icon> attach_money</mat-icon>Bill Configuration
+      </a>
+    </div>
+  </span>
+
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/doctorshome/listdoctor">
     <mat-icon> local_hospital</mat-icon>Doctors
   </a>
@@ -27,46 +40,11 @@
   </a>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/patientshome/patienthistoryanddiagnosis">
-    <mat-icon>change_history</mat-icon>Patient History & Diagnosis
+    <mat-icon>change_history</mat-icon>Patient Diagnosis
   </a>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/addprescription">
     <mat-icon>library_books</mat-icon>Prescription
-  </a>
-
-  <span>
-    <mat-list-item (click)="showSubmenu = !showSubmenu" class="parent mb-1" (click)="toggleSubmenu('master_submenu')">
-      <mat-icon>menu_book</mat-icon>
-      <span class="full-width">Master</span>
-      <mat-icon class="menu-button" [ngClass]="{'rotated' : showSubmenu}">expand_more</mat-icon>
-    </mat-list-item>
-    <div class="submenu" [ngClass]="{'expanded' : showSubmenu}" id="master_submenu">
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/addbillconfiguration">
-        <mat-icon> attach_money</mat-icon>Bill Configuration
-      </a>
-      <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/adddepartment">
-        <mat-icon>apartment</mat-icon> Department
-      </a>
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/adddomain">
-        <mat-icon>domain</mat-icon>Domain
-      </a>
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/addjobtitle">
-        <mat-icon>business_center</mat-icon>Job
-      </a>
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/addsourrce">
-        <mat-icon>public</mat-icon>Source
-      </a>
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/addinterviewmode">
-        <mat-icon>bubble_chart</mat-icon>Interview Mode
-      </a>
-      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/addstatus">
-        <mat-icon>dynamic_feed</mat-icon>Status
-      </a> -->
-    </div>
-  </span>
-  
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/listpatienthistory">
-    <mat-icon>history</mat-icon>Patient History
   </a>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/labtest">
@@ -77,12 +55,25 @@
     <mat-icon>assignment</mat-icon>Lab Reports
   </a>
 
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/listpatienthistory">
+    <mat-icon>history</mat-icon>Patient History
+  </a>
+
+
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/printhome">
     <mat-icon>print</mat-icon>Print
   </a>
 
   <a mat-list-item routerLinkActive="list-item-active" routerLink="/referalnote">
     <mat-icon>supervised_user_circle</mat-icon>Reference
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+    <mat-icon>library_books</mat-icon>Invoice
+  </a>
+
+  <a mat-list-item routerLinkActive="list-item-active" routerLink="/">
+    <mat-icon>chrome_reader_mode</mat-icon>Report
   </a>
 
   <!-- <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/posts">
