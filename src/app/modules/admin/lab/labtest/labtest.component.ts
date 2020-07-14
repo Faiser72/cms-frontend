@@ -29,6 +29,18 @@ export class LabtestComponent implements OnInit {
   urineRoutine = false;
   chestXRay = false;
   Echocardiogram = false;
+  treadmillTest = false;
+  ultraSoundAbdomenAndPelvis = false;
+  urineCompleteAnalysis = false;
+  ecg = false;
+  esr = false;
+  asloQuantitative = false;
+  raQuantitative = false;
+  crpQuantitative = false;
+  anaElisa = false;
+  lh = false;
+  prolactin = false;
+  fshLHRatio = false;
 
   constructor() { }
 
