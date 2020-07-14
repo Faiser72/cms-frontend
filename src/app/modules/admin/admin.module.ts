@@ -24,6 +24,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LabtestComponent } from './lab/labtest/labtest.component';
 import { LabreportsComponent } from './lab/labreports/labreports.component';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import {MatSelectModule} from '@angular/material/select';
     MatSnackBarModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
 })
 export class AdminModule { }

@@ -17,6 +17,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { DefaultModule } from "./layouts/default/default.module";
 import { RouterModule } from "@angular/router";
 import { DashboardComponent } from "./modules/dashboard/dashboard.component";
+import { MatCheckboxModule } from '@angular/material';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,6 +35,7 @@ import { DashboardComponent } from "./modules/dashboard/dashboard.component";
     MatListModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

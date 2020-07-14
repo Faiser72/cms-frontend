@@ -11,6 +11,25 @@ export class LabtestComponent implements OnInit {
   patientName;
   date;
 
+
+  // checkbox starts
+  completeheamogram = false;
+  bloodGrouprhtype = false;
+  postPrandialBloodSugar = false;
+  bloodUrea = false;
+  bloodUreaNitrogen = false;
+  serumCreatinine = false;
+  uricAcid = false;
+  lipidProfile = false;
+  liverFunctionTest = false;
+  tsh = false;
+  serumCalcium = false;
+  hivElisa = false;
+  hbsagElisa = false;
+  urineRoutine = false;
+  chestXRay = false;
+  Echocardiogram = false;
+
   constructor() { }
 
   ngOnInit() {
