@@ -25,6 +25,11 @@ import { AddbillconfigurationComponent } from './modules/master/billconfiguratio
 import { ListbillconfigurationComponent } from './modules/master/billconfiguration/listbillconfiguration/listbillconfiguration.component';
 import { PrinthomeComponent } from './modules/admin/print/printhome/printhome.component';
 import { ReferalnoteComponent } from './modules/admin/referalnote/referalnote/referalnote.component';
+import { ViewpatientdiagnosysdetailsComponent } from './modules/admin/patients/viewpatientdiagnosysdetails/viewpatientdiagnosysdetails.component';
+import { InvoicehomeComponent } from './modules/admin/invoice/invoicehome/invoicehome.component';
+import { ReportsComponent } from './modules/admin/reports/reports/reports.component';
+import { PrintreferalnoteComponent } from './modules/admin/print/printreferalnote/printreferalnote.component';
+import { PrintprescriptionComponent } from './modules/admin/print/printprescription/printprescription.component';
 
 const routes: Routes = [
   {
@@ -77,10 +82,18 @@ const routes: Routes = [
 
       { path: "labreports", component: LabreportsComponent },
 
+      { path: "viewpatientdiagnosysdetails", component: ViewpatientdiagnosysdetailsComponent },
+
+      { path: "invoicehome", component: InvoicehomeComponent },
+
+      { path: "reportshome", component: ReportsComponent },
+
+      { path: "printreferalnote", component: PrintreferalnoteComponent },
+
+      { path: "printprescription", component: PrintprescriptionComponent },
+
       {
-        path: "printhome", component: PrinthomeComponent, children: [
-          { path: "referalnote", component: ReferalnoteComponent },
-        ]
+        path: "printhome", component: PrinthomeComponent
       },
 
       { path: "referalnote", component: ReferalnoteComponent },

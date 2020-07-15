@@ -9,6 +9,7 @@ export class LabreportsComponent implements OnInit {
 
   patientNumber;
   patientName;
+  doctorName
   date;
   
   constructor() { }

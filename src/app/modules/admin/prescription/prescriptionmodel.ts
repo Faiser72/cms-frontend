@@ -5,5 +5,6 @@ export class Prescription {
     afternoonDosage: any;
     nightDosage: any;
     duration: any;
+    remarks:any;
   }
   

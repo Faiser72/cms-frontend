@@ -15,6 +15,7 @@ export class ListprescriptionComponent implements OnInit {
     "drugName",
     "strength",
     "duration",
+    "dosage",
     "remarks",
     "action"
   ];

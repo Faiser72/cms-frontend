@@ -52,7 +52,7 @@ export class ReferalnoteComponent implements OnInit {
     }
     const dialogRef = this.dialog.open(PrintReferal, {
       width: "800px",
-      // height:"300px",
+      height:"700px",
       data: { pageValue: printObj }
     });
 

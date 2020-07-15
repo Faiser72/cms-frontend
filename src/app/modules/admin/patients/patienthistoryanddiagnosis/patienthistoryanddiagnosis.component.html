@@ -6,25 +6,44 @@
         <!-- <mat-divider class="mx-5"></mat-divider> -->
 
         <div class="mt-3">
-            <div class="row d-flex justify-content-center mt-4 ml-5 mr-5 w-100 mx-auto ">
+            <div class="row d-flex justify-content-center mt-4 ml-5 mr-5 w-100 mx-auto">
                 <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
-                    <p>
-                        Patient Number: {{patientNumber}}
-                    </p>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Patient Number: {{patientNumber}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Patient Name:{{patientName}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
-                    <p>
-                        Patient Name:{{patientName}}
-                    </p>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
-                    <p>
-                        Date:{{date}}
-                    </p>
+
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Doctor Name: {{doctorName}}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Date:{{date}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
         <mat-divider class="mx-5"></mat-divider>
 
         <form action="" class="form-group customhover">
@@ -128,29 +147,37 @@
 
             <h4 class="text-center main-bg-2 mt-5">Last Visit Details</h4>
             <div class="row d-flex justify-content-around  ml-5 mr-5 w-50 mx-auto mt-3">
-                <table class="table tablecss table-bordered shadow text-center">
+                <table class="table tablecss table-bordered shadow text-center" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Diagnosis</th>
-                            <th scope="col">Prescription</th>
+                            <th scope="col" style="width: 30%;">Date</th>
+                            <th scope="col" style="width: 50%;">Diagnosis</th>
+                            <th scope="col" style="width: 20%;">Prescription</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Mark</td>
                             <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>
+                                <mat-icon color="primary" class="hover" (click)='routeTOViewPatientDiagnosisdetails()'>
+                                    view_column</mat-icon>
+                            </td>
                         </tr>
                         <tr>
                             <td>Jacob</td>
                             <td>Thornton</td>
-                            <td>@fat</td>
+                            <td>
+                                <mat-icon color="primary" class="hover" (click)='routeTOViewPatientDiagnosisdetails()'>
+                                    view_column</mat-icon>
+                            </td>
                         </tr>
                         <tr>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@twitter</td>
+                            <td colspan="3"><button type="submit" mat-raised-button color="primary">
+                                    <mat-icon class="mr-2">save</mat-icon>View More
+                                </button></td>
+                            <!-- <td>Thornton</td>
+                            <td>@twitter</td> -->
                         </tr>
                     </tbody>
                 </table>

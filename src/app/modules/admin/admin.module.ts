@@ -25,6 +25,9 @@ import { LabtestComponent } from './lab/labtest/labtest.component';
 import { LabreportsComponent } from './lab/labreports/labreports.component';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { ViewpatientdiagnosysdetailsComponent } from './patients/viewpatientdiagnosysdetails/viewpatientdiagnosysdetails.component';
+import { PrintreferalnoteComponent } from './print/printreferalnote/printreferalnote.component';
+import { PrintprescriptionComponent } from './print/printprescription/printprescription.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     EditprescriptionComponent, 
     ListprescriptionComponent,
     LabtestComponent, 
-    LabreportsComponent
+    LabreportsComponent,
+    ViewpatientdiagnosysdetailsComponent,
+    PrintreferalnoteComponent, 
+    PrintprescriptionComponent
   ],
   imports: [
     CommonModule,

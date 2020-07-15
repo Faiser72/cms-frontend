@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patienthistoryanddiagnosis',
@@ -10,6 +11,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
 
   patientNumber;
   patientName;
+  doctorName
   date;
   thyroidValue:String="yes";
 
@@ -53,7 +55,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
 
   //  for dropdown ends
 
-  constructor() {
+  constructor(private route: Router) {
     this.resumeFileName = "No File Chosen";
     this.thyroidFileName = "No File Chosen";
 
@@ -85,5 +87,9 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     }
   }
 
+
+  routeTOViewPatientDiagnosisdetails(){
+    this.route.navigate(['viewpatientdiagnosysdetails'])
+  }
 
 }

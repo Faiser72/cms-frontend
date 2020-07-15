@@ -38,6 +38,9 @@ import { MasterModule } from 'src/app/modules/master/master.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PrinthomeComponent } from 'src/app/modules/admin/print/printhome/printhome.component';
 import { ReferalnoteModule } from 'src/app/modules/admin/referalnote/referalnote.module';
+import { Ng2OdometerModule } from "ng2-odometer";
+import { ReportsComponent } from 'src/app/modules/admin/reports/reports/reports.component';
+import { InvoicehomeComponent } from 'src/app/modules/admin/invoice/invoicehome/invoicehome.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -50,6 +53,8 @@ import { ReferalnoteModule } from 'src/app/modules/admin/referalnote/referalnote
     PrescriptionhomeComponent,
     AddbillconfigurationComponent,
     PrinthomeComponent,
+    ReportsComponent,
+    InvoicehomeComponent,
     PostsComponent],
   imports: [
     CommonModule,
@@ -78,7 +83,8 @@ import { ReferalnoteModule } from 'src/app/modules/admin/referalnote/referalnote
     ReactiveFormsModule,
     ReferalnoteModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    Ng2OdometerModule
   ],
 })
 export class DefaultModule { }

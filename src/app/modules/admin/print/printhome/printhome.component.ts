@@ -26,10 +26,10 @@ export class PrinthomeComponent implements OnInit {
   }
 
   routeToPrintReferal() {
-    this.route.navigate(['printhome/referalnote'])
+    this.route.navigate(['printreferalnote'])
   }
-
+  
   routeToPrintPrescription(){
-    
+    this.route.navigate(['printprescription'])
   }
 }

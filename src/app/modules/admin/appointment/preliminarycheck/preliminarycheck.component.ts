@@ -10,7 +10,8 @@ import { TestReport } from '../testreportmodel';
 export class PreliminarycheckComponent implements OnInit {
 
   patientNumber;
-  doctorName;
+  patientName;
+  doctorName
   date;
   thyroidValue:String="yes";
 

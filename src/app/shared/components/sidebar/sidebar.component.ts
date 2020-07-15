@@ -15,19 +15,19 @@ export class SidebarComponent implements OnInit {
   }
 
   /* for submenu Start here... */
-  showSubmenu: boolean = false;
-  showCompaniesSubmenu: boolean = false;
-  showCandidatesSubmenu: boolean = false;
+  // showSubmenu: boolean = false;
+  // showCompaniesSubmenu: boolean = false;
+  // showCandidatesSubmenu: boolean = false;
 
-  toggleSubmenu(submenu: string) {
-    let element = document.getElementById(submenu);
-    if (element.style.display == '' || element.style.display == 'none') {
-      element.style.display = 'block';
-    }
-    else {
-      element.style.display = 'none';
-    }
-  }
+  // toggleSubmenu(submenu: string) {
+  //   let element = document.getElementById(submenu);
+  //   if (element.style.display == '' || element.style.display == 'none') {
+  //     element.style.display = 'block';
+  //   }
+  //   else {
+  //     element.style.display = 'none';
+  //   }
+  // }
   /* Ends here. */
 
 }

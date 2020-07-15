@@ -9,8 +9,8 @@ export class LabtestComponent implements OnInit {
 
   patientNumber;
   patientName;
+  doctorName
   date;
-
 
   // checkbox starts
   completeheamogram = false;
@@ -41,6 +41,8 @@ export class LabtestComponent implements OnInit {
   lh = false;
   prolactin = false;
   fshLHRatio = false;
+  glycatedHb = false;
+  electrolytes= false;
 
   constructor() { }
 

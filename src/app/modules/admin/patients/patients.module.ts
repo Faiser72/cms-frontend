@@ -5,6 +5,7 @@ import { EditpatientsComponent } from './editpatients/editpatients.component';
 import { ListpatientsComponent } from './listpatients/listpatients.component';
 import { PatientshomeComponent } from './patientshome/patientshome.component';
 import { PatienthistoryanddiagnosisComponent } from './patienthistoryanddiagnosis/patienthistoryanddiagnosis.component';
+import { ViewpatientdiagnosysdetailsComponent } from './viewpatientdiagnosysdetails/viewpatientdiagnosysdetails.component';
 
 
 

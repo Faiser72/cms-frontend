@@ -9,7 +9,8 @@ import { Prescription } from '../prescriptionmodel';
 export class AddprescriptionComponent implements OnInit {
   patientNumber;
   patientName;
-  date
+  doctorName
+  date;
 
   dynamicArray: Array<Prescription> = [];
   newDynamic: any = {};
@@ -24,7 +25,8 @@ export class AddprescriptionComponent implements OnInit {
       morningDosage: "",
       afternoonDosage: "",
       nightDosage: "",
-      duration: ""
+      duration: "",
+      remarks:""
     };
     this.dynamicArray.push(this.newDynamic);
     // for multile contact form ends
@@ -41,7 +43,8 @@ export class AddprescriptionComponent implements OnInit {
       morningDosage: "",
       afternoonDosage: "",
       nightDosage: "",
-      duration: ""
+      duration: "",
+      remarks:""
     };
     this.dynamicArray.push(this.newDynamic);
     // this.toastr.success('New row added successfully', 'New Row');
