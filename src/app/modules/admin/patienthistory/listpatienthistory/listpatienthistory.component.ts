@@ -20,11 +20,10 @@ export class ListpatienthistoryComponent implements OnInit {
   dataSource: any;
   displayedColumns: string[] = [
     "slNo",
-    "dateVisited",
-    "doctorName",
-    "diagnosis",
-    "prescription",
-    "labReports"
+    "drugName",
+    "strength",
+    "dosage",
+    "duration",
     // "action"
   ];
 
@@ -49,10 +48,11 @@ export class ListpatienthistoryComponent implements OnInit {
   }
 
   toggleShow() {
-
     this.isShown = !this.isShown;
-
   }
 
+  // back(){
+  //   this.router.navigate([''])
+  // }
 
 }

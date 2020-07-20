@@ -11,13 +11,13 @@
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Name</mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" #patientName/>
+                        <input matInput placeholder="Ex. xyz" value="" #patientName />
                     </mat-form-field>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Age/Sex</mat-label>
-                        <input matInput placeholder="Ex. 25" value="" #age/>
+                        <input matInput placeholder="Ex. 25" value="" #age />
                     </mat-form-field>
                 </div>
             </div>
@@ -27,13 +27,13 @@
                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                     <mat-form-field class="field-full-width">
                         <mat-label>Refered By</mat-label>
-                        <input matInput placeholder="Ex. Dr. Sudhakar" value="" #doctorName/>
+                        <input matInput placeholder="Ex. Dr. Sudhakar" value="" #doctorName />
                     </mat-form-field>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                     <mat-form-field class="field-full-width">
                         <mat-label>Date</mat-label>
-                        <input matInput type="date" placeholder="Ex. 25" value="" #date color="primary"/>
+                        <input matInput type="date" placeholder="Ex. 25" value="" #date color="primary" />
                     </mat-form-field>
                 </div>
             </div>
@@ -47,24 +47,23 @@
                         <mat-icon matSuffix color="primary">edit</mat-icon>
                     </mat-form-field>
                 </div>
-               
+
             </div>
 
-           
+
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
                 <div class="col-lg-4 col-md-6 col-sm-12">
-
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
                     <button type="submit" mat-raised-button color="primary">
                         <mat-icon class="mr-2">save</mat-icon>save
                     </button>
-                    <button type="reset" mat-raised-button color="accent" (click)="openDialog(patientName.value, age.value, date.value, doctorName.value, remarks.value)">
+                    <button mat-raised-button color="accent"
+                        (click)="openDialog(patientName.value, age.value, date.value, doctorName.value, remarks.value)">
                         <mat-icon class="mr-2">print</mat-icon>Print Preview
                     </button>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
-
                 </div>
             </div>
         </form>

@@ -92,7 +92,7 @@
             <input matInput placeholder="Ex. 25" value="{{age}}" />
           </mat-form-field>
         </div>
-        <div class="col-lg-4 mt-4 col-sm-12 col-md-6 text-center">
+        <div class="col-lg-3 mt-4 col-sm-12 col-md-6 text-center">
           <mat-label>Gender </mat-label>
           <mat-radio-group aria-label="Select Your Gender" color="primary">
             <mat-radio-button value="1">Male</mat-radio-button>
@@ -100,7 +100,13 @@
             <!-- <mat-radio-button value="3">Others</mat-radio-button> -->
           </mat-radio-group>
         </div>
-        <div class="col-lg-4 col-sm-12 col-md-6">
+        <div class="col-lg-2 col-sm-12 col-md-6">
+          <mat-form-field class="field-full-width">
+            <mat-label>Experience</mat-label>
+            <input matInput placeholder="Ex. 5 years" value="" />
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3 col-sm-12 col-md-6">
           <mat-form-field class="field-full-width">
             <mat-label>Joining Date</mat-label>
             <input matInput [matDatepicker]="jdate" placeholder="Ex. 6/29/2020" value="" />

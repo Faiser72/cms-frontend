@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Prescription } from '../prescriptionmodel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addprescription',
@@ -15,7 +16,7 @@ export class AddprescriptionComponent implements OnInit {
   dynamicArray: Array<Prescription> = [];
   newDynamic: any = {};
 
-  constructor() { }
+  constructor(private route:Router) { }
 
   ngOnInit() {
     // for multile contact form starts
@@ -80,5 +81,12 @@ export class AddprescriptionComponent implements OnInit {
     }
   }
   // for multile contact form ends (Dynamic Row)
+
+
+  // lab Test
+
+  routeToLabTest(){
+    this.route.navigate(['labtest'])
+  }
 
 }

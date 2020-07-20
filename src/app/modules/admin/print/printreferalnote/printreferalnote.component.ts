@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-printreferalnote',
@@ -21,7 +22,7 @@ export class PrintreferalnoteComponent implements OnInit {
 
   isShown: boolean = false;
 
-  constructor() { }
+  constructor(private router:Router) { }
 
   ngOnInit() {
     var today = new Date();
@@ -47,6 +48,10 @@ export class PrintreferalnoteComponent implements OnInit {
     window.print();
 
     document.body.innerHTML = originalContents;
+  }
+
+  backToPrintHome(){
+    this.router.navigate(['printhome'])
   }
 
 }

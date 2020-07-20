@@ -14,16 +14,16 @@
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Telephone</mat-label>
-                        <span matPrefix>+91 &nbsp;</span>
-                        <input type="tel" matInput placeholder="555-555-1234">
-                        <mat-icon matSuffix color="primary">phone</mat-icon>
+                        <mat-label>Patient Name</mat-label>
+                        <input matInput placeholder="Ex. xyz" value="" />
                     </mat-form-field>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Patient Name</mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" />
+                        <mat-label>Telephone</mat-label>
+                        <span matPrefix>+91 &nbsp;</span>
+                        <input type="tel" matInput placeholder="555-555-1234">
+                        <mat-icon matSuffix color="primary">phone</mat-icon>
                     </mat-form-field>
                 </div>
             </div>
@@ -176,8 +176,11 @@
                         <!-- <button type="submit" mat-raised-button color="primary">
                         <mat-icon class="mr-2">save</mat-icon>Save
                     </button> -->
-                        <button type="reset" mat-raised-button color="accent" (click)="printPrescription('componentID')">
+                        <button mat-raised-button color="accent" (click)="printPrescription('componentID')">
                             <mat-icon>print</mat-icon>Print
+                        </button>
+                        <button mat-raised-button color="accent" (click)="backToPrintHome()">
+                            <mat-icon>arrow_back_ios</mat-icon>Back
                         </button>
                     </div>
                     <div class="col-lg-4 col-md-6 col-sm-12">

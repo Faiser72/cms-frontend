@@ -14,10 +14,10 @@ export class DashboardComponent implements OnInit {
   interviewsCount: number = 300;
   jobsCount: number = 40;
 
-  activeCompaniesCount: number = 9;
-  activeCandidatesCount: number = 17;
-  activeInterviewsCount: number = 250;
-  activeJobsCount: number = 30;
+  // activeCompaniesCount: number = 9;
+  // activeCandidatesCount: number = 17;
+  // activeInterviewsCount: number = 250;
+  // activeJobsCount: number = 30;
   constructor(private route: Router) {
   }
 
