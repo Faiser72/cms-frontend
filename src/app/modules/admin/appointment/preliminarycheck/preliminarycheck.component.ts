@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import { TestReport } from '../testreportmodel';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-preliminarycheck',
@@ -9,12 +10,13 @@ import { TestReport } from '../testreportmodel';
 })
 export class PreliminarycheckComponent implements OnInit {
 
+  addDiagnosisForm: FormGroup;
+
   patientNumber;
   patientName;
   doctorName
   date;
   thyroidValue:String="yes";
-
 
   // fileUploads
   uploadFiles = new FormData();
@@ -62,7 +64,7 @@ export class PreliminarycheckComponent implements OnInit {
   dynamicArray: Array<TestReport> = [];
   newDynamic: any = {};
 
-  constructor() {
+  constructor(private fb:FormBuilder) {
     this.resumeFileName = "No File Chosen";
     this.thyroidFileName = "No File Chosen";
 
@@ -76,6 +78,23 @@ export class PreliminarycheckComponent implements OnInit {
     };
     this.dynamicArray.push(this.newDynamic);
     // for multile contact form ends
+
+    this.addDiagnosisFormBuilder();
+  }
+
+  addDiagnosisFormBuilder() {
+    this.addDiagnosisForm = this.fb.group({
+      age: [null, [Validators.required]],
+      height: [null, [Validators.required]],
+      heightUnits: [null, [Validators.required]],
+      weight: [null, [Validators.required]],
+      weightUnits: [null, [Validators.required]],
+      bloodPreasure: [null, [Validators.required]],
+      temperature: [null, [Validators.required]],
+      temperatureUnits: [null, [Validators.required]],
+      thyroid: [null, [Validators.required]],
+      thyroidReports: "",
+    });
   }
 
   
@@ -166,4 +185,8 @@ export class PreliminarycheckComponent implements OnInit {
   // for multile contact form ends (Dynamic Row)
 
 
+  addDiagnosisFormSubmit(){
+    console.log(this.addDiagnosisForm.value);
+    
+  }
 }

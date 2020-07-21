@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatRadioChange } from '@angular/material';
 import { Router } from '@angular/router';
+import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-patienthistoryanddiagnosis',
@@ -13,8 +14,9 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
   patientName;
   doctorName
   date;
-  thyroidValue:String="yes";
+  thyroidValue: String = "yes";
 
+  addDiagnosisForm: FormGroup;
 
   // fileUploads
   uploadFiles = new FormData();
@@ -55,13 +57,29 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
 
   //  for dropdown ends
 
-  constructor(private route: Router) {
+  constructor(private route: Router, private fb: FormBuilder) {
     this.resumeFileName = "No File Chosen";
     this.thyroidFileName = "No File Chosen";
 
   }
 
   ngOnInit() {
+    this.addDiagnosisFormBuilder();
+  }
+
+  addDiagnosisFormBuilder() {
+    this.addDiagnosisForm = this.fb.group({
+      height: [null, [Validators.required]],
+      heightUnits: [null, [Validators.required]],
+      weight: [null, [Validators.required]],
+      weightUnits: [null, [Validators.required]],
+      bloodPreasure: [null, [Validators.required]],
+      temperature: [null, [Validators.required]],
+      temperatureUnits: [null, [Validators.required]],
+      thyroid: [null, [Validators.required]],
+      thyroidReports: "",
+      diagnosis: [null, [Validators.required]]
+    });
   }
 
   thyroid(tradio: MatRadioChange) {
@@ -88,8 +106,12 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
   }
 
 
-  routeTOViewPatientDiagnosisdetails(){
+  routeTOViewPatientDiagnosisdetails() {
     this.route.navigate(['viewpatientdiagnosysdetails'])
+  }
+
+  addDiagnosisFormSubmit() {
+    console.log(this.addDiagnosisForm.value);
   }
 
 }
