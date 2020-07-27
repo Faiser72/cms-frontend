@@ -52,6 +52,6 @@ export class ListpatientsComponent implements OnInit {
 
 
   routeToAddPatients() {
-    this.router.navigate(['/patientshome/addpatient'])
+    this.router.navigate(['/home/patientshome/addpatient'])
   }
 }

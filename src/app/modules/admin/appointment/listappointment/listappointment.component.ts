@@ -51,10 +51,10 @@ export class ListappointmentComponent implements OnInit {
 
 
   routeToAddAppointment() {
-    this.router.navigate(['/appointmenthome/addappointment'])
+    this.router.navigate(['/home/appointmenthome/addappointment'])
   }
 
   routeToPreliminaryCheck(){
-    this.router.navigate(['/appointmenthome/preliminarycheck'])
+    this.router.navigate(['/home/appointmenthome/preliminarycheck'])
   }
 }

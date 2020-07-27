@@ -22,19 +22,19 @@ export class DashboardComponent implements OnInit {
   }
 
   routeToDoctors() {
-    this.route.navigate(['doctorshome/listdoctor'])
+    this.route.navigate(['home/doctorshome/listdoctor'])
   }
 
   routeToPatients() {
-    this.route.navigate(['patientshome/listpatient'])
+    this.route.navigate(['home/patientshome/listpatient'])
   }
 
   routeToAppointment() {
-    this.route.navigate(['appointmenthome/listappointment'])
+    this.route.navigate(['home/appointmenthome/listappointment'])
   }
 
   routeToReports() {
-    this.route.navigate(['reportshome'])
+    this.route.navigate(['home/reportshome'])
   }
   
 

@@ -86,7 +86,7 @@ export class AddprescriptionComponent implements OnInit {
   // lab Test
 
   routeToLabTest(){
-    this.route.navigate(['labtest'])
+    this.route.navigate(['home/labtest'])
   }
 
 }

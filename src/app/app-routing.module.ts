@@ -30,13 +30,21 @@ import { InvoicehomeComponent } from './modules/admin/invoice/invoicehome/invoic
 import { ReportsComponent } from './modules/admin/reports/reports/reports.component';
 import { PrintreferalnoteComponent } from './modules/admin/print/printreferalnote/printreferalnote.component';
 import { PrintprescriptionComponent } from './modules/admin/print/printprescription/printprescription.component';
+import { LoginComponent } from './modules/login/login/login.component';
+import { UserhomeComponent } from './modules/admin/user/userhome/userhome.component';
+import { ListuserComponent } from './modules/admin/user/listuser/listuser.component';
+import { AdduserComponent } from './modules/admin/user/adduser/adduser.component';
+import { EdituserComponent } from './modules/admin/user/edituser/edituser.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: "login", component: LoginComponent },
   {
-    path: "",
+    path: "home",
     component: DefaultComponent,
     children: [
       { path: "", component: DashboardComponent },
+      { path: "dashboard", component: DashboardComponent },
       {
         path: "doctorshome",
         component: DoctorshomeComponent,
@@ -45,6 +53,14 @@ const routes: Routes = [
           { path: "listdoctor", component: ListdoctorsComponent },
           { path: "editdoctor", component: EditdoctorsComponent },
         ],
+      },
+      {
+        path: "usershome", component: UserhomeComponent,
+        children: [
+          { path: "listUsers", component: ListuserComponent },
+          { path: "addUser", component: AdduserComponent },
+          { path: "editUsers", component: EdituserComponent }
+        ]
       },
 
       {

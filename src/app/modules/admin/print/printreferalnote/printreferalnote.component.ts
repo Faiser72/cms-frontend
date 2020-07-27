@@ -51,7 +51,7 @@ export class PrintreferalnoteComponent implements OnInit {
   }
 
   backToPrintHome(){
-    this.router.navigate(['printhome'])
+    this.router.navigate(['home/printhome'])
   }
 
 }

@@ -107,7 +107,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
 
 
   routeTOViewPatientDiagnosisdetails() {
-    this.route.navigate(['viewpatientdiagnosysdetails'])
+    this.route.navigate(['home/viewpatientdiagnosysdetails'])
   }
 
   addDiagnosisFormSubmit() {

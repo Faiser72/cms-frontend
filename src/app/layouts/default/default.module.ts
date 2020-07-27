@@ -41,6 +41,7 @@ import { ReferalnoteModule } from 'src/app/modules/admin/referalnote/referalnote
 import { Ng2OdometerModule } from "ng2-odometer";
 import { ReportsComponent } from 'src/app/modules/admin/reports/reports/reports.component';
 import { InvoicehomeComponent } from 'src/app/modules/admin/invoice/invoicehome/invoicehome.component';
+import { UserhomeComponent } from 'src/app/modules/admin/user/userhome/userhome.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -55,6 +56,7 @@ import { InvoicehomeComponent } from 'src/app/modules/admin/invoice/invoicehome/
     PrinthomeComponent,
     ReportsComponent,
     InvoicehomeComponent,
+    UserhomeComponent,
     PostsComponent],
   imports: [
     CommonModule,

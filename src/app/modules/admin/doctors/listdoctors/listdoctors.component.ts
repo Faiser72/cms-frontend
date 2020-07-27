@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Route } from '@angular/compiler/src/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { MatPaginator, MatSort, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-listdoctors',
@@ -10,13 +12,15 @@ import { MatPaginator, MatSort, MatSnackBar, MatTableDataSource } from '@angular
 })
 export class ListdoctorsComponent implements OnInit {
 
+  deleted_successfully_message: string = "Deleted Successfully";
+doctorList;
   dataSource: any;
   displayedColumns: string[] = [
     "slNo",
     "doctorName",
     "specialization",
-    "visitingTime",
-    "contactNumber",
+    "morningVisitFrom",
+    "phoneNumber",
     "action"
   ];
 
@@ -25,10 +29,30 @@ export class ListdoctorsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private doctorService:DoctorserviceService,
+    private appComponent: AppComponent) { }
 
   ngOnInit() {
-
+    this.appComponent.startSpinner("Loading...");
+    this.doctorService.getDoctorList().subscribe((response: any) => {
+      if (response.success) {
+        this.doctorList = response.listObject;
+        this.dataSource = new MatTableDataSource(this.doctorList);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        // this.customFilter();
+      } else {
+        this.dataSource = new MatTableDataSource();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    },
+      (error) => {
+        console.log(error, "Error Caught In Fetching Doctor Details");
+      }
+    );
+    this.appComponent.stopSpinner();
   }
 
 
@@ -49,12 +73,16 @@ export class ListdoctorsComponent implements OnInit {
   }
 
 
-  routeToEditDoctor(row) {
+  routeToEditDoctor(doctorDetails) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: { doctorId: doctorDetails.doctorId }
+    };
+    this.router.navigate(["/home/doctorshome/editdoctor"], navigationExtras);
 
   }
 
   routeToAddDoctor() {
-    this.router.navigate(['/doctorshome/adddoctor'])
+    this.router.navigate(['/home/doctorshome/adddoctor'])
   }
 
 }

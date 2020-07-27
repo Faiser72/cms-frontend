@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -11,13 +11,18 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatIconModule } from "@angular/material/icon";
 import { MatListModule } from "@angular/material/list";
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
 import { DefaultModule } from "./layouts/default/default.module";
 import { RouterModule } from "@angular/router";
 import { DashboardComponent } from "./modules/dashboard/dashboard.component";
-import { MatCheckboxModule } from '@angular/material';
+import { MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatGridListModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { LoginModule } from './modules/login/login.module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationService } from './modules/service/authentication/authentication.service';
+import { HttpInterceptorService } from './modules/service/authentication/http_Interceptor/http-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,9 +40,25 @@ import { MatCheckboxModule } from '@angular/material';
     MatListModule,
     MatFormFieldModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    LoginModule,
+    NgxSpinnerModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatGridListModule,
+    MatPaginatorModule,
+    MatSortModule,
+    HttpClientModule 
   ],
-  providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
+    AuthenticationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

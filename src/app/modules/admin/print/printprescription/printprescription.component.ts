@@ -63,7 +63,7 @@ export class PrintprescriptionComponent implements OnInit {
   }
 
   backToPrintHome(){
-    this.router.navigate(['printhome'])
+    this.router.navigate(['home/printhome'])
   }
 
 }

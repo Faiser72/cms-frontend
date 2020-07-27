@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatSlideToggleChange } from "@angular/material";
+import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
 
 @Component({
   selector: "app-header",
@@ -15,7 +16,8 @@ export class HeaderComponent implements OnInit {
   @Output()
   readonly darkModeSwitched = new EventEmitter<boolean>();
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private authenticationService: AuthenticationService) {}
 
   onDarkModeSwitched({ checked }: MatSlideToggleChange) {
     this.darkModeSwitched.emit(checked);
@@ -54,7 +56,12 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  doLogout(){
-    
+  doLogout() {
+    if (this.authenticationService.logout()) {
+      this.router.navigateByUrl('/login');
+    } else {
+      location.reload();
+    }
   }
+  
 }

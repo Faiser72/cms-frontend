@@ -221,11 +221,11 @@
               <mat-form-field class="field-full-width">
                 <mat-label>Telephone <sup class="text-danger">*</sup></mat-label>
                 <span matPrefix>+91 &nbsp;</span>
-                <input type="tel" matInput placeholder="555-555-1234" formControlName="mobileNo">
+                <input type="tel" matInput placeholder="555-555-1234" formControlName="phoneNumber">
                 <mat-icon matSuffix color="primary">phone</mat-icon>
               </mat-form-field>
               <p style="color: red;"
-                *ngIf="addDoctorDetailsForm.get('mobileNo') && addDoctorDetailsForm.get('mobileNo').touched && addDoctorDetailsForm.get('mobileNo').invalid">
+                *ngIf="addDoctorDetailsForm.get('phoneNumber') && addDoctorDetailsForm.get('phoneNumber').touched && addDoctorDetailsForm.get('phoneNumber').invalid">
                 Please enter valid phone number</p>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
@@ -250,10 +250,12 @@
           <mat-form-field class="field-full-width">
             <mat-label>Role <sup class="text-danger">*</sup></mat-label>
             <mat-select formControlName="doctorRole">
-              <mat-option *ngFor="let role of roles" [value]="role.value">
-                {{role.viewValue}}
+              <mat-option *ngFor="let role of doctorRoleList" [value]="role">
+                {{role.doctorRoleName}}
               </mat-option>
             </mat-select>
+            <!-- <option [ngValue]="null">Select Here</option>
+            <option *ngFor="let job of jobsList" [ngValue]="job">{{job.jobTitleName}}</option> -->
           </mat-form-field>
           <p style="color: red;"
             *ngIf="addDoctorDetailsForm.get('doctorRole') && addDoctorDetailsForm.get('doctorRole').touched && addDoctorDetailsForm.get('doctorRole').invalid">
