@@ -31,6 +31,7 @@ import { PrintprescriptionComponent } from './print/printprescription/printpresc
 import { AdduserComponent } from './user/adduser/adduser.component';
 import { EdituserComponent } from './user/edituser/edituser.component';
 import { ListuserComponent } from './user/listuser/listuser.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { ListuserComponent } from './user/listuser/listuser.component';
     ReactiveFormsModule,
     FormsModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule
   ],
 })
 export class AdminModule { }

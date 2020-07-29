@@ -23,7 +23,7 @@
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="addPatientDetailsForm.get('patientNumber') && addPatientDetailsForm.get('patientNumber').touched && addPatientDetailsForm.get('patientNumber').invalid">
-                        Please enter this field</p>
+                        {{patientNumberInputMsg}}</p>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
@@ -49,7 +49,7 @@
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="addPatientDetailsForm.get('phoneNumber') && addPatientDetailsForm.get('phoneNumber').touched && addPatientDetailsForm.get('phoneNumber').invalid">
-                        Please enter valid phone number</p>
+                        {{phoneNumberInputMsg}}</p>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
@@ -76,7 +76,7 @@
             </div>
 
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-lg-12 col-md-12 col-sm-12">
                     <mat-form-field class="field-full-width">
                         <mat-label>Address <sup class="text-danger">*</sup></mat-label>
                         <textarea matInput placeholder="Ex. #83, 6th cross opposite to kfc, jalahalli bangalore"
@@ -87,19 +87,10 @@
                         *ngIf="addPatientDetailsForm.get('address') && addPatientDetailsForm.get('address').touched && addPatientDetailsForm.get('address').invalid">
                         Please enter this field</p>
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12">
-                    <mat-form-field class="field-full-width">
-                        <mat-label>Reason For Visit <sup class="text-danger">*</sup></mat-label>
-                        <textarea matInput placeholder="Ex. fever, cold, chest pain etc..,"
-                            formControlName="reasonForVisit"></textarea>
-                    </mat-form-field>
-                    <p style="color: red;"
-                        *ngIf="addPatientDetailsForm.get('reasonForVisit') && addPatientDetailsForm.get('reasonForVisit').touched && addPatientDetailsForm.get('reasonForVisit').invalid">
-                        Please enter this field</p>
-                </div>
+                
             </div>
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
                     <mat-form-field class="field-full-width">
                         <mat-label>Registered Date <sup class="text-danger">*</sup></mat-label>
                         <input matInput [matDatepicker]="regdate" placeholder="Ex. 7/2/1995" value=""
@@ -113,11 +104,12 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Doctor Assigned</mat-label>
-                        <input matInput placeholder="Ex. example@abc.com" value="" formControlName="doctorAassigned" />
+                        <mat-label>Reason For Visit <sup class="text-danger">*</sup></mat-label>
+                        <textarea matInput placeholder="Ex. fever, cold, chest pain etc..,"
+                            formControlName="reasonForVisit"></textarea>
                     </mat-form-field>
                     <p style="color: red;"
-                        *ngIf="addPatientDetailsForm.get('doctorAassigned') && addPatientDetailsForm.get('doctorAassigned').touched && addPatientDetailsForm.get('doctorAassigned').invalid">
+                        *ngIf="addPatientDetailsForm.get('reasonForVisit') && addPatientDetailsForm.get('reasonForVisit').touched && addPatientDetailsForm.get('reasonForVisit').invalid">
                         Please enter this field</p>
                 </div>
             </div>

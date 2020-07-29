@@ -1,8 +1,15 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { MatSlideToggleChange } from "@angular/material";
+import { MatSlideToggleChange, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
+import { PasswordService } from 'src/app/modules/service/password/password.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { isNullOrUndefined } from 'util';
 
+//for popup forgotpassword
+export interface DialogData {
+  email: any;
+}
 @Component({
   selector: "app-header",
   templateUrl: "./header.component.html",
@@ -17,13 +24,14 @@ export class HeaderComponent implements OnInit {
   readonly darkModeSwitched = new EventEmitter<boolean>();
 
   constructor(private router: Router,
-    private authenticationService: AuthenticationService) {}
+    private authenticationService: AuthenticationService,
+    public dialog: MatDialog) { }
 
   onDarkModeSwitched({ checked }: MatSlideToggleChange) {
     this.darkModeSwitched.emit(checked);
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   toggleSideBar() {
     this.toggleSideBarForMe.emit();
@@ -52,9 +60,10 @@ export class HeaderComponent implements OnInit {
     return this.one;
   }
 
-  routeToChangePassword(){
-
+  routeToChangePassword() {
+    this.router.navigate(['home/changepassword'])
   }
+
 
   doLogout() {
     if (this.authenticationService.logout()) {
@@ -63,5 +72,41 @@ export class HeaderComponent implements OnInit {
       location.reload();
     }
   }
-  
+
+  //for popup aboutuser  popup
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AboutUser, {
+      width: "500px",
+      height: "500px"
+      // data: { email: this.email },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      //console.log('The dialog was closed');
+      // this.email = result;
+    });
+  }
+}
+
+
+//PopUp of About User popup
+@Component({
+  selector: "aboutuser",
+  templateUrl: "aboutuser.html",
+  styleUrls: ["./header.component.scss"]
+})
+export class AboutUser {
+  constructor(
+    public dialogRef: MatDialogRef<AboutUser>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+
+  ) { }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  close() {
+    this.dialogRef.close();
+  }
 }

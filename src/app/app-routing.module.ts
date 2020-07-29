@@ -35,6 +35,7 @@ import { UserhomeComponent } from './modules/admin/user/userhome/userhome.compon
 import { ListuserComponent } from './modules/admin/user/listuser/listuser.component';
 import { AdduserComponent } from './modules/admin/user/adduser/adduser.component';
 import { EdituserComponent } from './modules/admin/user/edituser/edituser.component';
+import { ChangepasswordComponent } from './modules/login/changepassword/changepassword.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -54,6 +55,8 @@ const routes: Routes = [
           { path: "editdoctor", component: EditdoctorsComponent },
         ],
       },
+      { path: "changepassword", component: ChangepasswordComponent },
+
       {
         path: "usershome", component: UserhomeComponent,
         children: [

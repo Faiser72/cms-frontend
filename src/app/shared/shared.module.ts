@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FooterComponent } from "./components/footer/footer.component";
-import { HeaderComponent } from "./components/header/header.component";
+import { HeaderComponent, AboutUser } from "./components/header/header.component";
 import { SidebarComponent } from "./components/sidebar/sidebar.component";
 import { RouterModule } from "@angular/router";
 import {
@@ -17,7 +17,7 @@ import {
 import { FlexLayoutModule } from "@angular/flex-layout";
 
 @NgModule({
-  declarations: [FooterComponent, HeaderComponent, SidebarComponent],
+  declarations: [FooterComponent, HeaderComponent, SidebarComponent, AboutUser],
   imports: [
     CommonModule,
     RouterModule,
@@ -32,5 +32,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     MatSlideToggleModule,
   ],
   exports: [HeaderComponent, FooterComponent, SidebarComponent],
+  entryComponents: [AboutUser]
 })
 export class SharedModule {}
