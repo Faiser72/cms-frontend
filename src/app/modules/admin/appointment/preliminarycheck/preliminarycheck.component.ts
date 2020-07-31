@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
+import { MatRadioChange, MatSnackBar } from '@angular/material';
 import { TestReport } from '../testreportmodel';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { AppComponent } from 'src/app/app.component';
+import { PatientService } from 'src/app/modules/service/patient/patient.service';
 
 @Component({
   selector: 'app-preliminarycheck',
@@ -10,13 +14,15 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 export class PreliminarycheckComponent implements OnInit {
 
-  addDiagnosisForm: FormGroup;
 
-  patientNumber;
-  patientName;
-  doctorName
-  date;
-  thyroidValue:String="yes";
+  addDiagnosisForm: FormGroup;
+  patientDetails: any;
+  patientId: any; //from query params
+  patientNumber: any;
+  patientName: any;
+  age: any;
+  date: any;
+  thyroidValue: String = "yes";
 
   // fileUploads
   uploadFiles = new FormData();
@@ -30,11 +36,11 @@ export class PreliminarycheckComponent implements OnInit {
   photoMessage: string;
   resumeMessage: string;
 
-   // thyroid files
-   thyroidFile:FileList;
-   thyroidFileName: string;
-   thyroidcvFile: string | Blob;
-   thyroidMessage: string;
+  // thyroid files
+  thyroidFile: FileList;
+  thyroidFileName: string;
+  thyroidcvFile: string | Blob;
+  thyroidMessage: string;
 
 
 
@@ -44,7 +50,7 @@ export class PreliminarycheckComponent implements OnInit {
     { value: 'feet-0', viewValue: 'Feet' },
     { value: 'inches-1', viewValue: 'Inches' },
     { value: 'centimeters-2', viewValue: 'Centimeters' },
-    {value: 'meters-3', viewValue: 'Meters'}
+    { value: 'meters-3', viewValue: 'Meters' }
 
   ];
 
@@ -64,15 +70,38 @@ export class PreliminarycheckComponent implements OnInit {
   dynamicArray: Array<TestReport> = [];
   newDynamic: any = {};
 
-  constructor(private fb:FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private _snackBar: MatSnackBar,
+    private location: Location,
+    private appComponent: AppComponent,
+    private patientService: PatientService
+  ) {
     this.resumeFileName = "No File Chosen";
     this.thyroidFileName = "No File Chosen";
 
   }
 
   ngOnInit() {
-     // for multile contact form starts
-     this.newDynamic = {
+    this.route.queryParams.subscribe((params) => {
+      this.patientId = params.patient;
+      console.log(this.patientId);
+
+    });
+    this.patientService.getPatientDetails(this.patientId).subscribe((data: any) => {
+      this.patientDetails = data.object;
+      console.log(this.patientDetails);
+      
+      this.patientName = this.patientDetails.patientName;
+      this.patientNumber = this.patientDetails.patientNumber;
+      this.age = this.patientDetails.age;
+    })
+
+
+ 
+    // for multile contact form starts
+    this.newDynamic = {
       testName: "",
       uploadReport: ""
     };
@@ -97,7 +126,7 @@ export class PreliminarycheckComponent implements OnInit {
     });
   }
 
-  
+
 
 
   getResumeFile(resumeUpload: HTMLInputElement, event: any) {
@@ -124,25 +153,25 @@ export class PreliminarycheckComponent implements OnInit {
     this.thyroidValue = tradio.value;
   }
 
-  
+
   getThyroidFile(thyroidUpload: HTMLInputElement, event: any) {
-      const thyroidName = event.target.files[0].name;
-      this.thyroidFile = thyroidUpload.files;
-      if (this.thyroidFile.length === 0) return;
-  
-      let mimeType = this.thyroidFile[0].type;
-      if (mimeType.match(/application\/pdf/) == null) {
-        this.thyroidMessage = "Only pdf files are supported.";
-        this.thyroidFileName = "No File Chosen";
-        return;
-      } else {
-        this.thyroidMessage = null;
-        this.thyroidFileName = thyroidName;
-        var form_data = new FormData();
-        form_data.append("file", event.target.files[0]);
-        this.thyroidcvFile = event.target.files[0];
-      }
+    const thyroidName = event.target.files[0].name;
+    this.thyroidFile = thyroidUpload.files;
+    if (this.thyroidFile.length === 0) return;
+
+    let mimeType = this.thyroidFile[0].type;
+    if (mimeType.match(/application\/pdf/) == null) {
+      this.thyroidMessage = "Only pdf files are supported.";
+      this.thyroidFileName = "No File Chosen";
+      return;
+    } else {
+      this.thyroidMessage = null;
+      this.thyroidFileName = thyroidName;
+      var form_data = new FormData();
+      form_data.append("file", event.target.files[0]);
+      this.thyroidcvFile = event.target.files[0];
     }
+  }
 
   addRow() {
     this.newDynamic = {
@@ -185,8 +214,8 @@ export class PreliminarycheckComponent implements OnInit {
   // for multile contact form ends (Dynamic Row)
 
 
-  addDiagnosisFormSubmit(){
+  addDiagnosisFormSubmit() {
     console.log(this.addDiagnosisForm.value);
-    
+
   }
 }
