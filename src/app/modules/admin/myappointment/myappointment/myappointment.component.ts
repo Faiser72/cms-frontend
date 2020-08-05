@@ -1,14 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
 import { MatPaginator, MatSort, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { Router, NavigationExtras } from '@angular/router';
 import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
+import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
+import { UsersService } from 'src/app/modules/service/users/users.service';
 
 @Component({
-  selector: 'app-listappointment',
-  templateUrl: './listappointment.component.html',
-  styleUrls: ['./listappointment.component.scss']
+  selector: 'app-myappointment',
+  templateUrl: './myappointment.component.html',
+  styleUrls: ['./myappointment.component.scss']
 })
-export class ListappointmentComponent implements OnInit {
+export class MyappointmentComponent implements OnInit {
+
+
+  userDetails: any
   dataSource: any;
   displayedColumns: string[] = [
     "slNo",
@@ -18,33 +23,62 @@ export class ListappointmentComponent implements OnInit {
     "doctorName",
     "appointmentDate",
     "appointmentTime",
-    "action"
+    // "action"
   ];
 
+  userId: any;
+  doctorId: any;
+
   appointmentDetailsList: any;
+
+  today: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(
     private router: Router,
-    private _snackBar: MatSnackBar,
-    private appointmentService: AppointmentService) { }
+    private _snackBar: MatSnackBar, private authenticationService: AuthenticationService,
+    private appointmentService: AppointmentService,
+    private userService: UsersService) {
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.today = dd + '/' + mm + '/' + yyyy;
+    console.log(this.today);
+    console.log(this.doctorId, "adv");
+
+  }
 
   ngOnInit() {
-    this.appointmentService.getAppointmentList().subscribe((data: any) => {
+    // this.appointmentService.getAppointmentList().subscribe((data: any) => {
+    this.userId = sessionStorage.getItem(this.authenticationService.SESSION_USER_ID_KEY)
+
+    this.userService.getUserDetails(this.userId).subscribe((data: any) => {
       if (data.success) {
-        this.appointmentDetailsList = data['listObject'];
-        this.dataSource = new MatTableDataSource(data['listObject']);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.customFilter();
-      } else {
-        this.dataSource = new MatTableDataSource();
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort
+        this.userDetails = data.object;
+        this.doctorId = this.userDetails.doctor.doctorId;//doctorId from user
       }
+
+      this.appointmentService.getAppointmentDetailsByDoctorId(this.doctorId).subscribe((data: any) => {
+        if (data.success) {
+          this.appointmentDetailsList = data['listObject'];
+          this.dataSource = new MatTableDataSource(data['listObject']);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.customFilter();
+        } else {
+          this.dataSource = new MatTableDataSource();
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort
+        }
+      });
     });
+
+
+
   }
 
   customFilter() {
@@ -98,13 +132,17 @@ export class ListappointmentComponent implements OnInit {
     this.router.navigate(['/home/appointmenthome/preliminarycheck'])
   }
 
-  routeToPreliminarycheck(patient: any, appointment:any) {
+  routeToAppointmentDashboard(patient: any, appointment: any) {
+    console.log(this.doctorId);
+    
     let navigationExtras: NavigationExtras = {
-      queryParams: { patient: patient.patientId, appointment:appointment.appointmentId },
+      queryParams: { patient: patient.patientId, appointment: appointment.appointmentId,doctor:this.doctorId },
     };
     this.router.navigate(
-      ["/home/appointmenthome/preliminarycheck"],
+      ["/home/appointmentDashboard"],
       navigationExtras
     );
   }
 }
+
+

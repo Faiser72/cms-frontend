@@ -16,6 +16,7 @@ export class AddpatientsComponent implements OnInit {
 
   addPatientDetailsForm: FormGroup;
   phonePattern = "^[0-9_-]{10}$";
+  age: number;
 
   constructor(private fb: FormBuilder,
     private patientService: PatientService,
@@ -59,8 +60,21 @@ export class AddpatientsComponent implements OnInit {
   }
 
 
-  ageFromDateOfBirth(dob) {
-
+  ageFromDateOfBirth(dateOfBirth) {
+    if (dateOfBirth != null) {
+      const today = new Date();
+      const birthDate = new Date(dateOfBirth.value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      if (isNaN(age)) {
+        age = null
+      }
+      this.addPatientDetailsForm.patchValue({ age: age });
+      return (this.age = age);
+    }
   }
 
   addPatientDetailsFormSubmit() {

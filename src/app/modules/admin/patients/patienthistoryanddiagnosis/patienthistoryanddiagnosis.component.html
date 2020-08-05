@@ -24,13 +24,27 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                <!-- Patient Number: {{patientNumber}} -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Doctor Name: {{doctorName}}
+                            </p>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
 
                     <div class="row">
                         <div class="col">
                             <p>
-                                Doctor Name: {{doctorName}}
+                                Age: {{age}}
                             </p>
                         </div>
                     </div>
@@ -46,8 +60,9 @@
         </div>
         <mat-divider class="mx-5"></mat-divider>
 
-        <form action="" class="form-group customhover" [formGroup]="addDiagnosisForm" (ngSubmit)="addDiagnosisFormSubmit()">
-            <div class="row d-flex justify-content-around  ml-5 mr-5 w-75 mx-auto">
+        <form action="" class="form-group customhover" [formGroup]="addDiagnosisForm"
+            (ngSubmit)="addDiagnosisFormSubmit()">
+            <div class="row d-flex justify-content-around  ml-5 mr-5 w-75 mx-auto mt-5">
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="row">
                         <div class="col-lg-8 col-sm-8 col-md-8">
@@ -217,8 +232,8 @@
                         <mat-icon matSuffix color="primary">edit</mat-icon>
                     </mat-form-field>
                     <p style="color: red;"
-                    *ngIf="addDiagnosisForm.get('diagnosis') && addDiagnosisForm.get('diagnosis').touched && addDiagnosisForm.get('diagnosis').invalid">
-                    Please enter this field</p>
+                        *ngIf="addDiagnosisForm.get('diagnosis') && addDiagnosisForm.get('diagnosis').touched && addDiagnosisForm.get('diagnosis').invalid">
+                        Please enter this field</p>
                 </div>
             </div>
 

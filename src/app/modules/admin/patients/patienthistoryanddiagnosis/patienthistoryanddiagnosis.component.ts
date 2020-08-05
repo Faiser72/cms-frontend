@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { MatRadioChange } from '@angular/material';
-import { Router } from '@angular/router';
+import { MatRadioChange, MatSnackBar } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
+import { PatientService } from 'src/app/modules/service/patient/patient.service';
+import { PatientdiagnosisService } from 'src/app/modules/service/patientdiagnosis/patientdiagnosis.service';
+import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
+import { Location } from '@angular/common';
+import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 
 @Component({
   selector: 'app-patienthistoryanddiagnosis',
@@ -10,12 +16,23 @@ import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms'
 })
 export class PatienthistoryanddiagnosisComponent implements OnInit {
 
+// qp
+  appointmentId: any; //from query params
+  appointmentDetails: any;
+  patientDetails: any;
+  patientId: any; //from query params
+  checkedDiagnosisDetails: any;
+  doctorId: any;
+  age: any;
+  doctorDetails: any;
+  // qp
+  diagnosisId: any;
   patientNumber;
   patientName;
   doctorName
   date;
   thyroidValue: String = "yes";
-
+  
   addDiagnosisForm: FormGroup;
 
   // fileUploads
@@ -55,9 +72,20 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     { value: 'kelvin-2', viewValue: 'Kelvin' }
   ];
 
+
+
   //  for dropdown ends
 
-  constructor(private route: Router, private fb: FormBuilder) {
+  constructor(private router: Router,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar,
+    private location: Location,
+    private appComponent: AppComponent,
+    private patientService: PatientService,
+    private patientDiagnosisService: PatientdiagnosisService,
+    private doctorService: DoctorserviceService,
+    private appointmentService: AppointmentService) {
     this.resumeFileName = "No File Chosen";
     this.thyroidFileName = "No File Chosen";
 
@@ -65,7 +93,60 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
 
   ngOnInit() {
     this.addDiagnosisFormBuilder();
+
+    this.route.queryParams.subscribe((params) => {
+      this.patientId = params.patient;
+      this.appointmentId = params.appointment;
+      this.doctorId = params.doctor;
+      console.log(this.appointmentId);
+      console.log(this.patientId);
+      console.log(this.doctorId);
+
+
+      this.patientDiagnosisService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
+        if (data.success) {
+          this.checkedDiagnosisDetails = data.object;
+          this.diagnosisId = this.checkedDiagnosisDetails.diagnosisId;
+          console.log(this.checkedDiagnosisDetails);
+          this.addDiagnosisForm.patchValue({
+            height: this.checkedDiagnosisDetails.height, heightUnits: this.checkedDiagnosisDetails.heightUnits,
+            weight: this.checkedDiagnosisDetails.weight, weightUnits: this.checkedDiagnosisDetails.weightUnits,
+            bloodPreasure: this.checkedDiagnosisDetails.bloodPreasure, temperature: this.checkedDiagnosisDetails.temperature,
+            temperatureUnits: this.checkedDiagnosisDetails.temperatureUnits, thyroid: this.checkedDiagnosisDetails.thyroid,
+            diagnosis: this.checkedDiagnosisDetails.diagnosis
+          })
+        } else {
+          console.log("Operation failed");
+        }
+      });
+    });
+
+    // for patient details
+    this.patientService.getPatientDetails(this.patientId).subscribe((data: any) => {
+      this.patientDetails = data.object;
+      this.addDiagnosisForm.patchValue({ patient: data.object })
+
+      this.patientName = this.patientDetails.patientName;
+      this.patientNumber = this.patientDetails.patientNumber;
+      this.age = this.patientDetails.age;
+    })
+
+    // for appointment details
+    this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
+      this.appointmentDetails = data.object;
+      this.addDiagnosisForm.patchValue({ appointment: data.object })
+    })
+
+    // for doctor details
+    this.doctorService.getDoctorDetails(this.doctorId).subscribe((data: any) => {
+      this.doctorDetails = data.object;
+      this.addDiagnosisForm.patchValue({ doctorName: data.object })
+      this.doctorName=this.doctorDetails.doctorName;
+    })
   }
+
+
+
 
   addDiagnosisFormBuilder() {
     this.addDiagnosisForm = this.fb.group({
@@ -78,7 +159,11 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
       temperatureUnits: [null, [Validators.required]],
       thyroid: [null, [Validators.required]],
       thyroidReports: "",
-      diagnosis: [null, [Validators.required]]
+      diagnosis: [null, [Validators.required]],
+      diagnosisId: "",
+      appointment: "",
+      doctorName: "",
+      patient: ""
     });
   }
 
@@ -87,9 +172,11 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
   }
 
   getThyroidFile(thyroidUpload: HTMLInputElement, event: any) {
-    const thyroidName = event.target.files[0].name;
     this.thyroidFile = thyroidUpload.files;
-    if (this.thyroidFile.length === 0) return;
+    if (this.thyroidFile.length === 0)
+      return;
+
+    const thyroidName = event.target.files[0].name;
 
     let mimeType = this.thyroidFile[0].type;
     if (mimeType.match(/application\/pdf/) == null) {
@@ -99,19 +186,95 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     } else {
       this.thyroidMessage = null;
       this.thyroidFileName = thyroidName;
-      var form_data = new FormData();
-      form_data.append("file", event.target.files[0]);
+      // var form_data = new FormData();
       this.thyroidcvFile = event.target.files[0];
+      this.saveThyroidFile();
+      // form_data.append("file", event.target.files[0]);
+      // this.thyroidcvFile = event.target.files[0];
     }
   }
 
 
+  saveThyroidFile() {
+    console.log('id', this.diagnosisId);
+
+    this.appComponent.startSpinner("Uploading file..\xa0\xa0Please wait ...");
+    const thyroidFormData = new FormData();
+    thyroidFormData.append('thyroidFile', this.thyroidcvFile);
+    thyroidFormData.append('diagnosisId', this.diagnosisId);
+    this.patientDiagnosisService.saveOrUpdateThyroidFiles(thyroidFormData).subscribe((resp: any) => {
+      if (resp.success) {
+        this.appComponent.stopSpinner();
+        if (resp.message == "Already Uploaded") {
+          this._snackBar.open("Thyroid File", "Already Uploaded", {
+            duration: 2500,
+          });
+        } else {
+          this.appComponent.stopSpinner();
+          this._snackBar.open("THyroid File", "Uploaded Successfully", {
+            duration: 2500,
+          });
+        }
+      } else {
+        this.appComponent.stopSpinner();
+        this._snackBar.open("Thyroid File", "Fails to Upload", {
+          duration: 2500,
+        });
+      }
+    });
+  }
+
+
+
+  downloadThyroid() {
+    this.patientDiagnosisService.getThyroidFile(this.diagnosisId).subscribe((response: any) => {
+      if (response.success) {
+        let base64Data = response.byteArray;
+        fetch("data:application/pdf;base64," + base64Data)
+          .then(function (resp) { return resp.blob() })
+          .then(function (blob) {
+            var blobURL = URL.createObjectURL(blob);
+            window.open(blobURL);
+          });
+      } else {
+        this._snackBar.open("Alert !", "Thyroid File Not Found", { duration: 2500 });
+        // console.log("Resume File Not Found");
+      }
+    }, (error: any) => {
+      console.log(error);
+    });
+  }
+
   routeTOViewPatientDiagnosisdetails() {
-    this.route.navigate(['home/viewpatientdiagnosysdetails'])
+    this.router.navigate(['home/viewpatientdiagnosysdetails'])
   }
 
   addDiagnosisFormSubmit() {
-    console.log(this.addDiagnosisForm.value);
+    this.addDiagnosisForm.patchValue({ diagnosisId: this.diagnosisId, doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails });
+    if (this.addDiagnosisForm.valid) {
+      this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
+      this.patientDiagnosisService.updatePatientDiagnosisDetails(this.addDiagnosisForm.value).subscribe((data: any) => {
+        if (data.success) {
+          this.appComponent.stopSpinner();
+          alert(data.message)
+          setTimeout(() => {
+            this.gotoBack();
+          }, 500);
+          // this._snackBar.open(data.object.candidateName, data.message, { duration: 2500 });
+        } else {
+          this.appComponent.stopSpinner();
+          alert(data.message)
+          //this._snackBar.open(data.object.candidateName, data.message, { duration: 2500 });
+        }
+      });
+    } else {
+      this.appComponent.stopSpinner();
+      alert("Please, fill the proper details.");
+      // this._snackBar.open("Error", "Invalid data", { duration: 2500 });
+    }
   }
 
+  gotoBack() {
+    this.location.back();
+  }
 }

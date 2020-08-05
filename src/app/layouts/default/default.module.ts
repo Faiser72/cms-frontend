@@ -19,6 +19,7 @@ import {
   MatRadioModule,
   MatButtonModule,
   MatSelectModule,
+  MatSnackBarModule,
 } from "@angular/material";
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
@@ -42,6 +43,9 @@ import { Ng2OdometerModule } from "ng2-odometer";
 import { ReportsComponent } from 'src/app/modules/admin/reports/reports/reports.component';
 import { InvoicehomeComponent } from 'src/app/modules/admin/invoice/invoicehome/invoicehome.component';
 import { UserhomeComponent } from 'src/app/modules/admin/user/userhome/userhome.component';
+import { MyappointmentComponent } from 'src/app/modules/admin/myappointment/myappointment/myappointment.component';
+import { DoctorsappointmentdashboardComponent } from 'src/app/modules/admin/myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
+import { DoctorrolemasterComponent } from 'src/app/modules/master/doctormaster/doctorrolemaster/doctorrolemaster.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -57,6 +61,9 @@ import { UserhomeComponent } from 'src/app/modules/admin/user/userhome/userhome.
     ReportsComponent,
     InvoicehomeComponent,
     UserhomeComponent,
+    MyappointmentComponent,
+    DoctorsappointmentdashboardComponent,
+    DoctorrolemasterComponent,
     PostsComponent],
   imports: [
     CommonModule,
@@ -86,7 +93,10 @@ import { UserhomeComponent } from 'src/app/modules/admin/user/userhome/userhome.
     ReferalnoteModule,
     FormsModule,
     MatSelectModule,
-    Ng2OdometerModule
+    Ng2OdometerModule,
+    MatSnackBarModule,
+    FormsModule
+ 
   ],
 })
 export class DefaultModule { }

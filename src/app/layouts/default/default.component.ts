@@ -51,6 +51,7 @@ export class DefaultComponent implements OnInit {
           console.log(data);
           
           sessionStorage.setItem(this.authenticationService.SESSION_ROLE_KEY, data.object.userType.role);
+          sessionStorage.setItem(this.authenticationService.SESSION_USER_ID_KEY, data.object.userId);
         } else {
           alert("Something Went Wrong! Try again.");
           this.authenticationService.logout();

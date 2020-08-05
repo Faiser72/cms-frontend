@@ -41,4 +41,8 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  routeToMyAppointment(){
+    this.route.navigate(['home/myAppointment'])
+  }
+
 }

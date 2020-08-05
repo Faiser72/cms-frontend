@@ -173,10 +173,10 @@ export class EditdoctorsComponent implements OnInit {
   }
 
   ageFromDateOfBirth(dateOfBirth: any): number {
-    console.log(dateOfBirth);
+    console.log(dateOfBirth.value);
     if (dateOfBirth != null) {
       const today = new Date();
-      const birthDate = new Date(dateOfBirth);
+      const birthDate = new Date(dateOfBirth.value);
       let age = today.getFullYear() - birthDate.getFullYear();
       const m = today.getMonth() - birthDate.getMonth();
       if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
@@ -185,7 +185,7 @@ export class EditdoctorsComponent implements OnInit {
       if (isNaN(age)) {
         age = null
       }
-      // this.editDoctorDetailsForm.patchValue({ age: age });
+      this.editDoctorDetailsForm.patchValue({ age: age });
       return (this.age = age);
     }
   }
@@ -227,7 +227,7 @@ export class EditdoctorsComponent implements OnInit {
     }
   }
 
-  backToJobList(){
+  backToJobList() {
     // this.location.back();
   }
 }

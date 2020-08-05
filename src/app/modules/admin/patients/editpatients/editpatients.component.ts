@@ -18,6 +18,7 @@ export class EditpatientsComponent implements OnInit {
   patientDetailsList: any;
   patientId: any;
   patientList: any;
+  age: number;
   // id: any;
 
 
@@ -87,7 +88,7 @@ export class EditpatientsComponent implements OnInit {
           Validators.pattern("^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$"),
         ]),
       ],
-      patientId:"",
+      patientId: "",
       age: "",
       gender: [null, [Validators.required]],
       address: [null, [Validators.required, Validators.minLength(3)]],
@@ -102,8 +103,21 @@ export class EditpatientsComponent implements OnInit {
   }
 
 
-  ageFromDateOfBirth(dob) {
-
+  ageFromDateOfBirth(dateOfBirth) {
+    if (dateOfBirth != null) {
+      const today = new Date();
+      const birthDate = new Date(dateOfBirth.value);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      if (isNaN(age)) {
+        age = null
+      }
+      this.editPatientDetailsForm.patchValue({ age: age });
+      return (this.age = age);
+    }
   }
 
   // custom validation starts
@@ -120,7 +134,7 @@ export class EditpatientsComponent implements OnInit {
       if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
         if (patientNumberFormGroup.valid) {
           if (!isNullOrUndefined(this.patientList)) {
-            this.patientDetailsList.forEach((data: any) => {
+            this.patientList.forEach((data: any) => {
               if (data.patientNumber == patientNumberFormGroup.value) {
                 this.patientNumber = data.patientNumber;
                 this.patientNumberInputMsg = "This patient Number is registered already";
@@ -141,7 +155,7 @@ export class EditpatientsComponent implements OnInit {
       if (phoneNumberFormGroup.value !== "" && phoneNumberFormGroup.value !== null) {
         if (phoneNumberFormGroup.valid) {
           if (!isNullOrUndefined(this.patientList)) {
-            this.patientDetailsList.forEach((data: any) => {
+            this.patientList.forEach((data: any) => {
               if (data.phoneNumber == phoneNumberFormGroup.value) {
                 this.phoneNumber = data.phoneNumber;
                 this.phoneNumberInputMsg = "This Phone Number is registered already";
@@ -200,7 +214,7 @@ export class EditpatientsComponent implements OnInit {
   //   }
   // }
 
-  updatePatientDetailsFormSubmit(){
+  updatePatientDetailsFormSubmit() {
     if (this.editPatientDetailsForm.valid) {
       this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
       this.patientService.updatePatientDetails(this.editPatientDetailsForm.value).subscribe((data: any) => {

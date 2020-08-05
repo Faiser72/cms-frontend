@@ -32,6 +32,8 @@ import { AdduserComponent } from './user/adduser/adduser.component';
 import { EdituserComponent } from './user/edituser/edituser.component';
 import { ListuserComponent } from './user/listuser/listuser.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MyappointmentComponent } from './myappointment/myappointment/myappointment.component';
+import { DoctorsappointmentdashboardComponent } from './myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     PrintprescriptionComponent,
     AdduserComponent,
     EdituserComponent, 
-    ListuserComponent
+    ListuserComponent,
+     
   ],
   imports: [
     CommonModule,
@@ -74,7 +77,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     FormsModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    
   ],
 })
 export class AdminModule { }

@@ -35,4 +35,14 @@ export class AppointmentService {
   getAppointmentDetails(appointmentId: number) {
     return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetails/${appointmentId}`)
   }
+
+  // get AppointmentDetails by  Doctorid
+  getAppointmentDetailsByDoctorId(doctorId: number) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDoctorId/${doctorId}`)
+  }
+
+  // // get AppointmentDetails by  Doctorid
+  // getAppointmentDetailsByDoctorId(doctorId: number, today: any) {
+  //   return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDoctorId/${doctorId}${today}`)
+  // }
 }

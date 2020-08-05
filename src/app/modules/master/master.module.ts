@@ -6,6 +6,7 @@ import { AddbillconfigurationComponent } from './billconfiguration/addbillconfig
 import { ListbillconfigurationComponent } from './billconfiguration/listbillconfiguration/listbillconfiguration.component';
 import { EditbillconfigurationComponent } from './billconfiguration/editbillconfiguration/editbillconfiguration.component';
 import { BillconfigurationhomeComponent } from './billconfiguration/billconfigurationhome/billconfigurationhome.component';
+import { DoctorrolemasterComponent } from './doctormaster/doctorrolemaster/doctorrolemaster.component';
 
 
 
@@ -13,7 +14,8 @@ import { BillconfigurationhomeComponent } from './billconfiguration/billconfigur
   declarations: [
     ListbillconfigurationComponent, 
     EditbillconfigurationComponent, 
-    BillconfigurationhomeComponent
+    BillconfigurationhomeComponent,
+    
   ],
   imports: [
     CommonModule,

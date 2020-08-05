@@ -11,7 +11,8 @@ export class AuthenticationService {
  
   SESSION_TOKEN_KEY = 'token';
   SESSION_USER_KEY = 'user';
-  SESSION_ROLE_KEY = 'role'
+  SESSION_ROLE_KEY = 'role';
+  SESSION_USER_ID_KEY = 'uId'
 
   constructor(private httpClient: HttpClient) { }
 
@@ -52,6 +53,7 @@ export class AuthenticationService {
     sessionStorage.removeItem(this.SESSION_ROLE_KEY);
     sessionStorage.removeItem(this.SESSION_USER_KEY);
     sessionStorage.removeItem(this.SESSION_TOKEN_KEY);
+    sessionStorage.removeItem(this.SESSION_USER_ID_KEY);
     return true;
   }
 

@@ -65,7 +65,8 @@ export class AdduserComponent implements OnInit {
         ]
       ],
       userType: [null, [Validators.required]],
-      mobileNo: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]]
+      mobileNo: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      // doctor:""
     });
     this.addUserForm.setValidators(this.customValidation());
 
@@ -73,6 +74,7 @@ export class AdduserComponent implements OnInit {
       if (this.doctorId != 0) {
         this.doctorService.getDoctorDetails(this.doctorId).subscribe((data: any) => {
           let doctorDetails = data.object;
+          // this.addUserForm.patchValue({doctor:doctorDetails})
           console.log(doctorDetails);
           this.addUserForm.patchValue({ displayName: doctorDetails.doctorName, emailId: doctorDetails.emailId, mobileNo: doctorDetails.phoneNumber })
         });

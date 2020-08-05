@@ -24,13 +24,26 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
-                </div>
-                <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
-
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                <!-- Patient Number: {{patientNumber}} -->
+                            </p>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col">
                             <p>
                                 Doctor Name: {{doctorName}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 col-md-6 text-center header-text">
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Age: {{age}}
                             </p>
                         </div>
                     </div>
@@ -48,7 +61,8 @@
         <mat-divider class="mx-5"></mat-divider>
 
 
-        <form action="" class="form-group customhover" (ngSubmit)="savePrescriptionDetails()" action="">
+        <form action="" class="form-group customhover" [formGroup]="addPrescriptionForm"
+            (ngSubmit)="savePrescriptionDetails()" action="">
             <!-- <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
@@ -152,55 +166,72 @@
                                 <td style="width: 5%;">
                                     {{i+1}}.
                                 </td>
+                                <!-- <td>
+                                    <input [(ngModel)]="contact.contactPersonName" class="form-control" type="text" id="contactPersonName{{i}}" 
+                                    (input)="validateContactPersonsDetails(i);" [ngModelOptions]="{standalone: true}" />  
+                                       <p style="color: red;" id="contactPersonNameMsg{{i}}"></p>
+                                 </td> -->
                                 <td style="width: 20%;">
                                     <mat-form-field class="field-drugName">
-                                        <input matInput value="" [(ngModel)]="dynamicArray[i].drugName"
-                                            [ngModelOptions]="{standalone: true}" />
+                                        <input matInput value="" [(ngModel)]="dynamic.drugName"
+                                            [ngModelOptions]="{standalone: true}" id="drugName{{i}}"
+                                            (input)="validatePrescriptionDetails(i);" />
                                     </mat-form-field>
+                                    <p style="color: red;" id="drugNameMsg{{i}}"></p>
                                 </td>
                                 <td style="width: 10%;">
                                     <mat-form-field class="field-dosage">
-                                        <input matInput value="" [(ngModel)]="dynamicArray[i].strength"
-                                            [ngModelOptions]="{standalone: true}" />
+                                        <input matInput value="" [(ngModel)]="dynamic.strength"
+                                            [ngModelOptions]="{standalone: true}" id="strength{{i}}"
+                                            (input)="validatePrescriptionDetails(i);" />
                                     </mat-form-field>
+                                    <p style="color: red;" id="strengthMsg{{i}}"></p>
                                 </td>
                                 <td style="width: 10%;">
                                     <mat-radio-group aria-label="Select an option" color="primary"
-                                        [(ngModel)]="dynamicArray[i].morningDosage"
-                                        [ngModelOptions]="{standalone: true}">
-                                        <mat-radio-button value="1">BF</mat-radio-button>
-                                        <mat-radio-button value="2">AF</mat-radio-button>
+                                        [(ngModel)]="dynamic.morningDosage" [ngModelOptions]="{standalone: true}"
+                                        id="morningDosage{{i}}" (input)="validatePrescriptionDetails(i);">
+                                        <mat-radio-button value="bf">BF</mat-radio-button>
+                                        <mat-radio-button value="af">AF</mat-radio-button>
                                     </mat-radio-group>
+                                    <p style="color: red;" id="morningDosageMsg{{i}}"></p>
                                 </td>
 
                                 <td style="width: 10%;">
                                     <mat-radio-group aria-label="Select an option" color="primary"
-                                        [(ngModel)]="dynamicArray[i].afternoonDosage"
-                                        [ngModelOptions]="{standalone: true}">
-                                        <mat-radio-button value="1">BF</mat-radio-button>
-                                        <mat-radio-button value="2">AF</mat-radio-button>
+                                        [(ngModel)]="dynamic.afternoonDosage" [ngModelOptions]="{standalone: true}"
+                                        id="afternoonDosage{{i}}" (input)="validatePrescriptionDetails(i);">
+                                        <mat-radio-button value="bf">BF</mat-radio-button>
+                                        <mat-radio-button value="af">AF</mat-radio-button>
                                     </mat-radio-group>
-
+                                    <p style="color: red;" id="afternoonDosageMsg{{i}}"></p>
                                 </td>
                                 <td style="width: 10%;">
                                     <mat-radio-group aria-label="Select an option" color="primary"
-                                        [(ngModel)]="dynamicArray[i].nightDosage" [ngModelOptions]="{standalone: true}">
-                                        <mat-radio-button value="1">BF</mat-radio-button>
-                                        <mat-radio-button value="2">AF</mat-radio-button>
+                                        [(ngModel)]="dynamic.nightDosage" [ngModelOptions]="{standalone: true}"
+                                        id="nightDosage{{i}}" (input)="validatePrescriptionDetails(i);">
+                                        <mat-radio-button value="bf">BF</mat-radio-button>
+                                        <mat-radio-button value="af">AF</mat-radio-button>
                                     </mat-radio-group>
+                                    <p style="color: red;" id="nightDosageMsg{{i}}"></p>
                                 </td>
                                 <td style="width: 10%;">
                                     <mat-form-field class="field-dosage">
-                                        <input matInput value="" [(ngModel)]="dynamicArray[i].duration"
-                                            [ngModelOptions]="{standalone: true}" />
+                                        <input matInput value="" [(ngModel)]="dynamic.duration"
+                                            [ngModelOptions]="{standalone: true}" id="duration{{i}}"
+                                            (input)="validatePrescriptionDetails(i);" />
                                     </mat-form-field>
+                                    <p style="color: red;" id="durationMsg{{i}}"></p>
                                 </td>
+
 
                                 <td style="width: 15%;">
                                     <mat-form-field class="field-drugName">
-                                        <input matInput value="" [(ngModel)]="dynamicArray[i].remarks"
-                                            [ngModelOptions]="{standalone: true}" />
+                                        <input matInput value="" [(ngModel)]="dynamic.remarks"
+                                            [ngModelOptions]="{standalone: true}" id="remarks{{i}}"
+                                            (input)="validatePrescriptionDetails(i);" />
                                     </mat-form-field>
+                                    <p style="color: red;" id="remarksMsg{{i}}"></p>
                                 </td>
 
                                 <td (click)="addRow()" class="text-center" style="width: 5%;">
@@ -235,13 +266,13 @@
 
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
-                    <button type="submit" mat-raised-button color="primary">
-                        <mat-icon class="mr-2">save</mat-icon>Submit
+                    <button type="submit" mat-raised-button color="primary" [disabled]='(addPrescriptionForm.invalid) || (!prescriptionDetailsFlag)'>
+                        <mat-icon class="mr-2">save</mat-icon>Save
                     </button>
-                    <button type="reset" mat-raised-button color="accent">
+                    <button type="reset" mat-raised-button color="accent" (click)="reset()">
                         <mat-icon class="mr-2">360</mat-icon>Reset
                     </button>
-                    <button  mat-raised-button color="primary" (click)='routeToLabTest()'>
+                    <button mat-raised-button color="primary" (click)='routeToLabTest()'>
                         <mat-icon class="mr-2">save</mat-icon>Lab Test
                     </button>
                 </div>
