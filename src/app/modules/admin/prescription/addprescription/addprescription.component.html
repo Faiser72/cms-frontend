@@ -166,11 +166,6 @@
                                 <td style="width: 5%;">
                                     {{i+1}}.
                                 </td>
-                                <!-- <td>
-                                    <input [(ngModel)]="contact.contactPersonName" class="form-control" type="text" id="contactPersonName{{i}}" 
-                                    (input)="validateContactPersonsDetails(i);" [ngModelOptions]="{standalone: true}" />  
-                                       <p style="color: red;" id="contactPersonNameMsg{{i}}"></p>
-                                 </td> -->
                                 <td style="width: 20%;">
                                     <mat-form-field class="field-drugName">
                                         <input matInput value="" [(ngModel)]="dynamic.drugName"
@@ -190,7 +185,7 @@
                                 <td style="width: 10%;">
                                     <mat-radio-group aria-label="Select an option" color="primary"
                                         [(ngModel)]="dynamic.morningDosage" [ngModelOptions]="{standalone: true}"
-                                        id="morningDosage{{i}}" (input)="validatePrescriptionDetails(i);">
+                                        id="morningDosage{{i}}.value" (input)="validatePrescriptionDetails(i);">
                                         <mat-radio-button value="bf">BF</mat-radio-button>
                                         <mat-radio-button value="af">AF</mat-radio-button>
                                     </mat-radio-group>
@@ -200,7 +195,7 @@
                                 <td style="width: 10%;">
                                     <mat-radio-group aria-label="Select an option" color="primary"
                                         [(ngModel)]="dynamic.afternoonDosage" [ngModelOptions]="{standalone: true}"
-                                        id="afternoonDosage{{i}}" (input)="validatePrescriptionDetails(i);">
+                                        id="afternoonDosage{{i}}.value" (input)="validatePrescriptionDetails(i);">
                                         <mat-radio-button value="bf">BF</mat-radio-button>
                                         <mat-radio-button value="af">AF</mat-radio-button>
                                     </mat-radio-group>
@@ -209,7 +204,7 @@
                                 <td style="width: 10%;">
                                     <mat-radio-group aria-label="Select an option" color="primary"
                                         [(ngModel)]="dynamic.nightDosage" [ngModelOptions]="{standalone: true}"
-                                        id="nightDosage{{i}}" (input)="validatePrescriptionDetails(i);">
+                                        id="nightDosage{{i}}.value" (input)="validatePrescriptionDetails(i);">
                                         <mat-radio-button value="bf">BF</mat-radio-button>
                                         <mat-radio-button value="af">AF</mat-radio-button>
                                     </mat-radio-group>

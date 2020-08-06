@@ -1,6 +1,6 @@
 export class Prescription {
-    drugName: any;
-    strength: any;
+  drugName: any;
+  strength: any;
     morningDosage: any;
     afternoonDosage: any;
     nightDosage: any;

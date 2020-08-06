@@ -11,6 +11,8 @@ export class PrescriptionService {
 
   // add Prescription
   savePrescriptionDetails(patientDetails: any) {
+    console.log(patientDetails,'jdjhdh');
+    
     return this.http.post(`${this.baseUrl}/prescription/addPrescription`, patientDetails);
   }
 
@@ -35,4 +37,7 @@ export class PrescriptionService {
     return this.http.get(`${this.baseUrl}/prescription/getPrescriptionDetails/${prescriptionId}`)
   }
 
+  checkSavedAndGetData(appointmentId: any) {
+    return this.http.get(`${this.baseUrl}/prescription/checkSavedAndGetData`, { params: { "appointmentId": appointmentId } })
+  }
 }

@@ -50,8 +50,10 @@ export class AdddoctorsComponent implements OnInit {
     //DoctorRole - Master
     this.doctorRoleMasterService.getDoctorRoleMasterList().subscribe(
       (data: any) => {
+        console.log(data);
+        
         this.doctorRoleList = data.listObject;
-        console.log(data.listObject);
+        console.log(data.listObject,"aaaa");
 
       },
       (error) => {

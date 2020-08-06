@@ -38,6 +38,7 @@ export class AddprescriptionComponent implements OnInit {
   newDynamic: any = {};
   addPrescriptionForm: FormGroup;
   allPrescriptionDetailsList: any;
+  prescriptionId: any;
 
   constructor(private route: Router,
     private fb: FormBuilder,
@@ -68,6 +69,24 @@ export class AddprescriptionComponent implements OnInit {
       console.log(this.patientId);
       console.log(this.doctorId);
     });
+
+    this.prescriptionService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
+      if (data.success) {
+        this.checkedDiagnosisDetails = data.object;
+        this.prescriptionId = this.checkedDiagnosisDetails.diagnosisId;
+        console.log(this.checkedDiagnosisDetails);
+        // this.addPrescriptionForm.patchValue({
+        //   height: this.checkedDiagnosisDetails.height, heightUnits: this.checkedDiagnosisDetails.heightUnits,
+        //   weight: this.checkedDiagnosisDetails.weight, weightUnits: this.checkedDiagnosisDetails.weightUnits,
+        //   bloodPreasure: this.checkedDiagnosisDetails.bloodPreasure, temperature: this.checkedDiagnosisDetails.temperature,
+        //   temperatureUnits: this.checkedDiagnosisDetails.temperatureUnits, thyroid: this.checkedDiagnosisDetails.thyroid,
+        //   diagnosis: this.checkedDiagnosisDetails.diagnosis
+        // })
+      } else {
+        console.log("Operation failed");
+      }
+    });
+  
 
     // for patient details
     this.patientService.getPatientDetails(this.patientId).subscribe((data: any) => {
@@ -113,9 +132,9 @@ export class AddprescriptionComponent implements OnInit {
     this.addPrescriptionForm = this.fb.group({
       drugName: [null],
       strength: [null],
-      morning: [null],
-      afternoon: [null],
-      night: [null],
+      morningDosage: [null],
+      afternoonDosage: [null],
+      nightDosage: [null],
       duration: [null],
       remarks: [null],
       doctorName: [null],
@@ -159,7 +178,9 @@ export class AddprescriptionComponent implements OnInit {
       return false;
     }
   }
-
+  morningDosageRow(morningDosageValue: string, i: number) {
+    return true;
+  }
   // morningDosageRow(morningDosageValue: string, i: number) {
   //   if (!isNullOrUndefined(document.getElementById("morningDosageMsg" + i))) {
   //     document.getElementById("morningDosageMsg" + i).innerHTML = "Please enter this field.";
@@ -172,6 +193,9 @@ export class AddprescriptionComponent implements OnInit {
     
   // }
 
+  afternoonDosageRow(afternoonDosageValue: string, i: number) {
+    return true;
+  }
   // afternoonDosageRow(afternoonDosageValue: string, i: number) {
   //   if (!isNullOrUndefined(document.getElementById("afternoonDosageMsg" + i))) {
   //     document.getElementById("afternoonDosageMsg" + i).innerHTML = "Please enter this field.";
@@ -183,6 +207,9 @@ export class AddprescriptionComponent implements OnInit {
   //   return false;
   // }
 
+  nightDosageRow(nightDosageValue: string, i: number) {
+    return true;
+  }
   // nightDosageRow(nightDosageValue: string, i: number) {
   //   // if (!isNullOrUndefined(document.getElementById("nightDosageMsg" + i))) {
   //   //   document.getElementById("nightDosageMsg" + i).innerHTML = "Please enter this field.";
@@ -264,9 +291,9 @@ export class AddprescriptionComponent implements OnInit {
     if (i > -1) {
       this.drugNameRow(this.dynamicArray[i].drugName, i);
       this.strengthRow(this.dynamicArray[i].strength, i);
-      // this.morningDosageRow(this.dynamicArray[i].morningDosage, i);
-      // this.afternoonDosageRow(this.dynamicArray[i].afternoonDosage, i);
-      // this.nightDosageRow(this.dynamicArray[i].nightDosage, i);
+      this.morningDosageRow(this.dynamicArray[i].morningDosage, i);
+      this.afternoonDosageRow(this.dynamicArray[i].afternoonDosage, i);
+      this.nightDosageRow(this.dynamicArray[i].nightDosage, i);
       this.durationRow(this.dynamicArray[i].duration, i);
       this.remarksRow(this.dynamicArray[i].remarks, i)
     }
@@ -274,13 +301,13 @@ export class AddprescriptionComponent implements OnInit {
     this.dynamicArray.every((object, index) => {
       let drugNameRowFlag = this.drugNameRow(object.drugName, index);
       let strengthRowFlag = this.strengthRow(object.strength, index);
-      // let morningDosageRowFlag = this.morningDosageRow(object.morningDosage, index);
-      // let afternoonDosageRowFlag = this.afternoonDosageRow(object.afternoonDosage, index);
-      // let nightDosageRowFlag = this.nightDosageRow(object.nightDosage, index);
+      let morningDosageRowFlag = this.morningDosageRow(object.morningDosage, index);
+      let afternoonDosageRowFlag = this.afternoonDosageRow(object.afternoonDosage, index);
+      let nightDosageRowFlag = this.nightDosageRow(object.nightDosage, index);
       let durationRowFlag = this.durationRow(object.duration, index);
       let remarksRowFlag = this.remarksRow(object.remarks, index);
 
-      if (drugNameRowFlag && strengthRowFlag && durationRowFlag) {
+      if (drugNameRowFlag && strengthRowFlag && durationRowFlag && morningDosageRowFlag) {
         this.prescriptionDetailsFlag = true;
         return true;
       } else {
@@ -353,7 +380,7 @@ export class AddprescriptionComponent implements OnInit {
     if (this.prescriptionDetailsFlag && this.prescriptionDetails()) {
       this.addPrescriptionForm.patchValue({ doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails })
       if (this.addPrescriptionForm.valid) {
-        //console.log(this.addPrescriptionForm.value);
+        console.log(this.addPrescriptionForm.value);
         this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
         this.prescriptionService.savePrescriptionDetails(this.addPrescriptionForm.value).subscribe(
           (resp: any) => {
@@ -369,7 +396,13 @@ export class AddprescriptionComponent implements OnInit {
                     this.allPrescriptionDetailsList = data.listObject;
                   });
                 } else {
-                  this.backToAppointmentDashboarsList();
+                  // this.backToAppointmentDashboarsList();
+                  this.addPrescriptionForm.reset();
+                  this.dynamicArray = [];
+                  this.addRow();
+                  this.prescriptionService.getPrescriptionList().subscribe((data: any) => {
+                    this.allPrescriptionDetailsList = data.listObject;
+                  });
                 }
               }, 500);
             } else {
