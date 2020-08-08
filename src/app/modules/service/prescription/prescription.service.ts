@@ -11,8 +11,8 @@ export class PrescriptionService {
 
   // add Prescription
   savePrescriptionDetails(patientDetails: any) {
-    console.log(patientDetails,'jdjhdh');
-    
+    console.log(patientDetails, 'jdjhdh');
+
     return this.http.post(`${this.baseUrl}/prescription/addPrescription`, patientDetails);
   }
 
@@ -37,7 +37,24 @@ export class PrescriptionService {
     return this.http.get(`${this.baseUrl}/prescription/getPrescriptionDetails/${prescriptionId}`)
   }
 
+  // get PrescriptionDetails by id
+  getPrescriptionListByPatientId(patientId: number) {
+    return this.http.get(`${this.baseUrl}/prescription/getAllPrescriptionDetailsByPatientId/${patientId}`)
+  }
+
+  // get PrescriptionDetails by id
+  getPrescriptionDetailsByAppointment(appointmentId: number) {
+    return this.http.get(`${this.baseUrl}/prescription/getPrescriptionDetailsByAppointment/${appointmentId}`)
+  }
+
   checkSavedAndGetData(appointmentId: any) {
     return this.http.get(`${this.baseUrl}/prescription/checkSavedAndGetData`, { params: { "appointmentId": appointmentId } })
   }
+
+  // get PrescriptionDetails By PatientId And Date
+  getPrescriptionDetailsByPatientIdAndDate(patientId: number, date: any) {
+
+    return this.http.get(`${this.baseUrl}/prescription/getPrescriptionDetailsByPatientIdAndDate/${patientId}/${date}`)
+  }
+
 }

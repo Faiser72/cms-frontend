@@ -1,6 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+import { PatientService } from 'src/app/modules/service/patient/patient.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
+import { ReferalService } from 'src/app/modules/service/referal/referal.service';
+import { PrescriptionService } from 'src/app/modules/service/prescription/prescription.service';
+import { isNullOrUndefined } from 'util';
+import { Prescription } from '../../prescription/prescriptionmodel';
 
 @Component({
   selector: 'app-printprescription',
@@ -13,46 +20,116 @@ export class PrintprescriptionComponent implements OnInit {
   patientName;
   doctorName
   date;
-  
+
+  prescriptionForm: FormGroup;
+
   isShown: boolean = false; // hidden by default
+  patientDetailsList: any;
+  patientDetails: any;
+  patientId: any;
+  prescriptionDetailsList: any;
 
-  dataSource: any;
-  displayedColumns: string[] = [
-    "slNo",
-    "drugName",
-    "strength",
-    "duration",
-    "dosage",
-    "remarks"
-    // "action"
-  ];
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
-
-  constructor(
-    private router: Router,
-    private _snackBar: MatSnackBar) { }
+  constructor(private router: Router,
+    private patientService: PatientService,
+    private fb: FormBuilder,
+    private appComponent: AppComponent,
+    private referalService: ReferalService,
+    private prescriptionService: PrescriptionService) { }
 
   ngOnInit() {
 
+    this.prescriptionFormBuilder();
+
+    // for patient details
+    this.patientService.getPatientList().subscribe((data: any) => {
+      this.patientDetailsList = data['listObject'];
+    })
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  prescriptionFormBuilder() {
+    this.prescriptionForm = this.fb.group({
+      patientNumber: [null, [Validators.required]],
+      patientName: [null, [Validators.required]],
+      appointmentDate: [null, [Validators.required]],
+    });
+  }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  patientDetailsById(patient) {
+    if (!isNullOrUndefined(patient)) {
+      this.patientService.getPatientDetails(patient.value.patientId).subscribe((data: any) => {
+        this.patientDetails = data.object;
+        this.patientId = this.patientDetails.patientId;
+        this.prescriptionForm.patchValue({ patientName: this.patientDetails.patientName })
+      })
     }
   }
 
-  toggleShow() {
-
-    this.isShown = !this.isShown;
-
+  getPrescription() {
+    if (this.prescriptionForm.valid) {
+      this.appComponent.startSpinner("getting data..\xa0\xa0Please wait ...");
+      this.prescriptionService
+        .getPrescriptionDetailsByPatientIdAndDate(this.patientId, this.prescriptionForm.value.appointmentDate)
+        .subscribe(
+          (resp: any) => {
+            if (resp.success) {
+              this.prescriptionDetailsList = resp.object;
+              this.getRowDetails(this.prescriptionDetailsList);
+              alert(resp.message);
+              this.appComponent.stopSpinner();
+              setTimeout(() => {
+                this.toggleShow();
+              }, 500);
+            } else {
+              setTimeout(() => {
+                alert(resp.message);
+                this.appComponent.stopSpinner();
+              }, 1000);
+            }
+          },
+          (error) => {
+            setTimeout(() => {
+              alert("Error! - Something Went Wrong! Try again.");
+              this.appComponent.stopSpinner();
+            }, 1000);
+          }
+        );
+    } else {
+      alert("Please, fill the proper details.");
+    }
   }
 
+  prescriptionDetails: Array<Prescription> = [];
+  prescription: any = {};
+  getRowDetails(data: any) {
+    this.prescriptionDetails = [];
+    let drugName: any = [];
+    let strength: any = [];
+    let morningDosage: any = [];
+    let afternoonDosage: any = [];
+    let nightDosage: any = [];
+    let duration: any = [];
+    let remarks: any = [];
+    if (!isNullOrUndefined(data.drugName)) {
+      drugName = data.drugName.split(',');
+      strength = data.strength.split(',');
+      morningDosage = data.morningDosage.split(',');
+      afternoonDosage = data.afternoonDosage.split(',');
+      nightDosage = data.nightDosage.split(',');
+      duration = data.duration.split(',');
+      remarks = data.remarks.split(',');
+      if (drugName.length == duration.length) {
+        for (let i = 0; i < drugName.length; i++) {
+          this.prescription = { drugName: drugName[i], strength: strength[i], morningDosage: morningDosage[i], afternoonDosage: afternoonDosage[i], nightDosage: nightDosage[i], remarks: remarks[i], duration: duration[i] };
+          this.prescriptionDetails.push(this.prescription);
+        }
+      }
+    }
+  }
+
+
+  toggleShow() {
+    this.isShown = !this.isShown;
+  }
 
   printPrescription(cmpName) {
     let printContents = document.getElementById(cmpName).innerHTML;
@@ -62,8 +139,7 @@ export class PrintprescriptionComponent implements OnInit {
     document.body.innerHTML = originalContents;
   }
 
-  backToPrintHome(){
+  backToPrintHome() {
     this.router.navigate(['home/printhome'])
   }
-
 }

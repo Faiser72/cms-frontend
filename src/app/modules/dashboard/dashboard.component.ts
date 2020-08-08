@@ -45,4 +45,8 @@ export class DashboardComponent implements OnInit {
     this.route.navigate(['home/myAppointment'])
   }
 
+  routeToMyPatients(){
+    this.route.navigate(['home/myPatients'])
+  }
+
 }

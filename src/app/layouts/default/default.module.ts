@@ -46,6 +46,7 @@ import { UserhomeComponent } from 'src/app/modules/admin/user/userhome/userhome.
 import { MyappointmentComponent } from 'src/app/modules/admin/myappointment/myappointment/myappointment.component';
 import { DoctorsappointmentdashboardComponent } from 'src/app/modules/admin/myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
 import { DoctorrolemasterComponent } from 'src/app/modules/master/doctormaster/doctorrolemaster/doctorrolemaster.component';
+import { MyPatientsComponent } from 'src/app/modules/admin/myappointment/my-patients/my-patients.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -62,6 +63,7 @@ import { DoctorrolemasterComponent } from 'src/app/modules/master/doctormaster/d
     InvoicehomeComponent,
     UserhomeComponent,
     MyappointmentComponent,
+    MyPatientsComponent,
     DoctorsappointmentdashboardComponent,
     DoctorrolemasterComponent,
     PostsComponent],

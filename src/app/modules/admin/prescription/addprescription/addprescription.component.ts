@@ -28,7 +28,7 @@ export class AddprescriptionComponent implements OnInit {
   appointmentDetails: any;
   patientDetails: any;
   patientId: any; //from query params
-  checkedDiagnosisDetails: any;
+  // checkedDiagnosisDetails: any;
   doctorId: any;
   age: any;
   doctorDetails: any;
@@ -39,6 +39,7 @@ export class AddprescriptionComponent implements OnInit {
   addPrescriptionForm: FormGroup;
   allPrescriptionDetailsList: any;
   prescriptionId: any;
+  checkedPrescriptionDetails: any;
 
   constructor(private route: Router,
     private fb: FormBuilder,
@@ -72,21 +73,18 @@ export class AddprescriptionComponent implements OnInit {
 
     this.prescriptionService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
       if (data.success) {
-        this.checkedDiagnosisDetails = data.object;
-        this.prescriptionId = this.checkedDiagnosisDetails.diagnosisId;
-        console.log(this.checkedDiagnosisDetails);
-        // this.addPrescriptionForm.patchValue({
-        //   height: this.checkedDiagnosisDetails.height, heightUnits: this.checkedDiagnosisDetails.heightUnits,
-        //   weight: this.checkedDiagnosisDetails.weight, weightUnits: this.checkedDiagnosisDetails.weightUnits,
-        //   bloodPreasure: this.checkedDiagnosisDetails.bloodPreasure, temperature: this.checkedDiagnosisDetails.temperature,
-        //   temperatureUnits: this.checkedDiagnosisDetails.temperatureUnits, thyroid: this.checkedDiagnosisDetails.thyroid,
-        //   diagnosis: this.checkedDiagnosisDetails.diagnosis
-        // })
+        console.log(data);
+
+        this.checkedPrescriptionDetails = data.object;
+        this.prescriptionId = this.checkedPrescriptionDetails.prescriptionId;
+        console.log(this.checkedPrescriptionDetails);
+        this.getRowDetails(data);
+        this.addPrescriptionForm.patchValue(data.object);
       } else {
         console.log("Operation failed");
       }
     });
-  
+
 
     // for patient details
     this.patientService.getPatientDetails(this.patientId).subscribe((data: any) => {
@@ -101,6 +99,8 @@ export class AddprescriptionComponent implements OnInit {
     // for appointment details
     this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
       this.appointmentDetails = data.object;
+      this.date = this.appointmentDetails.appointmentDate;
+
       // this.addDiagnosisForm.patchValue({ appointment: data.object })
     })
 
@@ -128,6 +128,32 @@ export class AddprescriptionComponent implements OnInit {
     // for multile contact form ends
   }
 
+  getRowDetails(data: any) {
+    let drugName: any = [];
+    let strength: any = [];
+    let morningDosage: any = [];
+    let afternoonDosage: any = [];
+    let nightDosage: any = [];
+    let duration: any = [];
+    let remarks: any = [];
+    drugName = data.object.drugName.split(',')
+    strength = data.object.strength.split(',')
+    morningDosage = data.object.morningDosage.split(',')
+    afternoonDosage = data.object.afternoonDosage.split(',')
+    nightDosage = data.object.nightDosage.split(',')
+    duration = data.object.duration.split(',')
+    remarks = data.object.remarks.split(',')
+
+    if (drugName.length == strength.length && duration.length == remarks.length) {
+      for (let i = 0; i < drugName.length; i++) {
+        this.newDynamic = { drugName: drugName[i], strength: strength[i], morningDosage: morningDosage[i], afternoonDosage: afternoonDosage[i], nightDosage: nightDosage[i], duration: duration[i], remarks: remarks[i] };
+        this.dynamicArray.push(this.newDynamic);
+      }
+    } else {
+      alert('something went wrong');
+    }
+  }
+
   addPrescriptionFormBuilder() {
     this.addPrescriptionForm = this.fb.group({
       drugName: [null],
@@ -139,7 +165,9 @@ export class AddprescriptionComponent implements OnInit {
       remarks: [null],
       doctorName: [null],
       appointment: [null],
-      patient: [null]
+      patient: [null],
+      prescriptionId: "",
+      date: "",
     });
   }
 
@@ -190,7 +218,7 @@ export class AddprescriptionComponent implements OnInit {
   //     return true;
   //   }
   //   return false;
-    
+
   // }
 
   afternoonDosageRow(afternoonDosageValue: string, i: number) {
@@ -227,7 +255,7 @@ export class AddprescriptionComponent implements OnInit {
   //   else{
   //     return true
   //   }
-    
+
   // }
 
   durationRow(durationValue: string, i: number) {
@@ -319,13 +347,6 @@ export class AddprescriptionComponent implements OnInit {
     return this.prescriptionDetailsFlag;
   }
 
-  // drugName: "",
-  // strength: "",
-  // morningDosage: "",
-  // afternoonDosage: "",
-  // nightDosage: "",
-  // duration: "",
-  // remarks:""
   prescriptionDetails(): boolean {
     let drugName: any = [];
     let strength: any = [];
@@ -343,7 +364,7 @@ export class AddprescriptionComponent implements OnInit {
       duration[i] = object.duration;
       remarks[i] = object.remarks;
       console.log(object.afternoonDosage);
-      
+
     });
 
     this.addPrescriptionForm.patchValue({
@@ -372,38 +393,19 @@ export class AddprescriptionComponent implements OnInit {
   }
   // for multile contact form ends (Dynamic Row)
 
-  // doctorName:[null],
-  // appointment:[null],
-  // patient:[null]
-  // onSubmit
   savePrescriptionDetails() {
     if (this.prescriptionDetailsFlag && this.prescriptionDetails()) {
-      this.addPrescriptionForm.patchValue({ doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails })
+      this.addPrescriptionForm.patchValue({ prescriptionId: this.prescriptionId, doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails, date: this.date })
       if (this.addPrescriptionForm.valid) {
         console.log(this.addPrescriptionForm.value);
         this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
-        this.prescriptionService.savePrescriptionDetails(this.addPrescriptionForm.value).subscribe(
+        this.prescriptionService.updatePrescriptionDetails(this.addPrescriptionForm.value).subscribe(
           (resp: any) => {
             if (resp.success) {
               alert(resp.message);
               this.appComponent.stopSpinner();
               setTimeout(() => {
-                if (confirm("Do you want add more Prescription ?")) {
-                  this.addPrescriptionForm.reset();
-                  this.dynamicArray = [];
-                  this.addRow();
-                  this.prescriptionService.getPrescriptionList().subscribe((data: any) => {
-                    this.allPrescriptionDetailsList = data.listObject;
-                  });
-                } else {
-                  // this.backToAppointmentDashboarsList();
-                  this.addPrescriptionForm.reset();
-                  this.dynamicArray = [];
-                  this.addRow();
-                  this.prescriptionService.getPrescriptionList().subscribe((data: any) => {
-                    this.allPrescriptionDetailsList = data.listObject;
-                  });
-                }
+                this.gotoBack();
               }, 500);
             } else {
               setTimeout(() => {
@@ -424,6 +426,10 @@ export class AddprescriptionComponent implements OnInit {
     } else {
       alert("Please, fill the proper details.");
     }
+  }
+
+  gotoBack() {
+    this.location.back();
   }
 
   backToAppointmentDashboarsList() {

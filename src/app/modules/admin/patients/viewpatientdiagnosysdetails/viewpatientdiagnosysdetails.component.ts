@@ -1,6 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
-import { Router } from '@angular/router';
+import { MatPaginator, MatSort, MatSnackBar, MatTableDataSource } from '@angular/material';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PrescriptionService } from 'src/app/modules/service/prescription/prescription.service';
+import { isNullOrUndefined } from 'util';
+import { Prescription } from '../../prescription/prescriptionmodel';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-viewpatientdiagnosysdetails',
@@ -9,37 +13,58 @@ import { Router } from '@angular/router';
 })
 export class ViewpatientdiagnosysdetailsComponent implements OnInit {
 
-  dataSource: any;
-  displayedColumns: string[] = [
-    "slNo",
-    "drugName",
-    "strength",
-    "dosage",
-    "duration",
-  ];
-
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  appointmentId: any;
+  patientHistoryDetailsList: any;
+  patientPrescriptionDetailsList: any;
 
   constructor(
     private router: Router,
-    private _snackBar: MatSnackBar) { }
+    private _snackBar: MatSnackBar,
+    private route: ActivatedRoute,
+    private prescriptionService: PrescriptionService,
+    private location: Location) { }
 
   ngOnInit() {
 
+    this.route.queryParams.subscribe((params) => {
+      this.appointmentId = params.appointment;
+
+      // for prescription
+      this.prescriptionService.getPrescriptionDetailsByAppointment(this.appointmentId).subscribe((data: any) => {
+        if (data.success) {
+          this.patientPrescriptionDetailsList = data.object;
+          if (!isNullOrUndefined(this.patientPrescriptionDetailsList)) {
+            this.getRowDetails(this.patientPrescriptionDetailsList);
+          }
+        }
+      });
+    })
   }
 
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  prescriptionDetails: Array<Prescription> = [];
+  prescription: any = {};
+  getRowDetails(data: any) {
+    this.prescriptionDetails = [];
+    let drugName: any = [];
+    let strength: any = [];
+    let duration: any = [];
+    let remarks: any = [];
+    if (!isNullOrUndefined(data.drugName)) {
+      drugName = data.drugName.split(',');
+      strength = data.strength.split(',');
+      duration = data.duration.split(',');
+      remarks = data.remarks.split(',');
+      if (drugName.length == duration.length) {
+        for (let i = 0; i < drugName.length; i++) {
+          this.prescription = { drugName: drugName[i], strength: strength[i], remarks: remarks[i], duration: duration[i] };
+          this.prescriptionDetails.push(this.prescription);
+        }
+      }
     }
   }
 
-  backTodiagonosis(){
-    this.router.navigate(['patientshome/patienthistoryanddiagnosis'])
+  backTodiagonosis() {
+    this.location.back()
   }
 
 }

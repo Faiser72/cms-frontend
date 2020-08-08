@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatRadioChange, MatSnackBar } from '@angular/material';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatRadioChange, MatSnackBar, MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Validators, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
@@ -16,7 +16,7 @@ import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservi
 })
 export class PatienthistoryanddiagnosisComponent implements OnInit {
 
-// qp
+  // qp
   appointmentId: any; //from query params
   appointmentDetails: any;
   patientDetails: any;
@@ -32,7 +32,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
   doctorName
   date;
   thyroidValue: String = "yes";
-  
+
   addDiagnosisForm: FormGroup;
 
   // fileUploads
@@ -71,6 +71,18 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     { value: 'fahrenhite-1', viewValue: 'Fahrenhite' },
     { value: 'kelvin-2', viewValue: 'Kelvin' }
   ];
+
+  dataSource: any;
+  displayedColumns: string[] = [
+    "slNo",
+    "date",
+    "diagnosis",
+    "action"
+  ];
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  patientHistoryDiagnosisDetailsList: any;
 
 
 
@@ -135,15 +147,47 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
       this.appointmentDetails = data.object;
       this.addDiagnosisForm.patchValue({ appointment: data.object })
+      this.date = this.appointmentDetails.appointmentDate;
     })
 
     // for doctor details
     this.doctorService.getDoctorDetails(this.doctorId).subscribe((data: any) => {
       this.doctorDetails = data.object;
       this.addDiagnosisForm.patchValue({ doctorName: data.object })
-      this.doctorName=this.doctorDetails.doctorName;
-    })
+      this.doctorName = this.doctorDetails.doctorName;
+    });
+
+    // for diagnosis
+    this.patientDiagnosisService.getPatientDiagnosisListByPatientId(this.patientId).subscribe((data: any) => {
+      if (data.success) {
+        console.log(data, 'diagnosis');
+
+        this.patientHistoryDiagnosisDetailsList = data['listObject'];
+        var x = this.patientHistoryDiagnosisDetailsList.slice(1, 3);
+        console.log(x);
+        this.dataSource = new MatTableDataSource(x);
+        console.log(this.dataSource);
+
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        // this.customFilter();
+      } else {
+        this.dataSource = new MatTableDataSource();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort
+      }
+    });
   }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 
 
 
@@ -163,7 +207,8 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
       diagnosisId: "",
       appointment: "",
       doctorName: "",
-      patient: ""
+      patient: "",
+      date: ""
     });
   }
 
@@ -245,12 +290,19 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     });
   }
 
-  routeTOViewPatientDiagnosisdetails() {
-    this.router.navigate(['home/viewpatientdiagnosysdetails'])
+  routeTOViewPatientDiagnosisdetails(diagnosisDetails: any) {
+    console.log(diagnosisDetails.appointment.appointmentId, "diajkmk");
+    let navigationExtras: NavigationExtras = {
+      queryParams: { appointment: diagnosisDetails.appointment.appointmentId, },
+    };
+    this.router.navigate(
+      ['home/viewpatientdiagnosysdetails'],
+      navigationExtras
+    );
   }
 
   addDiagnosisFormSubmit() {
-    this.addDiagnosisForm.patchValue({ diagnosisId: this.diagnosisId, doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails });
+    this.addDiagnosisForm.patchValue({ diagnosisId: this.diagnosisId, doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails, date: this.date });
     if (this.addDiagnosisForm.valid) {
       this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
       this.patientDiagnosisService.updatePatientDiagnosisDetails(this.addDiagnosisForm.value).subscribe((data: any) => {
@@ -274,7 +326,9 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     }
   }
 
+
   gotoBack() {
+    alert("Test")
     this.location.back();
   }
 }

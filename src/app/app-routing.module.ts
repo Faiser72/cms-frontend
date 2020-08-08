@@ -39,6 +39,7 @@ import { ChangepasswordComponent } from './modules/login/changepassword/changepa
 import { MyappointmentComponent } from './modules/admin/myappointment/myappointment/myappointment.component';
 import { DoctorsappointmentdashboardComponent } from './modules/admin/myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
 import { DoctorrolemasterComponent } from './modules/master/doctormaster/doctorrolemaster/doctorrolemaster.component';
+import { MyPatientsComponent } from './modules/admin/myappointment/my-patients/my-patients.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -118,6 +119,8 @@ const routes: Routes = [
       { path: "printprescription", component: PrintprescriptionComponent },
 
       { path: "myAppointment", component: MyappointmentComponent },
+
+      { path: "myPatients", component: MyPatientsComponent },
 
       { path: "appointmentDashboard", component: DoctorsappointmentdashboardComponent },
 

@@ -71,7 +71,7 @@
 
             <!-- </div> -->
 
-            <div class="row d-flex justify-content-around  ml-5 mr-5 w-75 mx-auto">
+            <div class="row d-flex justify-content-around  mt-5 ml-5 mr-5 w-75 mx-auto">
                 <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="row">
                         <div class="col-lg-8 col-sm-8 col-md-8">
@@ -192,6 +192,8 @@
                         <span class="file-name">&nbsp;{{thyroidFileName}}&nbsp;</span>
                         <span style="color:red;" *ngIf="thyroidMessage">{{thyroidMessage}}</span>
 
+                        <p class="label-header">Thyroid</p>
+                        <button type="button" mat-stroked-button (click)="downloadThyroid()" class="download-btn">Download</button>
                     </div>
                 </div>
             </div>

@@ -1,7 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { isNullOrUndefined } from 'util';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { AppComponent } from 'src/app/app.component';
+import { PatientService } from 'src/app/modules/service/patient/patient.service';
+import { PatientdiagnosisService } from 'src/app/modules/service/patientdiagnosis/patientdiagnosis.service';
+import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
+import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
+import { ReferalService } from 'src/app/modules/service/referal/referal.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-referalnote',
@@ -11,19 +19,77 @@ import { isNullOrUndefined } from 'util';
 export class ReferalnoteComponent implements OnInit {
 
   today: any;
+  referalForm: FormGroup;
   // patientName: String = "sanjay";
   // age = 90;
   // date = "09-07-2020";
   // doctorName = "sudhakar";
 
-  constructor(public dialog: MatDialog) { }
+  // qp
+  appointmentId: any; //from query params
+  appointmentDetails: any;
+  patientDetails: any;
+  patientId: any; //from query params
+  checkedDiagnosisDetails: any;
+  doctorId: any;
+  age: any;
+  doctorDetails: any;
+  date: any;
+  // qp
+
+  constructor(public dialog: MatDialog,
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar,
+    private location: Location,
+    private appComponent: AppComponent,
+    private patientService: PatientService,
+    private patientDiagnosisService: PatientdiagnosisService,
+    private doctorService: DoctorserviceService,
+    private appointmentService: AppointmentService,
+    private referalService: ReferalService) { }
 
   ngOnInit() {
+    this.referalFormBuilder();
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
     this.today = dd + '-' + mm + '-' + yyyy;
+
+    this.route.queryParams.subscribe((params) => {
+      this.patientId = params.patient;
+      this.appointmentId = params.appointment;
+      this.doctorId = params.doctor;
+      console.log(this.appointmentId);
+      console.log(this.patientId);
+      console.log(this.doctorId);
+
+    });
+
+    // for patient details
+    this.patientService.getPatientDetails(this.patientId).subscribe((data: any) => {
+      this.patientDetails = data.object;
+      this.referalForm.patchValue({ patientId: this.patientDetails.patientName, age: this.patientDetails.age })
+
+      // this.patientName = this.patientDetails.patientName;
+      // this.patientNumber = this.patientDetails.patientNumber;
+      this.age = this.patientDetails.age;
+    })
+
+    // for appointment details
+    this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
+      this.appointmentDetails = data.object;
+      this.referalForm.patchValue({ appointmentId: data.object })
+      this.date = this.appointmentDetails.appointmentDate;
+    })
+
+    // for doctor details
+    this.doctorService.getDoctorDetails(this.doctorId).subscribe((data: any) => {
+      this.doctorDetails = data.object;
+      this.referalForm.patchValue({ doctorId: data.object, referedBy: this.doctorDetails.doctorName })
+      // this.doctorName = this.doctorDetails.doctorName;
+    })
   }
 
   // printReferal() {
@@ -38,21 +104,62 @@ export class ReferalnoteComponent implements OnInit {
 
   // }
 
+  referalFormBuilder() {
+    this.referalForm = this.fb.group({
+      patientId: [null, [Validators.required]],
+      referedBy: [null, [Validators.required]],
+      age: [null, [Validators.required]],
+      remarks: [null, [Validators.required]],
+      date: [null, [Validators.required]],
+      appointmentId: "",
+      doctorId: ""
+    });
+  }
+
+
+  saveReferalFormSubmit() {
+    this.referalForm.patchValue({ patientId: this.patientDetails, doctorId: this.doctorDetails, appointmentId: this.appointmentDetails });
+    if (this.referalForm.valid) {
+      this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
+      this.referalService.saveReferenceDetails(this.referalForm.value).subscribe((data: any) => {
+        if (data.success) {
+          this.appComponent.stopSpinner();
+          alert(data.message)
+          setTimeout(() => {
+            // this.gotoBack();
+          }, 500);
+          // this._snackBar.open(data.object.candidateName, data.message, { duration: 2500 });
+        } else {
+          this.appComponent.stopSpinner();
+          alert(data.message)
+          //this._snackBar.open(data.object.candidateName, data.message, { duration: 2500 });
+        }
+      });
+    } else {
+      this.appComponent.stopSpinner();
+      alert("Please, fill the proper details.");
+      // this._snackBar.open("Error", "Invalid data", { duration: 2500 });
+    }
+  }
+
+  gotoBack() {
+    this.location.back();
+  }
 
 
   //for popup forgotpassword
-  openDialog(patientName, age, date, doctorName, remarks): void {
+  openDialog(): void {
     var printObj = {
-      patientName: patientName,
-      age: age,
-      date: date,
-      doctorName: doctorName,
-      remarks:remarks,
-      today:this.today
+      patientName: this.patientDetails.patientName,
+      age: this.referalForm.get("age").value,
+      date: this.referalForm.get("date").value,
+      doctorName: this.doctorDetails.doctorName,
+      remarks: this.referalForm.get("remarks").value,
+      today: this.today
     }
     const dialogRef = this.dialog.open(PrintReferal, {
       width: "800px",
-      height:"700px",
+      height: "700px",
       data: { pageValue: printObj }
     });
 
@@ -80,7 +187,7 @@ export class PrintReferal {
   age: any;
   date: any;
   doctorName: any;
-  remarks:any;
+  remarks: any;
 
   printObj;
   constructor(private route: ActivatedRoute,
@@ -99,8 +206,8 @@ export class PrintReferal {
     this.age = this.printObj.age;
     this.date = this.printObj.date;
     this.doctorName = this.printObj.doctorName;
-    this.remarks= this.printObj.remarks;
-    this.today=this.printObj.today;
+    this.remarks = this.printObj.remarks;
+    this.today = this.printObj.today;
 
   }
 

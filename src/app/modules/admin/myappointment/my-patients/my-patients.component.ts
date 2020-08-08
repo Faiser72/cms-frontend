@@ -1,19 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatSnackBar, MatTableDataSource } from '@angular/material';
 import { Router, NavigationExtras } from '@angular/router';
-import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
 import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
+import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
 import { UsersService } from 'src/app/modules/service/users/users.service';
-import { isNullOrUndefined } from 'util';
 
 @Component({
-  selector: 'app-myappointment',
-  templateUrl: './myappointment.component.html',
-  styleUrls: ['./myappointment.component.scss']
+  selector: 'app-my-patients',
+  templateUrl: './my-patients.component.html',
+  styleUrls: ['./my-patients.component.scss']
 })
-export class MyappointmentComponent implements OnInit {
+export class MyPatientsComponent implements OnInit {
 
-
+  
   userDetails: any
   dataSource: any;
   displayedColumns: string[] = [
@@ -70,8 +69,7 @@ export class MyappointmentComponent implements OnInit {
       //   }
       // })
 
-      // this.appointmentService.getAppointmentDetailsByDoctorId(this.doctorId).subscribe((data: any) => {
-        this.appointmentService.getAppointmentDetailsByDoctorIdAndDate(this.doctorId, this.today).subscribe((data: any) => {
+      this.appointmentService.getAppointmentDetailsByDoctorId(this.doctorId).subscribe((data: any) => {
         if (data.success) {
           this.appointmentDetailsList = data['listObject'];
           this.dataSource = new MatTableDataSource(data['listObject']);

@@ -16,14 +16,17 @@ export class PatientdiagnosisService {
 
   // update patientDiagnosis Details
   updatePatientDiagnosisDetails(patientDiagnosisDetails: any) {
-    console.log(patientDiagnosisDetails, 'abcde');
-
     return this.http.put(`${this.baseUrl}/patientdiagnosis/updatePatientDiagnosis`, patientDiagnosisDetails);
   }
 
   // get All patientDiagnosis details
   getPatientDiagnosisList() {
     return this.http.get(this.baseUrl + '/patientdiagnosis/getAllPatientDiagnosisDetails')
+  }
+
+  // get All patientDiagnosis details
+  getPatientDiagnosisListByPatientId(patientId: any) {
+    return this.http.get(`${this.baseUrl}/patientdiagnosis/getAllPatientDiagnosisDetailsByPatientId/${patientId}`)
   }
 
   // delete patient

@@ -73,7 +73,7 @@ export class AddappointmentComponent implements OnInit {
       ],
     });
   }
-
+ 
   addAppointmentFormSubmit() {
     if (this.addAppointmentForm.valid) {
       this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");

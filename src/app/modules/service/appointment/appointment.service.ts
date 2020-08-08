@@ -41,8 +41,8 @@ export class AppointmentService {
     return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDoctorId/${doctorId}`)
   }
 
-  // // get AppointmentDetails by  Doctorid
-  // getAppointmentDetailsByDoctorId(doctorId: number, today: any) {
-  //   return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDoctorId/${doctorId}${today}`)
-  // }
+  // get AppointmentDetails by  Doctorid
+  getAppointmentDetailsByDoctorIdAndDate(doctorId: number, today: string) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDoctorIdAndDate/${doctorId}/${today}`)
+  }
 }

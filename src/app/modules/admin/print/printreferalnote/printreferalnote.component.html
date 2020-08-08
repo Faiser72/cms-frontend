@@ -4,27 +4,40 @@
             <h4 class="text-center main-bg pt-3 mt-1">- Print Referal Note -</h4>
         </div>
         <mat-divider class="mx-5"></mat-divider>
-        <form action="" class="form-group customhover">
+        <form action="" class="form-group customhover" [formGroup]="referalNote"
+        (ngSubmit)="getReferalNote()">
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Patient Number</mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" />
+                        <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
+                        <mat-select formControlName="patientNumber" (selectionChange)="patientDetailsById($event)">
+                            <mat-option *ngFor="let patient of patientDetailsList" [value]="patient">
+                                {{patient.patientNumber}}
+                            </mat-option>
+                        </mat-select>
                     </mat-form-field>
+                    <p style="color: red;"
+                    *ngIf="referalNote.get('patientNumber') && referalNote.get('patientNumber').touched && referalNote.get('patientNumber').invalid">
+                    Please enter this field</p>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Name</mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" />
+                        <input matInput placeholder="Ex. xyz" value="" formControlName="patientName"/>
                     </mat-form-field>
+                    <p style="color: red;"
+                    *ngIf="referalNote.get('patientName') && referalNote.get('patientName').touched && referalNote.get('patientName').invalid">
+                    Please enter this field</p>
                 </div>
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Telephone</mat-label>
-                        <span matPrefix>+91 &nbsp;</span>
-                        <input type="tel" matInput placeholder="555-555-1234">
-                        <mat-icon matSuffix color="primary">phone</mat-icon>
+                        <mat-label>Appointment Date</mat-label>
+                        <input matInput type="date" placeholder="Ex. 7/2/1995" value="" color="primary"
+                        formControlName="appointmentDate" />
                     </mat-form-field>
+                    <p style="color: red;"
+                    *ngIf="referalNote.get('appointmentDate') && referalNote.get('appointmentDate').touched && referalNote.get('appointmentDate').invalid">
+                    Please enter this field</p>
                 </div>
             </div>
 
@@ -33,7 +46,7 @@
 
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
-                    <button mat-raised-button color="primary" class="shadow" (click)="toggleShow()">
+                    <button mat-raised-button color="primary" class="shadow" [disabled]='referalNote.invalid'>
                         <mat-icon>open_in_new</mat-icon> Get Referal Note
                     </button>
                     <!-- <button mat-raised-button color="accent">Reset</button> -->
