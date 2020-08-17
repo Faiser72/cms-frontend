@@ -16,8 +16,6 @@ export class PatientService {
 
   // update patient Details
   updatePatientDetails(patientDetails: any) {
-    console.log(patientDetails,'abcde');
-    
     return this.http.put(`${this.baseUrl}/admin/patient/updatePatient`, patientDetails);
   }
 

@@ -14,7 +14,6 @@ export class PrinthomeComponent implements OnInit {
   }
 
   routeToPrintBill() {
-    console.log('hii bill');
     const printContent = document.getElementById("componentID");
     const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
     WindowPrt.document.write(printContent.innerHTML);
@@ -28,8 +27,17 @@ export class PrinthomeComponent implements OnInit {
   routeToPrintReferal() {
     this.route.navigate(['home/printreferalnote'])
   }
-  
-  routeToPrintPrescription(){
+
+  routeToPrintPrescription() {
     this.route.navigate(['home/printprescription'])
   }
+
+  routeToPrintLabTest() {
+    this.route.navigate(['home/patientlabtest'])
+  }
+
+  routeToPrintReceipt() {
+    this.route.navigate(['home/printreceipt'])
+  }
+
 }

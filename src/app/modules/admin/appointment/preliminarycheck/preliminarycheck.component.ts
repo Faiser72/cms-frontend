@@ -9,6 +9,7 @@ import { PatientService } from 'src/app/modules/service/patient/patient.service'
 import { PatientdiagnosisService } from 'src/app/modules/service/patientdiagnosis/patientdiagnosis.service';
 import { isNullOrUndefined } from 'util';
 import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
+import { TestreportService } from 'src/app/modules/service/testreport/testreport.service';
 
 @Component({
   selector: 'app-preliminarycheck',
@@ -19,6 +20,7 @@ export class PreliminarycheckComponent implements OnInit {
 
 
   addDiagnosisForm: FormGroup;
+  addTestReportForm: FormGroup;
   appointmentId: any; //from query params
   appointmentDetails: any;
   patientDetails: any;
@@ -28,19 +30,19 @@ export class PreliminarycheckComponent implements OnInit {
   age: any;
   date: any;
   thyroidValue: String = "yes";
-  diagnosisId:any;
+  diagnosisId: any;
 
   // fileUploads
   uploadFiles = new FormData();
   photoFile: FileList;
-  resumeFile: FileList;
-  resumecvFile: string | Blob;
+  testReportFile: FileList;
+  testReportcvFile: string | Blob;
   ppFile: string | Blob;
   placeholder_path: string;
-  resumeFileName: string;
+  testReportFileName: string;
   candidatePhotoName: string;
   photoMessage: string;
-  resumeMessage: string;
+  testReportMessage: string;
 
   // thyroid files
   thyroidFile: FileList;
@@ -86,9 +88,10 @@ export class PreliminarycheckComponent implements OnInit {
     private appComponent: AppComponent,
     private patientService: PatientService,
     private patientDiagnosisService: PatientdiagnosisService,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private testReportService: TestreportService
   ) {
-    this.resumeFileName = "No File Chosen";
+    this.testReportFileName = "No File Chosen";
     this.thyroidFileName = "No File Chosen";
 
 
@@ -98,14 +101,12 @@ export class PreliminarycheckComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.patientId = params.patient;
       this.appointmentId = params.appointment;
-      console.log(this.appointmentId);
-      console.log(this.patientId);
 
       this.patientDiagnosisService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
         if (data.success) {
           this.checkedDiagnosisDetails = data.object;
-          this.diagnosisId=this.checkedDiagnosisDetails.diagnosisId;
-          console.log(this.checkedDiagnosisDetails);
+
+          this.diagnosisId = this.checkedDiagnosisDetails.diagnosisId;
           this.addDiagnosisForm.patchValue({
             height: this.checkedDiagnosisDetails.height, heightUnits: this.checkedDiagnosisDetails.heightUnits,
             weight: this.checkedDiagnosisDetails.weight, weightUnits: this.checkedDiagnosisDetails.weightUnits,
@@ -133,6 +134,7 @@ export class PreliminarycheckComponent implements OnInit {
     // for appointment details
     this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
       this.appointmentDetails = data.object;
+      this.date = this.appointmentDetails.appointmentDate;
       this.addDiagnosisForm.patchValue({ appointment: data.object })
     })
 
@@ -148,6 +150,7 @@ export class PreliminarycheckComponent implements OnInit {
     // for multile contact form ends
 
     this.addDiagnosisFormBuilder();
+    this.addTestReportFormBuilder()
   }
 
   addDiagnosisFormBuilder() {
@@ -164,45 +167,51 @@ export class PreliminarycheckComponent implements OnInit {
       thyroidReports: "",
       patient: "",
       appointment: "",
-      diagnosisId:""
+      diagnosisId: ""
     });
   }
 
-
-
-
-  getResumeFile(resumeUpload: HTMLInputElement, event: any) {
-    const resumeName = event.target.files[0].name;
-    this.resumeFile = resumeUpload.files;
-    if (this.resumeFile.length === 0) return;
-
-    let mimeType = this.resumeFile[0].type;
-    if (mimeType.match(/application\/pdf/) == null) {
-      this.resumeMessage = "Only pdf files are supported.";
-      this.resumeFileName = "No File Chosen";
-      return;
-    } else {
-      this.resumeMessage = null;
-      this.resumeFileName = resumeName;
-      var form_data = new FormData();
-      form_data.append("file", event.target.files[0]);
-      this.resumecvFile = event.target.files[0];
-    }
+  addTestReportFormBuilder() {
+    this.addTestReportForm = this.fb.group({
+      testName: [null, [Validators.required]],
+      testReportFileName: "",
+      diagnosisId: ""
+    })
   }
+
+
+
+
+  // getTestReportFile(testReportUpload: HTMLInputElement, event: any) {
+  //   const testReportName = event.target.files[0].name;
+  //   this.testReportFile = testReportUpload.files;
+  //   if (this.testReportFile.length === 0) return;
+
+  //   let mimeType = this.testReportFile[0].type;
+  //   if (mimeType.match(/application\/pdf/) == null) {
+  //     this.testReportMessage = "Only pdf files are supported.";
+  //     this.testReportFileName = "No File Chosen";
+  //     return;
+  //   } else {
+  //     this.testReportMessage = null;
+  //     this.testReportFileName = testReportName;
+  //     var form_data = new FormData();
+  //     form_data.append("file", event.target.files[0]);
+  //     this.testReportcvFile = event.target.files[0];
+  //   }
+  // }
 
 
   thyroid(tradio: MatRadioChange) {
     this.thyroidValue = tradio.value;
   }
 
-
+  // for Thyroid file starts
   getThyroidFile(thyroidUpload: HTMLInputElement, event: any) {
     this.thyroidFile = thyroidUpload.files;
     if (this.thyroidFile.length === 0)
       return;
-
     const thyroidName = event.target.files[0].name;
-
     let mimeType = this.thyroidFile[0].type;
     if (mimeType.match(/application\/pdf/) == null) {
       this.thyroidMessage = "Only pdf files are supported.";
@@ -219,10 +228,7 @@ export class PreliminarycheckComponent implements OnInit {
     }
   }
 
-
   saveThyroidFile() {
-    console.log('id',this.diagnosisId);
-    
     this.appComponent.startSpinner("Uploading file..\xa0\xa0Please wait ...");
     const thyroidFormData = new FormData();
     thyroidFormData.append('thyroidFile', this.thyroidcvFile);
@@ -250,7 +256,6 @@ export class PreliminarycheckComponent implements OnInit {
   }
 
 
-
   downloadThyroid() {
     this.patientDiagnosisService.getThyroidFile(this.diagnosisId).subscribe((response: any) => {
       if (response.success) {
@@ -263,12 +268,150 @@ export class PreliminarycheckComponent implements OnInit {
           });
       } else {
         this._snackBar.open("Alert !", "Thyroid File Not Found", { duration: 2500 });
-        // console.log("Resume File Not Found");
+        // console.log("testReport File Not Found");
       }
     }, (error: any) => {
       console.log(error);
     });
   }
+  // for thyroid file ends
+
+  // for Thyroid file starts
+  // getTestReportFile(testReportUpload: HTMLInputElement, event: any) {
+  //   this.testReportFile = testReportUpload.files;
+  //   if (this.testReportFile.length === 0)
+  //     return;
+  //   const testReportName = event.target.files[0].name;
+  //   let mimeType = this.thyroidFile[0].type;
+  //   if (mimeType.match(/application\/pdf/) == null) {
+  //     this.testReportMessage = "Only pdf files are supported.";
+  //     this.testReportFileName = "No File Chosen";
+  //     return;
+  //   } else {
+  //     this.testReportMessage = null;
+  //     this.testReportFileName = testReportName;
+  //     // var form_data = new FormData();
+  //     this.testReportcvFile = event.target.files[0];
+  //     this.saveTestReportFile();
+  //     // form_data.append("file", event.target.files[0]);
+  //     // this.thyroidcvFile = event.target.files[0];
+  //   }
+  // }
+
+  testReportFileValue: any;
+  getTestReportFile(testReportUpload: HTMLInputElement, event: any) {
+    if (this.addTestReportForm.get('testReportFileName').value != '') {
+      this.testReportFileValue = event.target.files[0];
+    } else {
+      this.addTestReportForm.get('testReportFileName').setValue(this.testReportFileValue, { emitModelToViewChange: false });
+    }
+
+    this.testReportFile = testReportUpload.files;
+    if (this.testReportFile.length === 0)
+      return;
+
+    // 1MB = 1,048,576 Bytes
+    //alert(this.resumeFile[0].size)
+    const testReportName = event.target.files[0].name;
+    let mimeType = this.testReportFile[0].type;
+    if (mimeType.match(/application\/pdf/) == null) {
+      this.testReportMessage = "Only pdf files are supported.";
+      this.testReportFileName = "No File Chosen";
+      return;
+    } else {
+      this.testReportMessage = null;
+      this.testReportFileName = testReportName;
+      this.testReportcvFile = event.target.files[0];
+    }
+  }
+
+
+  saveTestReportFile() {
+    this.appComponent.startSpinner("Uploading file..\xa0\xa0Please wait ...");
+    const testReportFormData = new FormData();
+    testReportFormData.append('testReportFile', this.testReportcvFile);
+    testReportFormData.append('diagnosisId', this.diagnosisId);
+    this.testReportService.saveOrUpdateTestReportFile(testReportFormData).subscribe((resp: any) => {
+      if (resp.success) {
+        this.appComponent.stopSpinner();
+        if (resp.message == "Already Uploaded") {
+          this._snackBar.open("TestReport File", "Already Uploaded", {
+            duration: 2500,
+          });
+        } else {
+          this.appComponent.stopSpinner();
+          this._snackBar.open("TestReport File", "Uploaded Successfully", {
+            duration: 2500,
+          });
+        }
+      } else {
+        this.appComponent.stopSpinner();
+        this._snackBar.open("TestReport File", "Fails to Upload", {
+          duration: 2500,
+        });
+      }
+    });
+  }
+
+
+  downloadTestReport() {
+    this.testReportService.getTestReportsFile(this.diagnosisId).subscribe((response: any) => {
+      if (response.success) {
+        let base64Data = response.byteArray;
+        fetch("data:application/pdf;base64," + base64Data)
+          .then(function (resp) { return resp.blob() })
+          .then(function (blob) {
+            var blobURL = URL.createObjectURL(blob);
+            window.open(blobURL);
+          });
+      } else {
+        this._snackBar.open("Alert !", "TestReport File Not Found", { duration: 2500 });
+      }
+    }, (error: any) => {
+      console.log(error);
+    });
+  }
+
+  addTestReportSubmit() {
+    this.addTestReportForm.patchValue({ diagnosisId: this.checkedDiagnosisDetails });
+    if (this.addTestReportForm.valid) {
+      this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
+      this.testReportService.saveTestReportsDetails(this.addTestReportForm.value).subscribe((data: any) => {
+        if (data.success) {
+          if (!isNullOrUndefined(this.testReportcvFile)) {
+            // const resumeFormData = new FormData();
+            // resumeFormData.append("resumeFile", this.resumecvFile);
+            // resumeFormData.append("candidateId", data.object.candidateId);
+            const testReportFormData = new FormData();
+            testReportFormData.append('testReportsFile', this.testReportcvFile);
+            testReportFormData.append("testReportsId", data.object.testReportsId);
+            this.testReportService.saveOrUpdateTestReportFile(testReportFormData).subscribe((resp: any) => {
+              if (resp.success) {
+                // this.placeholder_path = "../../../../assets/Placeholder.jpg";
+                this.testReportFileName = "No File Chosen";
+                alert("Data saved ! file uploaded.")
+                this.addTestReportForm.reset();
+                this.appComponent.stopSpinner();
+              } else {
+                alert("Data saved ! But fails to upload file")
+                this.appComponent.stopSpinner();
+              }
+            });
+          } else {
+            alert("Data saved , when file is option");
+            this.appComponent.stopSpinner();
+            this.addTestReportForm.reset();
+          }
+        } else {
+          alert("Data unsaved");
+        }
+      });
+    } else {
+      this.appComponent.stopSpinner();
+      alert("Please, fill the proper details.");
+    }
+  }
+  // for thyroid file ends
 
   addRow() {
     this.newDynamic = {
@@ -338,7 +481,7 @@ export class PreliminarycheckComponent implements OnInit {
   // }
 
   addDiagnosisFormSubmit() {
-    this.addDiagnosisForm.patchValue({diagnosisId:this.diagnosisId});
+    this.addDiagnosisForm.patchValue({ diagnosisId: this.diagnosisId });
     if (this.addDiagnosisForm.valid) {
       this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
       this.patientDiagnosisService.updatePatientDiagnosisDetails(this.addDiagnosisForm.value).subscribe((data: any) => {

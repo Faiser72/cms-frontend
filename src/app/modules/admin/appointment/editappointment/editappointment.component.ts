@@ -83,7 +83,6 @@ export class EditappointmentComponent implements OnInit {
 
   patientDetailsById(patient) {
     this.singlePatient = patient.value;
-    console.log("change", this.singlePatient);
     this.editAppointmentForm.patchValue({ patientName: this.singlePatient.patientName, phoneNumber: this.singlePatient.phoneNumber })
   }
 
@@ -94,7 +93,7 @@ export class EditappointmentComponent implements OnInit {
       doctorName: [null, [Validators.required, Validators.minLength(3)]],
       appointmentDate: [null, [Validators.required]],
       appointmentTime: [null, [Validators.required]],
-      appointmentId:"",
+      appointmentId: "",
       phoneNumber: [
         null,
         [Validators.required, Validators.pattern(this.phonePattern)],

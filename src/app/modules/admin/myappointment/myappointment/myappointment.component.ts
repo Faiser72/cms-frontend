@@ -5,6 +5,7 @@ import { AppointmentService } from 'src/app/modules/service/appointment/appointm
 import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
 import { UsersService } from 'src/app/modules/service/users/users.service';
 import { isNullOrUndefined } from 'util';
+import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 
 @Component({
   selector: 'app-myappointment',
@@ -24,11 +25,11 @@ export class MyappointmentComponent implements OnInit {
     "doctorName",
     "appointmentDate",
     "appointmentTime",
-    // "action"
+    "action"
   ];
 
   userId: any;
-  doctorId: any;
+  doctorDetails: any;
 
   appointmentDetailsList: any;
 
@@ -36,31 +37,31 @@ export class MyappointmentComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  doctorId: any;
 
   constructor(
     private router: Router,
     private _snackBar: MatSnackBar, private authenticationService: AuthenticationService,
     private appointmentService: AppointmentService,
-    private userService: UsersService) {
+    private userService: UsersService,
+    private doctorService: DoctorserviceService) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
     this.today = yyyy + '-' + mm + '-' + dd;
-
-    console.log(this.doctorId, "adv");
-
   }
 
   ngOnInit() {
     // this.appointmentService.getAppointmentList().subscribe((data: any) => {
     this.userId = sessionStorage.getItem(this.authenticationService.SESSION_USER_ID_KEY)
-    console.log(this.today);
-    this.userService.getUserDetails(this.userId).subscribe((data: any) => {
+
+    // this.userService.getUserDetails(this.userId).subscribe((data: any) => {
+    this.doctorService.getDoctorDetailsByUserId(this.userId).subscribe((data: any) => {
       if (data.success) {
-        this.userDetails = data.object;
-        this.doctorId = this.userDetails.doctor.doctorId;//doctorId from user
+        this.doctorDetails = data.object;
+        this.doctorId = this.doctorDetails.doctorId;
       }
 
       // this.appointmentService.getAppointmentDetailsByDoctorIdAndDate(this.doctorId, this.today).subscribe((data: any) => {
@@ -71,23 +72,23 @@ export class MyappointmentComponent implements OnInit {
       // })
 
       // this.appointmentService.getAppointmentDetailsByDoctorId(this.doctorId).subscribe((data: any) => {
+      if (!isNullOrUndefined(this.doctorId)) {
         this.appointmentService.getAppointmentDetailsByDoctorIdAndDate(this.doctorId, this.today).subscribe((data: any) => {
-        if (data.success) {
-          this.appointmentDetailsList = data['listObject'];
-          this.dataSource = new MatTableDataSource(data['listObject']);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-          this.customFilter();
-        } else {
-          this.dataSource = new MatTableDataSource();
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort
-        }
-      });
+          if (data.success) {
+            this.appointmentDetailsList = data['listObject'];
+            this.dataSource = new MatTableDataSource(data['listObject']);
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort;
+            this.customFilter();
+          } else {
+            alert("No appointments today")
+            this.dataSource = new MatTableDataSource();
+            this.dataSource.paginator = this.paginator;
+            this.dataSource.sort = this.sort
+          }
+        });
+      }
     });
-
-
-
   }
 
   customFilter() {
@@ -106,11 +107,11 @@ export class MyappointmentComponent implements OnInit {
     }
   }
 
-  routeToDeleteDoctor(appointmentDetails) {
-    if (confirm(`Are you sure to delete this appointment ?`)) {
+  routeToMakeTested(appointmentDetails) {
+    if (confirm(`Are You Done With This Patient ?`)) {
       let index = this.appointmentDetailsList.findIndex((data: any) => data.appointmentId === appointmentDetails.appointmentId);
       if ((appointmentDetails.appointmentId > 0) && (index > -1)) {
-        this.appointmentService.deleteAppointment(appointmentDetails.appointmentId).subscribe((resp: any) => {
+        this.appointmentService.testedAppointment(appointmentDetails.appointmentId).subscribe((resp: any) => {
           if (resp.success) {
             this.appointmentDetailsList.splice(index, 1);
             this.dataSource = new MatTableDataSource(this.appointmentDetailsList);
@@ -142,8 +143,6 @@ export class MyappointmentComponent implements OnInit {
   }
 
   routeToAppointmentDashboard(patient: any, appointment: any) {
-    console.log(this.doctorId);
-
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: patient.patientId, appointment: appointment.appointmentId, doctor: this.doctorId },
     };

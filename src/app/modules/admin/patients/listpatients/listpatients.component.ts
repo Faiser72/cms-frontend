@@ -29,20 +29,20 @@ export class ListpatientsComponent implements OnInit {
   constructor(
     private router: Router,
     private _snackBar: MatSnackBar,
-    private patientService:PatientService) { }
+    private patientService: PatientService) { }
 
   ngOnInit() {
-    this.patientService.getPatientList().subscribe((data:any) => {
+    this.patientService.getPatientList().subscribe((data: any) => {
       if (data.success) {
         this.patientDetailsList = data['listObject'];
-      this.dataSource = new MatTableDataSource(data['listObject']);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      // this.customFilter();
+        this.dataSource = new MatTableDataSource(data['listObject']);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+        // this.customFilter();
       } else {
-      this.dataSource = new MatTableDataSource();
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort
+        this.dataSource = new MatTableDataSource();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort
       }
     });
   }
@@ -75,13 +75,13 @@ export class ListpatientsComponent implements OnInit {
   }
 
 
-  routeToEditDoctor(patientDetails:any) {
+  routeToEditDoctor(patientDetails: any) {
     let navigationExtras: NavigationExtras = {
       queryParams: { patientId: patientDetails.patientId }
     };
     this.router.navigate(["/home/patientshome/editpatient"], navigationExtras);
   }
-  
+
 
 
   routeToAddPatients() {

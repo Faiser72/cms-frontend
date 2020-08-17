@@ -17,14 +17,17 @@
 
                     <div class="text-center mt-4">
                         <button [disabled]="addDoctorRoleMasterForm.invalid" mat-raised-button *ngIf="!btnFlag"
-                            class="mb-2 mr-3 submit-btn" color="primary" type="submit" (click)="saveDoctorRoleDetails()">
+                            class="mb-2 mr-3 submit-btn" color="primary" type="submit"
+                            (click)="saveDoctorRoleDetails()">
                             <mat-icon class="mr-2">save</mat-icon>Save
                         </button>
                         <button [disabled]="addDoctorRoleMasterForm.invalid" mat-raised-button *ngIf="btnFlag"
-                            class="mb-2 mr-3 submit-btn" color="primary" type="submit"  (click)="updateDoctorRoleDetails()">
+                            class="mb-2 mr-3 submit-btn" color="primary" type="submit"
+                            (click)="updateDoctorRoleDetails()">
                             <mat-icon class="mr-2">save</mat-icon>Update
                         </button>
-                        <button type="reset" class="mb-2 reset-btn" mat-raised-button color="warn" *ngIf="btnFlag" (click)="customReset()">
+                        <button type="reset" class="mb-2 reset-btn" mat-raised-button color="warn" *ngIf="btnFlag"
+                            (click)="customReset()">
                             <mat-icon class="mr-2">cancel</mat-icon>Cancel
                         </button>
                     </div>
@@ -71,8 +74,8 @@
                     </a>
                 </div>
                 <span style="color: #3f51b5;">|</span>
-                <div class="action-btn"> 
-                    <a (click)="routeToDeleteDoctorRole(this.row)" class="action-link" >
+                <div class="action-btn">
+                    <a (click)="routeToDeleteDoctorRole(this.row)" class="action-link">
                         <mat-icon class="delete-btn" title="Delete">delete_forever</mat-icon>
                     </a>
                 </div>

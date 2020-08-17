@@ -8,7 +8,7 @@ import { isNull } from 'util';
 })
 
 export class AuthenticationService {
- 
+
   SESSION_TOKEN_KEY = 'token';
   SESSION_USER_KEY = 'user';
   SESSION_ROLE_KEY = 'role';
@@ -20,7 +20,7 @@ export class AuthenticationService {
     return this.httpClient.post<any>('http://localhost:8080/authenticate', { username, password }).pipe(map((data) => {
       if (!isNull(data)) {
         let jwtToken = 'Bearer ' + data.jwtToken;
-        alert(jwtToken)
+        // alert(jwtToken)
         sessionStorage.setItem(this.SESSION_TOKEN_KEY, jwtToken);
         sessionStorage.setItem(this.SESSION_USER_KEY, data.username);
         sessionStorage.setItem(this.SESSION_ROLE_KEY, data.role);

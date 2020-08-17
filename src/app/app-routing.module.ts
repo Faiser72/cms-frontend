@@ -40,6 +40,17 @@ import { MyappointmentComponent } from './modules/admin/myappointment/myappointm
 import { DoctorsappointmentdashboardComponent } from './modules/admin/myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
 import { DoctorrolemasterComponent } from './modules/master/doctormaster/doctorrolemaster/doctorrolemaster.component';
 import { MyPatientsComponent } from './modules/admin/myappointment/my-patients/my-patients.component';
+import { AddfrontdeskComponent } from './modules/admin/frontdesk/addfrontdesk/addfrontdesk.component';
+import { ListfrontdeskComponent } from './modules/admin/frontdesk/listfrontdesk/listfrontdesk.component';
+import { EditfrontdeskComponent } from './modules/admin/frontdesk/editfrontdesk/editfrontdesk.component';
+import { DeletedfrontdesklistComponent } from './modules/admin/frontdesk/deletedfrontdesklist/deletedfrontdesklist.component';
+import { DeletedlistdoctorComponent } from './modules/admin/doctors/deletedlistdoctor/deletedlistdoctor.component';
+import { PatientreportsComponent } from './modules/admin/reports/patientreports/patientreports.component';
+import { AppointmentreportsComponent } from './modules/admin/reports/appointmentreports/appointmentreports.component';
+import { PrintlabtestComponent } from './modules/admin/print/printlabtest/printlabtest.component';
+import { PrintreceiptComponent } from './modules/admin/print/printreceipt/printreceipt.component';
+import { DoctorsreportComponent } from './modules/admin/reports/doctorsreport/doctorsreport.component';
+import { RevenuereportComponent } from './modules/admin/reports/revenuereport/revenuereport.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -57,8 +68,21 @@ const routes: Routes = [
           { path: "adddoctor", component: AdddoctorsComponent },
           { path: "listdoctor", component: ListdoctorsComponent },
           { path: "editdoctor", component: EditdoctorsComponent },
+          { path: "deletedlistdoctor", component: DeletedlistdoctorComponent },
         ],
       },
+
+      {
+        path: "frontDeskHome",
+        component: DoctorshomeComponent,
+        children: [
+          { path: "addfrontDesk", component: AddfrontdeskComponent },
+          { path: "listFrontDesk", component: ListfrontdeskComponent },
+          { path: "editFrontDesk", component: EditfrontdeskComponent },
+          { path: "deletedlistFrontDesk", component: DeletedfrontdesklistComponent },
+        ],
+      },
+
       { path: "changepassword", component: ChangepasswordComponent },
 
       {
@@ -129,6 +153,18 @@ const routes: Routes = [
       },
 
       { path: "referalnote", component: ReferalnoteComponent },
+
+      { path: "patientreport", component: PatientreportsComponent },
+
+      { path: "revenuereport", component: RevenuereportComponent },
+
+      { path: "doctorreport", component: DoctorsreportComponent },
+
+      { path: "printreceipt", component: PrintreceiptComponent },
+
+      { path: "patientlabtest", component: PrintlabtestComponent },
+
+      { path: "appointmentreport", component: AppointmentreportsComponent },
 
       {
         path: "appointmenthome",

@@ -1,5 +1,5 @@
 <!-- <mat-toolbar color="{{themes()}}">-->
-    <mat-toolbar class="header_background">
+<mat-toolbar class="header_background">
     <mat-toolbar-row>
         <button mat-icon-button (click)="toggleSideBar()">
             <mat-icon>menu</mat-icon>
@@ -33,7 +33,10 @@
                     </mat-menu>
                 </li>
                 <li>
-                    <button mat-icon-button (click)="openDialog()">
+                    <!-- <button mat-icon-button (click)="openDialog()">
+                        <mat-icon>live_help</mat-icon>
+                    </button> -->
+                    <button mat-icon-button>
                         <mat-icon>live_help</mat-icon>
                     </button>
                 </li>
@@ -48,7 +51,8 @@
                         </button>
 
                         <button mat-menu-item>
-                            <mat-slide-toggle (change)="onDarkModeSwitched($event)" color="primary">Dark Mode</mat-slide-toggle>
+                            <mat-slide-toggle (change)="onDarkModeSwitched($event)" color="primary">Dark Mode
+                            </mat-slide-toggle>
                         </button>
 
                         <button mat-menu-item (click)='doLogout()'>

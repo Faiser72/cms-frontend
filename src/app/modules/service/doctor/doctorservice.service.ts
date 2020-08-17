@@ -42,4 +42,20 @@ export class DoctorserviceService {
   getDoctorDetails(doctorId: number) {
     return this.http.get(`${this.baseUrl}/admin/doctor/getDoctorDetails/${doctorId}`)
   }
+
+  // get DoctorDetails by id
+  getDoctorDetailsByUserId(userId: number) {
+    return this.http.get(`${this.baseUrl}/admin/doctor/getDoctorDetailsByUserId/${userId}`)
+  }
+
+  // get All details
+  getDeletedDoctorList() {
+    return this.http.get(this.baseUrl + '/admin/doctor/getAllDeletedDoctorDetails')
+  }
+
+  // delete Doctor
+  undoDoctor(doctorId: any) {
+    return this.http.put(`${this.baseUrl}/admin/doctor/undoDoctorDetails`, null, { params: { "doctorId": doctorId } });
+  }
+
 }

@@ -29,4 +29,13 @@ export class ReferalService {
     return this.http.get(`${this.baseUrl}/reference/getReferenceDetailsByPatientIdAndDate/${patientId}/${date}`)
   }
 
+  checkSavedAndGetData(appointmentId: any) {
+    return this.http.get(`${this.baseUrl}/reference/checkSavedAndGetData`, { params: { "appointmentId": appointmentId } })
+  }
+
+  // update reference Details
+  updateReferenceDetails(referenceDetails: any) {
+    return this.http.put(`${this.baseUrl}/reference/updateReference`, referenceDetails);
+  }
+
 }

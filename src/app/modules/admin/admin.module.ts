@@ -23,17 +23,28 @@ import { ListprescriptionComponent } from './prescription/listprescription/listp
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { LabtestComponent } from './lab/labtest/labtest.component';
 import { LabreportsComponent } from './lab/labreports/labreports.component';
-import {MatSelectModule} from '@angular/material/select';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ViewpatientdiagnosysdetailsComponent } from './patients/viewpatientdiagnosysdetails/viewpatientdiagnosysdetails.component';
 import { PrintreferalnoteComponent } from './print/printreferalnote/printreferalnote.component';
 import { PrintprescriptionComponent } from './print/printprescription/printprescription.component';
 import { AdduserComponent } from './user/adduser/adduser.component';
 import { EdituserComponent } from './user/edituser/edituser.component';
 import { ListuserComponent } from './user/listuser/listuser.component';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MyappointmentComponent } from './myappointment/myappointment/myappointment.component';
 import { DoctorsappointmentdashboardComponent } from './myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
+import { AddfrontdeskComponent } from './frontdesk/addfrontdesk/addfrontdesk.component';
+import { EditfrontdeskComponent } from './frontdesk/editfrontdesk/editfrontdesk.component';
+import { ListfrontdeskComponent } from './frontdesk/listfrontdesk/listfrontdesk.component';
+import { DeletedfrontdesklistComponent } from './frontdesk/deletedfrontdesklist/deletedfrontdesklist.component';
+import { DeletedlistdoctorComponent } from './doctors/deletedlistdoctor/deletedlistdoctor.component';
+import { PatientreportsComponent } from './reports/patientreports/patientreports.component';
+import { AppointmentreportsComponent } from './reports/appointmentreports/appointmentreports.component';
+import { PrintlabtestComponent } from './print/printlabtest/printlabtest.component';
+import { PrintreceiptComponent, PrintReceipt } from './print/printreceipt/printreceipt.component';
+import { DoctorsreportComponent } from './reports/doctorsreport/doctorsreport.component';
+import { RevenuereportComponent } from './reports/revenuereport/revenuereport.component';
 
 @NgModule({
   declarations: [
@@ -48,17 +59,28 @@ import { DoctorsappointmentdashboardComponent } from './myappointment/doctorsapp
     ListappointmentComponent,
     PreliminarycheckComponent,
     PatienthistoryanddiagnosisComponent,
-    EditprescriptionComponent, 
+    EditprescriptionComponent,
     ListprescriptionComponent,
-    LabtestComponent, 
+    LabtestComponent,
     LabreportsComponent,
     ViewpatientdiagnosysdetailsComponent,
-    PrintreferalnoteComponent, 
+    PrintreferalnoteComponent,
     PrintprescriptionComponent,
     AdduserComponent,
-    EdituserComponent, 
+    EdituserComponent,
     ListuserComponent,
-     
+    AddfrontdeskComponent,
+    EditfrontdeskComponent,
+    ListfrontdeskComponent,
+    DeletedfrontdesklistComponent,
+    DeletedlistdoctorComponent,
+    PatientreportsComponent,
+    AppointmentreportsComponent,
+    PrintlabtestComponent,
+    PrintreceiptComponent,
+    PrintReceipt,
+    DoctorsreportComponent,
+    RevenuereportComponent
   ],
   imports: [
     CommonModule,
@@ -78,7 +100,8 @@ import { DoctorsappointmentdashboardComponent } from './myappointment/doctorsapp
     MatSelectModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    
+
   ],
+  entryComponents: [PrintReceipt]
 })
 export class AdminModule { }

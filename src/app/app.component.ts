@@ -14,7 +14,7 @@ export class AppComponent {
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   switchMode(isDarkMode: boolean) {
     const hostClass = isDarkMode ? "theme-dark" : "theme-light";

@@ -29,14 +29,10 @@ export class DoctorsappointmentdashboardComponent implements OnInit {
       this.patientId = params.patient;
       this.appointmentId = params.appointment;
       this.doctorId = params.doctor;
-      console.log(this.appointmentId);
-      console.log(this.patientId);
-      console.log(this.doctorId);
     });
   }
 
   routeToPatientDiagnosis() {
-    console.log(this.doctorId);
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: this.patientId, appointment: this.appointmentId, doctor: this.doctorId },
     };
@@ -47,7 +43,6 @@ export class DoctorsappointmentdashboardComponent implements OnInit {
   }
 
   routeToPrescription() {
-    console.log(this.doctorId);
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: this.patientId, appointment: this.appointmentId, doctor: this.doctorId },
     };
@@ -58,7 +53,6 @@ export class DoctorsappointmentdashboardComponent implements OnInit {
   }
 
   routeToLabTest() {
-    console.log(this.doctorId);
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: this.patientId, appointment: this.appointmentId, doctor: this.doctorId },
     };
@@ -69,7 +63,6 @@ export class DoctorsappointmentdashboardComponent implements OnInit {
   }
 
   routeToPatientHistory() {
-    console.log(this.doctorId);
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: this.patientId, appointment: this.appointmentId, doctor: this.doctorId },
     };
@@ -80,7 +73,6 @@ export class DoctorsappointmentdashboardComponent implements OnInit {
   }
 
   routeToMyReference() {
-    console.log(this.doctorId);
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: this.patientId, appointment: this.appointmentId, doctor: this.doctorId },
     };

@@ -13,7 +13,7 @@ import { AppComponent } from 'src/app/app.component';
 export class ListdoctorsComponent implements OnInit {
 
   deleted_successfully_message: string = "Deleted Successfully";
-doctorList;
+  doctorList;
   dataSource: any;
   displayedColumns: string[] = [
     "slNo",
@@ -30,7 +30,7 @@ doctorList;
   constructor(
     private router: Router,
     private _snackBar: MatSnackBar,
-    private doctorService:DoctorserviceService,
+    private doctorService: DoctorserviceService,
     private appComponent: AppComponent) { }
 
   ngOnInit() {
@@ -66,10 +66,20 @@ doctorList;
   }
 
 
-
-
-  routeToDeleteDoctor(row) {
-
+  routeToDeleteDoctor(id_to_delete: any, doctor: any) {
+    if (confirm(`Delete ${doctor.doctorName} doctor`)) {
+      let index = this.doctorList.findIndex((data: any) => data.doctorId === doctor.doctorId);
+      this.doctorService.deleteDoctor(id_to_delete).subscribe((response: any) => {
+        if (response.success) {
+          this.doctorList.splice(index, 1);
+          this.dataSource = new MatTableDataSource(this.doctorList);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          // this.customFilter();
+        }
+        this._snackBar.open(doctor.doctorName, response.message, { duration: 2500, });
+      })
+    }
   }
 
 

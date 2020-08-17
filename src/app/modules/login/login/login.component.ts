@@ -146,7 +146,7 @@ export class ForgotPaswordDialog {
     private router: Router,
     private passwordService: PasswordService,
     private spinner: NgxSpinnerService
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();

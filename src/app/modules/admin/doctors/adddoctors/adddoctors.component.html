@@ -43,6 +43,18 @@
                 Please enter this field</p>
             </div>
           </div>
+
+          <div class="row mt-2">
+            <div class="col-lg-12 col-sm-12 col-md-12">
+              <mat-form-field class="field-full-width">
+                <mat-label>Regester Number <sup class="text-danger">*</sup></mat-label>
+                <input matInput placeholder="Ex. CMS123VETO" value="" formControlName="registerNo" />
+              </mat-form-field>
+              <p style="color: red;"
+                *ngIf="addDoctorDetailsForm.get('registerNo') && addDoctorDetailsForm.get('registerNo').touched && addDoctorDetailsForm.get('registerNo').invalid">
+                Please enter this field</p>
+            </div>
+          </div>
         </div>
         <!-- <div class="col-lg-5 col-sm-12 col-md-6">
          
@@ -94,7 +106,7 @@
           <mat-form-field class="field-full-width">
             <mat-label>Date Of Birth <sup class="text-danger">*</sup></mat-label>
             <input matInput [matDatepicker]="picker" placeholder="Ex. 7/2/1995" value="" #dob
-            (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" />
+              (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -105,7 +117,7 @@
         <div class="col-lg-1 col-sm-12 col-md-6">
           <mat-form-field class="field-full-width">
             <mat-label>Age <sup class="text-danger">*</sup></mat-label>
-            <input matInput placeholder="Ex. 25" value="{{age}}" formControlName="age" readonly="true"/>
+            <input matInput placeholder="Ex. 25" value="{{age}}" formControlName="age" readonly="true" />
           </mat-form-field>
           <p style="color: red;"
             *ngIf="addDoctorDetailsForm.get('age') && addDoctorDetailsForm.get('age').touched && addDoctorDetailsForm.get('age').invalid">
@@ -226,7 +238,7 @@
               </mat-form-field>
               <p style="color: red;"
                 *ngIf="addDoctorDetailsForm.get('phoneNumber') && addDoctorDetailsForm.get('phoneNumber').touched && addDoctorDetailsForm.get('phoneNumber').invalid">
-                Please enter valid phone number</p>
+                {{phoneNumberInputMsg}}</p>
             </div>
             <div class="col-lg-6 col-md-12 col-sm-12">
               <mat-form-field class="field-full-width">
@@ -236,7 +248,7 @@
               </mat-form-field>
               <p style="color: red;"
                 *ngIf="addDoctorDetailsForm.get('emailId') && addDoctorDetailsForm.get('emailId').touched && addDoctorDetailsForm.get('emailId').invalid">
-                Please enter this field</p>
+                {{emailIdInputMsg}}</p>
             </div>
           </div>
         </div>

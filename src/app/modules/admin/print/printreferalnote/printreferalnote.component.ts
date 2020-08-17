@@ -35,8 +35,8 @@ export class PrintreferalnoteComponent implements OnInit {
   constructor(private router: Router,
     private patientService: PatientService,
     private fb: FormBuilder,
-    private appComponent:AppComponent,
-    private referalService:ReferalService) { }
+    private appComponent: AppComponent,
+    private referalService: ReferalService) { }
 
   ngOnInit() {
     this.referalNoteBuilder();
@@ -61,35 +61,34 @@ export class PrintreferalnoteComponent implements OnInit {
     });
   }
 
-  patientDetailsById(patient) {    
+  patientDetailsById(patient) {
     if (!isNullOrUndefined(patient)) {
       this.patientService.getPatientDetails(patient.value.patientId).subscribe((data: any) => {
         this.patientDetails = data.object;
-        this.patientId=this.patientDetails.patientId;        
+        this.patientId = this.patientDetails.patientId;
         this.referalNote.patchValue({ patientName: this.patientDetails.patientName })
       })
     }
   }
 
-  getReferalNote(){
+  getReferalNote() {
     if (this.referalNote.valid) {
       this.appComponent.startSpinner("getting data..\xa0\xa0Please wait ...");
       this.referalService
-        .getReferenceDetailsByPatientIdAndDate(this.patientId,this.referalNote.value.appointmentDate)
+        .getReferenceDetailsByPatientIdAndDate(this.patientId, this.referalNote.value.appointmentDate)
         .subscribe(
           (resp: any) => {
             if (resp.success) {
-              this.referenceDetails=resp.object;
-              console.log(this.referenceDetails);
-              this.patientName=this.referenceDetails.patientId.patientName;
-              this.age=this.referenceDetails.patientId.age;
-              this.doctorName=this.referenceDetails.doctorId.doctorName;
-              this.remarks=this.referenceDetails.remarks;
-              this.date=this.referenceDetails.date;
+              this.referenceDetails = resp.object;
+              this.patientName = this.referenceDetails.patientId.patientName;
+              this.age = this.referenceDetails.patientId.age;
+              this.doctorName = this.referenceDetails.doctorId.doctorName;
+              this.remarks = this.referenceDetails.remarks;
+              this.date = this.referenceDetails.date;
               alert(resp.message);
               this.appComponent.stopSpinner();
               setTimeout(() => {
-              this.toggleShow();
+                this.toggleShow();
               }, 500);
             } else {
               setTimeout(() => {

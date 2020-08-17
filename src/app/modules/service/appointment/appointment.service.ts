@@ -45,4 +45,33 @@ export class AppointmentService {
   getAppointmentDetailsByDoctorIdAndDate(doctorId: number, today: string) {
     return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDoctorIdAndDate/${doctorId}/${today}`)
   }
+
+  // to make diagnosed or tested
+  testedAppointment(appointmentId: any) {
+    return this.http.put(`${this.baseUrl}/admin/appointment/testedAppointment`, null, { params: { "appointmentId": appointmentId } });
+  }
+
+  getAllTestedPatientDetailsBtwnDates(fromDate: string, toDate: string) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAllTestedPatientDetailsBtwnDates/${fromDate}/${toDate}`)
+  }
+
+  getAllAppointmentsDetailsBtwnDates(fromDate: string, toDate: string) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAllAppointmentsDetailsBtwnDates/${fromDate}/${toDate}`)
+  }
+
+  getAllAppointmentsDetailsOfDoctorBtwnDates(doctorId: number, fromDate: string, toDate: string) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAllAppointmentsDetailsOfDoctorBtwnDates/${doctorId}/${fromDate}/${toDate}`)
+  }
+
+
+  // get All Tested Appointment details
+  getAllTestedDetailsList() {
+    return this.http.get(this.baseUrl + '/admin/appointment/getAllTestedDetails')
+  }
+
+  // get AppointmentDetails by  Date
+  getAppointmentDetailsByDate(date: string) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDate/${date}`)
+  }
+
 }

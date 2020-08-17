@@ -11,8 +11,6 @@ export class PrescriptionService {
 
   // add Prescription
   savePrescriptionDetails(patientDetails: any) {
-    console.log(patientDetails, 'jdjhdh');
-
     return this.http.post(`${this.baseUrl}/prescription/addPrescription`, patientDetails);
   }
 
@@ -53,7 +51,6 @@ export class PrescriptionService {
 
   // get PrescriptionDetails By PatientId And Date
   getPrescriptionDetailsByPatientIdAndDate(patientId: number, date: any) {
-
     return this.http.get(`${this.baseUrl}/prescription/getPrescriptionDetailsByPatientIdAndDate/${patientId}/${date}`)
   }
 

@@ -19,6 +19,8 @@ export class EdituserComponent implements OnInit {
   allUsersList: any;
   userTypeList: any;
 
+  roleDoctor: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -30,7 +32,6 @@ export class EdituserComponent implements OnInit {
     this.usersService.getAllUserType().subscribe(
       (data: any) => {
         this.userTypeList = data.listObject;
-        console.log(data.listObject);
       },
       (error) => {
         console.log(error, "Error Caught");
@@ -61,6 +62,13 @@ export class EdituserComponent implements OnInit {
         );
         this.editUserForm.patchValue(data.object);
         this.editUserForm.patchValue({ userType: userType })
+        if (userType.role == "ROLE_USER") {
+          this.roleDoctor = true;
+        }
+        else {
+          this.roleDoctor = false;
+        }
+
       } else {
         alert(data.message);
         setTimeout(() => {

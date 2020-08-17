@@ -47,6 +47,9 @@ import { MyappointmentComponent } from 'src/app/modules/admin/myappointment/myap
 import { DoctorsappointmentdashboardComponent } from 'src/app/modules/admin/myappointment/doctorsappointmentdashboard/doctorsappointmentdashboard.component';
 import { DoctorrolemasterComponent } from 'src/app/modules/master/doctormaster/doctorrolemaster/doctorrolemaster.component';
 import { MyPatientsComponent } from 'src/app/modules/admin/myappointment/my-patients/my-patients.component';
+import { FrontdeskhomeComponent } from 'src/app/modules/admin/frontdesk/frontdeskhome/frontdeskhome.component';
+import {MatBadgeModule} from '@angular/material/badge';
+
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -66,7 +69,8 @@ import { MyPatientsComponent } from 'src/app/modules/admin/myappointment/my-pati
     MyPatientsComponent,
     DoctorsappointmentdashboardComponent,
     DoctorrolemasterComponent,
-    PostsComponent],
+    PostsComponent,
+    FrontdeskhomeComponent],
   imports: [
     CommonModule,
     RouterModule,
@@ -97,7 +101,8 @@ import { MyPatientsComponent } from 'src/app/modules/admin/myappointment/my-pati
     MatSelectModule,
     Ng2OdometerModule,
     MatSnackBarModule,
-    FormsModule
+    FormsModule,
+    MatBadgeModule
  
   ],
 })

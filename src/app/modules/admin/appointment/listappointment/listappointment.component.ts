@@ -98,9 +98,9 @@ export class ListappointmentComponent implements OnInit {
     this.router.navigate(['/home/appointmenthome/preliminarycheck'])
   }
 
-  routeToPreliminarycheck(patient: any, appointment:any) {
+  routeToPreliminarycheck(patient: any, appointment: any) {
     let navigationExtras: NavigationExtras = {
-      queryParams: { patient: patient.patientId, appointment:appointment.appointmentId },
+      queryParams: { patient: patient.patientId, appointment: appointment.appointmentId },
     };
     this.router.navigate(
       ["/home/appointmenthome/preliminarycheck"],

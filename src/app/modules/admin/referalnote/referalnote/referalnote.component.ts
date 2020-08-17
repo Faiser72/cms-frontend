@@ -35,6 +35,8 @@ export class ReferalnoteComponent implements OnInit {
   age: any;
   doctorDetails: any;
   date: any;
+  checkedReferalDetails: any;
+  referenceId: any;
   // qp
 
   constructor(public dialog: MatDialog,
@@ -61,10 +63,23 @@ export class ReferalnoteComponent implements OnInit {
       this.patientId = params.patient;
       this.appointmentId = params.appointment;
       this.doctorId = params.doctor;
-      console.log(this.appointmentId);
-      console.log(this.patientId);
-      console.log(this.doctorId);
+    });
 
+    // for appointment details
+    this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
+      this.appointmentDetails = data.object;
+      // this.referalForm.patchValue({ appointment: data.object })
+      this.date = this.appointmentDetails.appointmentDate;
+    })
+
+    this.referalService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
+      if (data.success) {
+        this.checkedReferalDetails = data.object;
+        this.referenceId = this.checkedReferalDetails.referenceId;
+        this.referalForm.patchValue(data.object);
+      } else {
+        // console.log("Operation failed");
+      }
     });
 
     // for patient details
@@ -77,12 +92,6 @@ export class ReferalnoteComponent implements OnInit {
       this.age = this.patientDetails.age;
     })
 
-    // for appointment details
-    this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
-      this.appointmentDetails = data.object;
-      this.referalForm.patchValue({ appointmentId: data.object })
-      this.date = this.appointmentDetails.appointmentDate;
-    })
 
     // for doctor details
     this.doctorService.getDoctorDetails(this.doctorId).subscribe((data: any) => {
@@ -106,22 +115,23 @@ export class ReferalnoteComponent implements OnInit {
 
   referalFormBuilder() {
     this.referalForm = this.fb.group({
-      patientId: [null, [Validators.required]],
+      patientId: "",
       referedBy: [null, [Validators.required]],
       age: [null, [Validators.required]],
       remarks: [null, [Validators.required]],
       date: [null, [Validators.required]],
-      appointmentId: "",
-      doctorId: ""
+      appointment: "",
+      doctorId: "",
+      referenceId: ""
     });
   }
 
 
   saveReferalFormSubmit() {
-    this.referalForm.patchValue({ patientId: this.patientDetails, doctorId: this.doctorDetails, appointmentId: this.appointmentDetails });
+    this.referalForm.patchValue({ patientId: this.patientDetails, referenceId: this.referenceId, doctorId: this.doctorDetails, appointment: this.appointmentDetails });
     if (this.referalForm.valid) {
       this.appComponent.startSpinner("Updating data..\xa0\xa0Please wait ...");
-      this.referalService.saveReferenceDetails(this.referalForm.value).subscribe((data: any) => {
+      this.referalService.updateReferenceDetails(this.referalForm.value).subscribe((data: any) => {
         if (data.success) {
           this.appComponent.stopSpinner();
           alert(data.message)
@@ -221,7 +231,6 @@ export class PrintReferal {
 
     document.body.innerHTML = originalContents;
   }
-
 
   close() {
     this.dialogRef.close();

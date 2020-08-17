@@ -29,7 +29,7 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Date Of Birth <sup class="text-danger">*</sup></mat-label>
                         <input matInput [matDatepicker]="picker" placeholder="Ex. 7/2/1995" value="" #dob
-                        (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" />
+                            (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" />
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -87,7 +87,7 @@
                         *ngIf="editPatientDetailsForm.get('address') && editPatientDetailsForm.get('address').touched && editPatientDetailsForm.get('address').invalid">
                         Please enter this field</p>
                 </div>
-                
+
             </div>
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
                 <div class="col-lg-6 col-md-12 col-sm-12 mt-3">
@@ -158,7 +158,7 @@
                     <button type="submit" mat-raised-button color="primary" [disabled]='editPatientDetailsForm.invalid'>
                         <mat-icon class="mr-2">save</mat-icon>Update
                     </button>
-                    <button mat-raised-button color="accent">
+                    <button type="button" mat-raised-button color="accent" (click)="gotoBack()">
                         <mat-icon class="mr-2">360</mat-icon>Back
                     </button>
                 </div>

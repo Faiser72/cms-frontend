@@ -7,6 +7,7 @@ import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservi
 import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
 import { Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-addappointment',
@@ -30,6 +31,7 @@ export class AddappointmentComponent implements OnInit {
     private appComponent: AppComponent) { }
 
   ngOnInit() {
+    
     this.addAppointmentFormBuilder();
 
     this.patientService.getPatientList().subscribe((data: any) => {
@@ -56,7 +58,6 @@ export class AddappointmentComponent implements OnInit {
 
   patientDetailsById(patient) {
     this.singlePatient = patient.value;
-    console.log("change", this.singlePatient);
     this.addAppointmentForm.patchValue({ patientName: this.singlePatient.patientName, phoneNumber: this.singlePatient.phoneNumber })
   }
 
@@ -73,9 +74,9 @@ export class AddappointmentComponent implements OnInit {
       ],
     });
   }
- 
+
   addAppointmentFormSubmit() {
-    if (this.addAppointmentForm.valid) {
+    if (this.addAppointmentForm.valid && this.appointmentmentTimeValidation) {
       this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
       this.appointmentService
         .saveAppointmentDetails(this.addAppointmentForm.value)
@@ -120,4 +121,27 @@ export class AddappointmentComponent implements OnInit {
     this.router.navigate(["/home/appointmenthome/listappointment"]);
   }
 
+  appointmentTimeValidMsg: string;
+  appointmentmentTimeValidation: boolean;
+  checkAppointmentTime() {
+    var morningVisitFrom
+    var morningVisitTo
+    var eveningVisitFrom
+    var eveningVisitFrom
+    var eveningVisitTo
+    var appointmentTime
+    if (!isNullOrUndefined(this.addAppointmentForm.value.doctorName)) {
+      morningVisitFrom = this.addAppointmentForm.value.doctorName.morningVisitFrom;
+      morningVisitTo = this.addAppointmentForm.value.doctorName.morningVisitTo;
+      eveningVisitFrom = this.addAppointmentForm.value.doctorName.eveningVisitFrom;
+      eveningVisitTo = this.addAppointmentForm.value.doctorName.eveningVisitTo;
+      appointmentTime = this.addAppointmentForm.value.appointmentTime;
+    }
+    if ((appointmentTime >= morningVisitFrom && appointmentTime <= morningVisitTo) || (appointmentTime >= eveningVisitFrom && appointmentTime <= eveningVisitTo)) {
+      return this.appointmentmentTimeValidation = true;
+    } else {
+      this.appointmentTimeValidMsg = "doctor is not available at this time"
+      return this.appointmentmentTimeValidation = false;
+    }
+  }
 }

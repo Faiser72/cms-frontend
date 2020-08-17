@@ -256,26 +256,27 @@
             </div> -->
 
 
-            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
-                <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 mb-5">
+                <div class="col-lg-2 col-md-6 col-sm-12">
 
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
-                    <button type="submit" mat-raised-button color="primary" [disabled]='(addPrescriptionForm.invalid) || (!prescriptionDetailsFlag)'>
+                <div class="col-lg-8 col-md-6 col-sm-12 d-flex justify-content-around">
+                    <button type="submit" mat-raised-button color="primary"
+                        [disabled]='(addPrescriptionForm.invalid) || (!prescriptionDetailsFlag)'>
                         <mat-icon class="mr-2">save</mat-icon>Save
                     </button>
-                    <button type="reset" mat-raised-button color="accent" (click)="reset()">
-                        <mat-icon class="mr-2">360</mat-icon>Reset
+                    <button type="button" mat-raised-button color="accent" (click)="gotoBack()">
+                        <mat-icon class="mr-2">360</mat-icon>Back
                     </button>
-                    <button mat-raised-button color="primary" (click)='routeToLabTest()'>
+                    <!-- <button mat-raised-button color="primary" (click)='routeToLabTest()'>
                         <mat-icon class="mr-2">save</mat-icon>Lab Test
-                    </button>
+                    </button> -->
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-2 col-md-6 col-sm-12">
 
                 </div>
             </div>
         </form>
     </div>
 </div>
-<router-outlet></router-outlet>
+<!-- <router-outlet></router-outlet> -->

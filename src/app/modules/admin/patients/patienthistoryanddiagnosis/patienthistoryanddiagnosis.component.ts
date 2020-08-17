@@ -110,16 +110,12 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
       this.patientId = params.patient;
       this.appointmentId = params.appointment;
       this.doctorId = params.doctor;
-      console.log(this.appointmentId);
-      console.log(this.patientId);
-      console.log(this.doctorId);
 
 
       this.patientDiagnosisService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
         if (data.success) {
           this.checkedDiagnosisDetails = data.object;
           this.diagnosisId = this.checkedDiagnosisDetails.diagnosisId;
-          console.log(this.checkedDiagnosisDetails);
           this.addDiagnosisForm.patchValue({
             height: this.checkedDiagnosisDetails.height, heightUnits: this.checkedDiagnosisDetails.heightUnits,
             weight: this.checkedDiagnosisDetails.weight, weightUnits: this.checkedDiagnosisDetails.weightUnits,
@@ -128,7 +124,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
             diagnosis: this.checkedDiagnosisDetails.diagnosis
           })
         } else {
-          console.log("Operation failed");
+          // console.log("Operation failed");
         }
       });
     });
@@ -160,14 +156,9 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     // for diagnosis
     this.patientDiagnosisService.getPatientDiagnosisListByPatientId(this.patientId).subscribe((data: any) => {
       if (data.success) {
-        console.log(data, 'diagnosis');
-
         this.patientHistoryDiagnosisDetailsList = data['listObject'];
         var x = this.patientHistoryDiagnosisDetailsList.slice(1, 3);
-        console.log(x);
         this.dataSource = new MatTableDataSource(x);
-        console.log(this.dataSource);
-
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         // this.customFilter();
@@ -241,8 +232,6 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
 
 
   saveThyroidFile() {
-    console.log('id', this.diagnosisId);
-
     this.appComponent.startSpinner("Uploading file..\xa0\xa0Please wait ...");
     const thyroidFormData = new FormData();
     thyroidFormData.append('thyroidFile', this.thyroidcvFile);
@@ -286,12 +275,11 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
         // console.log("Resume File Not Found");
       }
     }, (error: any) => {
-      console.log(error);
+      // console.log(error);
     });
   }
 
   routeTOViewPatientDiagnosisdetails(diagnosisDetails: any) {
-    console.log(diagnosisDetails.appointment.appointmentId, "diajkmk");
     let navigationExtras: NavigationExtras = {
       queryParams: { appointment: diagnosisDetails.appointment.appointmentId, },
     };
@@ -326,9 +314,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
     }
   }
 
-
   gotoBack() {
-    alert("Test")
     this.location.back();
   }
 }

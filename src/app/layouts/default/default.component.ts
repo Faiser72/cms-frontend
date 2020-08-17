@@ -19,21 +19,20 @@ export class DefaultComponent implements OnInit {
   isLoggedIn = false;
   loggedUser: string = '';
   showSpinner: boolean;
-  
+
   constructor(
     private router: Router,
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
-    private spinnerService:SpinnerService,
+    private spinnerService: SpinnerService,
     private authenticationService: AuthenticationService,
     private defaultService: DefaultService
   ) {
-    console.log('a',this.isSmallMobileDevice.matches);
     if (!this.isSmallMobileDevice.matches) {
       this.sideBarOpen = true;
 
     }
-    else{
+    else {
       this.sideBarOpen = false;
 
     }
@@ -45,11 +44,9 @@ export class DefaultComponent implements OnInit {
       this.router.navigateByUrl('/login');
     } else {
       this.loggedUser = this.authenticationService.getLoggedUser();
-      console.log("Hi, " + this.loggedUser + "! Welcome, to VHR Home.");
+      console.log("Hi, " + this.loggedUser + "! Welcome, to CMS Home.");
       this.defaultService.home().subscribe((data: any) => {
         if (data.success) {
-          console.log(data);
-          
           sessionStorage.setItem(this.authenticationService.SESSION_ROLE_KEY, data.object.userType.role);
           sessionStorage.setItem(this.authenticationService.SESSION_USER_ID_KEY, data.object.userId);
         } else {
@@ -65,8 +62,8 @@ export class DefaultComponent implements OnInit {
 
   switchMode(isDarkMode: boolean) {
     const hostClass = isDarkMode ? "theme-dark" : "theme-light";
-    localStorage.setItem('theme',hostClass);
-    let theme_local=localStorage.getItem('theme');
+    localStorage.setItem('theme', hostClass);
+    let theme_local = localStorage.getItem('theme');
     this.renderer.setAttribute(this.document.body, "class", theme_local);
     // this.isDark = isDarkMode;
   }

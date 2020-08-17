@@ -66,22 +66,16 @@ export class AddprescriptionComponent implements OnInit {
       this.patientId = params.patient;
       this.appointmentId = params.appointment;
       this.doctorId = params.doctor;
-      console.log(this.appointmentId);
-      console.log(this.patientId);
-      console.log(this.doctorId);
     });
 
     this.prescriptionService.checkSavedAndGetData(this.appointmentId).subscribe((data: any) => {
       if (data.success) {
-        console.log(data);
-
         this.checkedPrescriptionDetails = data.object;
         this.prescriptionId = this.checkedPrescriptionDetails.prescriptionId;
-        console.log(this.checkedPrescriptionDetails);
         this.getRowDetails(data);
         this.addPrescriptionForm.patchValue(data.object);
       } else {
-        console.log("Operation failed");
+        // console.log("Operation failed");
       }
     });
 
@@ -191,11 +185,11 @@ export class AddprescriptionComponent implements OnInit {
 
   drugNameRow(drugNameValue: string, i: number) {
     if (drugNameValue != "" && drugNameValue.replace(/\s+/g, '').length) {
-      if (drugNameValue.match(/^[a-zA-Z \s]+$/)) {
+      if (drugNameValue.match(/^[ A-Za-z0-9_/-]*$/)) {
         document.getElementById("drugNameMsg" + i).innerHTML = "";
         return true;
       } else {
-        document.getElementById("drugNameMsg" + i).innerHTML = "Please enter only alphabets.";
+        document.getElementById("drugNameMsg" + i).innerHTML = "Please enter only alphanumeric and -,_,/,.";
         return false;
       }
     } else {
@@ -260,11 +254,11 @@ export class AddprescriptionComponent implements OnInit {
 
   durationRow(durationValue: string, i: number) {
     if (durationValue != "" && durationValue.replace(/\s+/g, '').length) {
-      if (durationValue.match(/^[a-zA-Z \s]+$/)) {
+      if (durationValue.match(/^[ A-Za-z0-9_/-]*$/)) {
         document.getElementById("durationMsg" + i).innerHTML = "";
         return true;
       } else {
-        document.getElementById("durationMsg" + i).innerHTML = "Please enter only alphabets.";
+        document.getElementById("durationMsg" + i).innerHTML = "Please enter only alphanumeric and -,_,/.";
         return false;
       }
     } else {
@@ -278,11 +272,11 @@ export class AddprescriptionComponent implements OnInit {
 
   strengthRow(strengthValue: string, i: number) {
     if (strengthValue != "" && strengthValue.replace(/\s+/g, '').length) {
-      if (strengthValue.match(/^[a-zA-Z \s]+$/)) {
+      if (strengthValue.match(/^[ A-Za-z0-9_/-]*$/)) {
         document.getElementById("strengthMsg" + i).innerHTML = "";
         return true;
       } else {
-        document.getElementById("strengthMsg" + i).innerHTML = "Please enter only alphabets.";
+        document.getElementById("strengthMsg" + i).innerHTML = "Please enter only alphanumeric and -,_,/.";
         return false;
       }
     } else {
@@ -296,11 +290,11 @@ export class AddprescriptionComponent implements OnInit {
 
   remarksRow(remarksValue: string, i: number) {
     if (remarksValue != "" && remarksValue.replace(/\s+/g, '').length) {
-      if (remarksValue.match(/^[a-zA-Z \s]+$/)) {
+      if (remarksValue.match(/^[ A-Za-z0-9_/-]*$/)) {
         document.getElementById("remarksMsg" + i).innerHTML = "";
         return true;
       } else {
-        document.getElementById("remarksMsg" + i).innerHTML = "Please enter only alphabets.";
+        document.getElementById("remarksMsg" + i).innerHTML = "Please enter only alphanumeric and -,_,/,.";
         return false;
       }
     } else {
@@ -363,8 +357,6 @@ export class AddprescriptionComponent implements OnInit {
       nightDosage[i] = object.nightDosage;
       duration[i] = object.duration;
       remarks[i] = object.remarks;
-      console.log(object.afternoonDosage);
-
     });
 
     this.addPrescriptionForm.patchValue({
@@ -397,7 +389,6 @@ export class AddprescriptionComponent implements OnInit {
     if (this.prescriptionDetailsFlag && this.prescriptionDetails()) {
       this.addPrescriptionForm.patchValue({ prescriptionId: this.prescriptionId, doctorName: this.doctorDetails, appointment: this.appointmentDetails, patient: this.patientDetails, date: this.date })
       if (this.addPrescriptionForm.valid) {
-        console.log(this.addPrescriptionForm.value);
         this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
         this.prescriptionService.updatePrescriptionDetails(this.addPrescriptionForm.value).subscribe(
           (resp: any) => {

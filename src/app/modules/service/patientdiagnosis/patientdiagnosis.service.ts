@@ -55,4 +55,10 @@ export class PatientdiagnosisService {
   getThyroidFile(diagnosisId: any) {
     return this.http.get(`${this.baseUrl}/patientdiagnosis/getThyroidFile`, { params: { "diagnosisId": diagnosisId } });
   }
-}
+
+  // get patientDiagnosisDetails by AppointmentId
+  getPatientDiagnosisDetailsByAppointmentId(appointmentId: number) {
+    return this.http.get(`${this.baseUrl}/patientdiagnosis/getPatientDiagnosisDetailsByAppointmentId/${appointmentId}`)
+  }
+
+} 

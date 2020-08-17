@@ -1,11 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { DoctorrolemasterserviceService } from 'src/app/modules/service/doctorrolemaster/doctorrolemasterservice.service';
 import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 import { AppComponent } from 'src/app/app.component';
 import { isNullOrUndefined } from 'util';
 import { Router, NavigationExtras } from '@angular/router';
+import { UsersService } from 'src/app/modules/service/users/users.service';
 
 @Component({
   selector: "app-adddoctors",
@@ -16,7 +17,7 @@ import { Router, NavigationExtras } from '@angular/router';
 export class AdddoctorsComponent implements OnInit {
 
   addDoctorDetailsForm: FormGroup;
-  phonePattern = "^[0-9_-]{10,12}$";
+  phonePattern = "^[0-9_-]{10}$";
 
   age: number;
 
@@ -38,23 +39,21 @@ export class AdddoctorsComponent implements OnInit {
     { value: 'dutyDoctor-1', viewValue: 'Duty Doctor' },
     { value: 'surgen-2', viewValue: 'Surgen' }
   ];
+  userDetailsList: any;
 
   constructor(private fb: FormBuilder,
     private doctorRoleMasterService: DoctorrolemasterserviceService,
     private doctorService: DoctorserviceService,
     private appComponent: AppComponent,
-    private router: Router
+    private router: Router,
+    private userService: UsersService
   ) {
     this.placeholder_path = "../../../../assets/Placeholder.jpg";
 
     //DoctorRole - Master
     this.doctorRoleMasterService.getDoctorRoleMasterList().subscribe(
       (data: any) => {
-        console.log(data);
-        
         this.doctorRoleList = data.listObject;
-        console.log(data.listObject,"aaaa");
-
       },
       (error) => {
         console.log(error, "Error Caught");
@@ -65,7 +64,9 @@ export class AdddoctorsComponent implements OnInit {
 
   ngOnInit() {
     this.addDoctorDetailsFormBuilder();
-    console.log('roleList', this.doctorRoleList);
+    this.userService.getAllUsers().subscribe((data: any) => {
+      this.userDetailsList = data.listObject;
+    })
 
   }
 
@@ -100,6 +101,7 @@ export class AdddoctorsComponent implements OnInit {
       experience: [null, [Validators.required]],
       joiningDate: [null, [Validators.required]],
       leavingDate: "",
+      registerNo:[null, [Validators.required]],
       morningVisitFrom: [null, [Validators.required]],
       morningVisitTo: [null, [Validators.required]],
       eveningVisitFrom: [null, [Validators.required]],
@@ -125,6 +127,7 @@ export class AdddoctorsComponent implements OnInit {
         ]),
       ],
     });
+    this.addDoctorDetailsForm.setValidators(this.customValidation());
   }
 
 
@@ -153,8 +156,6 @@ export class AdddoctorsComponent implements OnInit {
   }
 
   ageFromDateOfBirth(dateOfBirth: any): number {
-    console.log(dateOfBirth.value);
-
     if (dateOfBirth != null) {
       const today = new Date();
       const birthDate = new Date(dateOfBirth.value);
@@ -186,15 +187,15 @@ export class AdddoctorsComponent implements OnInit {
                 this.placeholder_path = "../../../../assets/Placeholder.jpg";
                 this.doctorPhotoName = "No File Chosen";
                 alert("Data saved ! file uploaded.")
-                alert('please add the login credintials to this user')
+                //alert('please add the login credintials to this user')
                 // if (confirm("Do you want to add login details for this doctor.?")) {
                 this.addDoctorDetailsForm.reset();
-                let navigationExtras: NavigationExtras = {
-                  queryParams: {
-                    doctorId: data.object.doctorId,
-                  }
-                };
-                this.router.navigate(["/home/usershome/addUser"], navigationExtras);
+                // let navigationExtras: NavigationExtras = {
+                //   queryParams: {
+                //     doctorId: data.object.doctorId,
+                //   }
+                // };
+                // this.router.navigate(["/home/usershome/addUser"], navigationExtras);
                 // } else {
                 // setTimeout(() => {
                 //   this.gotoBack();
@@ -203,26 +204,28 @@ export class AdddoctorsComponent implements OnInit {
                 this.appComponent.stopSpinner();
               } else {
                 alert("Data saved ! But fails to upload file")
-                alert('please add the login credintials to this user')
-                this.addDoctorDetailsForm.reset();
-                let navigationExtras: NavigationExtras = {
-                  queryParams: {
-                    doctorId: data.object.doctorId,
-                  }
-                };
-                this.router.navigate(["/home/usershome/addUser"], navigationExtras);
+                this.appComponent.stopSpinner();
+                // alert('please add the login credintials to this user')
+                // this.addDoctorDetailsForm.reset();
+                // let navigationExtras: NavigationExtras = {
+                //   queryParams: {
+                //     doctorId: data.object.doctorId,
+                //   }
+                // };
+                // this.router.navigate(["/home/usershome/addUser"], navigationExtras);
               }
             });
           } else {
             alert("Data saved , when file is option");
-            alert('please add the login credintials to this user')
+            this.appComponent.stopSpinner();
+            // alert('please add the login credintials to this user')
             this.addDoctorDetailsForm.reset();
-            let navigationExtras: NavigationExtras = {
-              queryParams: {
-                doctorId: data.object.doctorId,
-              }
-            };
-            this.router.navigate(["/home/usershome/addUser"], navigationExtras);
+            // let navigationExtras: NavigationExtras = {
+            //   queryParams: {
+            //     doctorId: data.object.doctorId,
+            //   }
+            // };
+            // this.router.navigate(["/home/usershome/addUser"], navigationExtras);
           }
         } else {
           alert("Data unsaved");
@@ -235,6 +238,63 @@ export class AdddoctorsComponent implements OnInit {
   }
 
   gotoBack() {
+  }
+
+  emailIdInputMsg: string; emailId: string;
+
+  phoneNumberInputMsg: string; phoneNumber: string;
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      //Email-Id
+      const emailIdFormGroup = formGroup.controls["emailId"];
+      if (emailIdFormGroup.value !== "" && emailIdFormGroup.value !== null) {
+        if (emailIdFormGroup.valid) {
+          if (!isNullOrUndefined(this.userDetailsList)) {
+            this.userDetailsList.forEach((data: any) => {
+              if (data.emailId == emailIdFormGroup.value.toLowerCase()) {
+                this.emailId = data.emailId;
+                this.emailIdInputMsg = "This email id is registered already";
+                emailIdFormGroup.setErrors({});
+              }
+            });
+          }
+        } else {
+          if (this.emailId == emailIdFormGroup.value.toLowerCase()) {
+            this.emailIdInputMsg = "This email id is registered already";
+          } else {
+            this.emailIdInputMsg = 'Please enter valid emailId.';
+          }
+        }
+      } else {
+        this.emailIdInputMsg = "Please enter this field.";
+      }
+
+      // MobileNo
+      const phoneNumberFormGroup = formGroup.controls["phoneNumber"];
+      if (phoneNumberFormGroup.value !== "" && phoneNumberFormGroup.value !== null) {
+        if (phoneNumberFormGroup.valid) {
+          if (!isNullOrUndefined(this.userDetailsList)) {
+            this.userDetailsList.forEach((data: any) => {
+              if (data.mobileNo == phoneNumberFormGroup.value) {
+                this.phoneNumber = data.mobileNo;
+                this.phoneNumberInputMsg = "This mobile number is registered already";
+                phoneNumberFormGroup.setErrors({});
+              }
+            });
+          }
+        } else {
+          if (this.phoneNumber == phoneNumberFormGroup.value) {
+            this.phoneNumberInputMsg = "This mobile number is registered already";
+          } else {
+            this.phoneNumberInputMsg = 'Please enter 10 digit valid mobile no.';
+          }
+        }
+      } else {
+        this.phoneNumberInputMsg = "Please enter this field.";
+      }
+      return;
+    };
   }
 
 }

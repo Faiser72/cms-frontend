@@ -182,6 +182,10 @@
                         </button>
                         <span class="file-name">&nbsp;{{thyroidFileName}}&nbsp;</span>
                         <span style="color:red;" *ngIf="thyroidMessage">{{thyroidMessage}}</span>
+
+                        <p class="label-header">Thyroid</p>
+                        <button type="button" mat-stroked-button (click)="downloadThyroid()" class="download-btn"
+                            color='primary'>View Report</button>
                     </div>
                 </div>
             </div>
@@ -258,20 +262,18 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
 
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
+                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around mx-auto">
                     <button type="submit" mat-raised-button color="primary" [disabled]='addDiagnosisForm.invalid'>
                         <mat-icon class="mr-2">save</mat-icon>Submit
                     </button>
                     <button type="button" mat-raised-button color="accent" (click)="gotoBack()">
                         <mat-icon class="mr-2">360</mat-icon>Back
                     </button>
-                </div>d
+                </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
 
                 </div>
             </div>
-
-
         </form>
     </div>
 </div>

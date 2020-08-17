@@ -15,7 +15,9 @@ export class ListuserComponent implements OnInit {
 
   dataSource: any;
   userDetailsList: any;
-  displayedColumns: string[] = ["slNo", "username", "displayName", "emailId", "mobileNo", "action"];
+  displayedColumns: string[] = ["slNo", "username", "displayName", "emailId", "mobileNo", "userType",
+    //  "action"
+  ];
 
   constructor(
     public router: Router,

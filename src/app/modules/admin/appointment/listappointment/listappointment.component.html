@@ -1,7 +1,7 @@
 <br />
 <h4 class="title-header">- Appointment List -</h4>
 <div class="text-right">
-  <button   (click)="routeToAddAppointment()" class="addButton btn">New Appointment</button>
+  <button (click)="routeToAddAppointment()" class="addButton btn">New Appointment</button>
 </div>
 <div class="text-center">
   <mat-form-field>
@@ -15,7 +15,8 @@
     <!-- ID Column -->
     <ng-container matColumnDef="slNo">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">Sl.no</th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{dataSource.filteredData.indexOf(row) + 1}}.</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{dataSource.filteredData.indexOf(row) + 1}}.</td>
     </ng-container>
 
     <!-- patientNumber Column -->
@@ -23,7 +24,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">
         Patient Number
       </th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{ row.patientNumber.patientNumber }}</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{ row.patientNumber.patientNumber }}</td>
     </ng-container>
 
     <!-- patientName Column -->
@@ -31,7 +33,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">
         Patient Name
       </th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{ row.patientName }}</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{ row.patientName }}</td>
     </ng-container>
 
     <!-- contactNumber Column -->
@@ -39,7 +42,8 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">
         Phone Number
       </th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{ row.phoneNumber }}</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{ row.phoneNumber }}</td>
     </ng-container>
 
     <!-- doctorName Column -->
@@ -47,25 +51,28 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">
         Doctor Name
       </th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{ row.doctorName.doctorName }}</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{ row.doctorName.doctorName }}</td>
     </ng-container>
 
-     <!-- appointmentDate Column -->
-     <ng-container matColumnDef="appointmentDate">
+    <!-- appointmentDate Column -->
+    <ng-container matColumnDef="appointmentDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">
         Appointment Date
       </th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{ row.appointmentDate }}</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{ row.appointmentDate }}</td>
     </ng-container>
 
-     <!-- appointmentTime Column -->
-     <ng-container matColumnDef="appointmentTime">
+    <!-- appointmentTime Column -->
+    <ng-container matColumnDef="appointmentTime">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header">
-        Appointment Time 
+        Appointment Time
       </th>
-      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">{{ row.appointmentTime }}</td>
+      <td mat-cell *matCellDef="let row" (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)">
+        {{ row.appointmentTime }}</td>
     </ng-container>
-    
+
     <!-- Action Column -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef class="table_header">Action</th>
@@ -81,6 +88,12 @@
             <mat-icon class="delete-btn" title="Delete">delete_forever</mat-icon>
           </a>
         </div>
+        <span style="color: #3f51b5;">|</span>
+        <div class="action-btn">
+          <a (click)="routeToPreliminarycheck(this.row.patientNumber,this.row)" class="action-link">
+            <mat-icon class="delete-btn" title="Preliminary Check">description</mat-icon>
+          </a>
+        </div>
       </td>
     </ng-container>
 
@@ -92,6 +105,6 @@
 </div>
 <br />
 
-<div class="text-center">
+<!-- <div class="text-center">
   <button   (click)="routeToPreliminaryCheck()" class="preliminaryButton btn">Preliminary Check</button>
-</div>
+</div> -->

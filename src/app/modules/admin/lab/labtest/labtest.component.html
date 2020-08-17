@@ -60,12 +60,12 @@
         </div>
         <mat-divider class="mx-5"></mat-divider>
 
-        <form action="" class="form-group customhover">
+        <form action="" class="form-group customhover" [formGroup]="addLabTestForm" (ngSubmit)="addLabTestFormSubmit()">
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-50 mx-auto">
                 <div class="col-lg-12 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Problem Suspected</mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" />
+                        <input matInput placeholder="Ex. xyz" value="" formControlName="problemSuspected" />
                     </mat-form-field>
                 </div>
 
@@ -74,153 +74,148 @@
             <h4 class="text-center main-bg-2 mt-5">Test Suggested</h4>
             <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="completeheamogram"
-                        [ngModelOptions]="{standalone: true}">Complete Heamogram</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="completeheamogram">Complete
+                        Heamogram</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="bloodGrouprhtype"
-                        [ngModelOptions]="{standalone: true}">Blood group & RH Type</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="bloodGrouprhtype">Blood group
+                        & RH Type</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="postPrandialBloodSugar"
-                        [ngModelOptions]="{standalone: true}">Post Prandial Blood Sugar</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="postPrandialBloodSugar">Post
+                        Prandial Blood Sugar</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="bloodUrea"
-                        [ngModelOptions]="{standalone: true}">Blood Urea</mat-checkbox>
-                </div>
-            </div>
-
-            <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="bloodUreaNitrogen"
-                        [ngModelOptions]="{standalone: true}">Blood Urea Nitrogen</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="serumCreatinine"
-                        [ngModelOptions]="{standalone: true}">Serum Creatinine</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="uricAcid"
-                        [ngModelOptions]="{standalone: true}">Uric Acid</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="lipidProfile"
-                        [ngModelOptions]="{standalone: true}">Lipid Profile</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="bloodUrea">Blood Urea
+                    </mat-checkbox>
                 </div>
             </div>
 
             <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="liverFunctionTest"
-                        [ngModelOptions]="{standalone: true}">Liver Function Test</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="bloodUreaNitrogen">Blood Urea
+                        Nitrogen</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="tsh"
-                        [ngModelOptions]="{standalone: true}">TSH</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="serumCreatinine">Serum
+                        Creatinine</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="serumCalcium"
-                        [ngModelOptions]="{standalone: true}">Serum Calcium</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="uricAcid">Uric Acid
+                    </mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="hivElisa"
-                        [ngModelOptions]="{standalone: true}">Hiv Elisa</mat-checkbox>
-                </div>
-            </div>
-
-            <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="hbsagElisa"
-                        [ngModelOptions]="{standalone: true}">HBSAG Elisa</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="urineRoutine"
-                        [ngModelOptions]="{standalone: true}">Urine Routine</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="chestXRay"
-                        [ngModelOptions]="{standalone: true}">Chest X-Ray</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="Echocardiogram"
-                        [ngModelOptions]="{standalone: true}">2D Echocardiogram</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="lipidProfile">Lipid Profile
+                    </mat-checkbox>
                 </div>
             </div>
 
             <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="treadmillTest"
-                        [ngModelOptions]="{standalone: true}">Treadmill Test</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="liverFunctionTest">Liver
+                        Function Test</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="ultraSoundAbdomenAndPelvis"
-                        [ngModelOptions]="{standalone: true}">Ultra Sound Abdomen And Pelvis</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="tsh">TSH</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="urineCompleteAnalysis"
-                        [ngModelOptions]="{standalone: true}">Urine Complete Analysis</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="serumCalcium">Serum Calcium
+                    </mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="ecg"
-                        [ngModelOptions]="{standalone: true}">ECG</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="hivElisa">Hiv Elisa
+                    </mat-checkbox>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="hbsagElisa">HBSAG Elisa
+                    </mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="urineRoutine">Urine Routine
+                    </mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="chestXRay">Chest X-Ray
+                    </mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="Echocardiogram">2D
+                        Echocardiogram</mat-checkbox>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="treadmillTest">Treadmill Test
+                    </mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="ultraSoundAbdomenAndPelvis">
+                        Ultra Sound Abdomen And Pelvis</mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="urineCompleteAnalysis">Urine
+                        Complete Analysis</mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="ecg">ECG</mat-checkbox>
                 </div>
             </div>
 
             <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="glycatedHb"
-                        [ngModelOptions]="{standalone: true}">Glycated HB(HBA1C)</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="glycatedHb">Glycated HB(HBA1C)
+                    </mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="electrolytes"
-                        [ngModelOptions]="{standalone: true}">Electrolytes</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="electrolytes">Electrolytes
+                    </mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="urineCompleteAnalysis"
-                        [ngModelOptions]="{standalone: true}">Urine Microalbumin</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="urineCompleteAnalysis">Urine
+                        Microalbumin</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="ecg"
-                        [ngModelOptions]="{standalone: true}">ECG</mat-checkbox>
-                </div>
-            </div>
-
-            <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="esr"
-                        [ngModelOptions]="{standalone: true}">ESR</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="asloQuantitative"
-                        [ngModelOptions]="{standalone: true}">ASLO Quantitative</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="raQuantitative"
-                        [ngModelOptions]="{standalone: true}">RA Quantitative</mat-checkbox>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="crpQuantitative"
-                        [ngModelOptions]="{standalone: true}">CRP Quantitative</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="ecg">ECG</mat-checkbox>
                 </div>
             </div>
 
             <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="anaElisa"
-                        [ngModelOptions]="{standalone: true}">ANA Elisa</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="esr">ESR</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="lh"
-                        [ngModelOptions]="{standalone: true}">LH</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="asloQuantitative">ASLO
+                        Quantitative</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="prolactin"
-                        [ngModelOptions]="{standalone: true}">Prolactin</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="raQuantitative">RA
+                        Quantitative</mat-checkbox>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-12 ">
-                    <mat-checkbox class="example-margin" color="primary" [(ngModel)]="fshLHRatio"
-                        [ngModelOptions]="{standalone: true}">FSH LH Ratio</mat-checkbox>
+                    <mat-checkbox class="example-margin" color="primary" formControlName="crpQuantitative">CRP
+                        Quantitative</mat-checkbox>
+                </div>
+            </div>
+
+            <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="anaElisa">ANA Elisa
+                    </mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="lh">LH</mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="prolactin">Prolactin
+                    </mat-checkbox>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 ">
+                    <mat-checkbox class="example-margin" color="primary" formControlName="fshLHRatio">FSH LH Ratio
+                    </mat-checkbox>
                 </div>
             </div>
 
@@ -234,8 +229,8 @@
                     <button type="submit" mat-raised-button color="primary">
                         <mat-icon class="mr-2">save</mat-icon>Submit
                     </button>
-                    <button type="reset" mat-raised-button color="accent">
-                        <mat-icon class="mr-2">360</mat-icon>Reset
+                    <button type="button" mat-raised-button color="accent" (click)='gotoBack()'>
+                        <mat-icon class="mr-2">360</mat-icon>Back
                     </button>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">

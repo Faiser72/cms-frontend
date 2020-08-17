@@ -4,6 +4,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
 import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
 import { UsersService } from 'src/app/modules/service/users/users.service';
+import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 
 @Component({
   selector: 'app-my-patients',
@@ -12,7 +13,7 @@ import { UsersService } from 'src/app/modules/service/users/users.service';
 })
 export class MyPatientsComponent implements OnInit {
 
-  
+
   userDetails: any
   dataSource: any;
   displayedColumns: string[] = [
@@ -35,12 +36,14 @@ export class MyPatientsComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+  doctorDetails: any;
 
   constructor(
     private router: Router,
     private _snackBar: MatSnackBar, private authenticationService: AuthenticationService,
     private appointmentService: AppointmentService,
-    private userService: UsersService) {
+    private userService: UsersService,
+    private doctorService: DoctorserviceService) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -48,18 +51,18 @@ export class MyPatientsComponent implements OnInit {
 
     this.today = yyyy + '-' + mm + '-' + dd;
 
-    console.log(this.doctorId, "adv");
-
   }
 
   ngOnInit() {
     // this.appointmentService.getAppointmentList().subscribe((data: any) => {
     this.userId = sessionStorage.getItem(this.authenticationService.SESSION_USER_ID_KEY)
-    console.log(this.today);
-    this.userService.getUserDetails(this.userId).subscribe((data: any) => {
+    // this.userService.getUserDetails(this.userId).subscribe((data: any) => {
+    this.doctorService.getDoctorDetailsByUserId(this.userId).subscribe((data: any) => {
       if (data.success) {
-        this.userDetails = data.object;
-        this.doctorId = this.userDetails.doctor.doctorId;//doctorId from user
+        // this.userDetails = data.object;
+        // this.doctorId = this.userDetails.doctor.doctorId;//doctorId from user
+        this.doctorDetails = data.object;
+        this.doctorId = this.doctorDetails.doctorId;
       }
 
       // this.appointmentService.getAppointmentDetailsByDoctorIdAndDate(this.doctorId, this.today).subscribe((data: any) => {
@@ -140,8 +143,6 @@ export class MyPatientsComponent implements OnInit {
   }
 
   routeToAppointmentDashboard(patient: any, appointment: any) {
-    console.log(this.doctorId);
-
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: patient.patientId, appointment: appointment.appointmentId, doctor: this.doctorId },
     };
@@ -149,6 +150,13 @@ export class MyPatientsComponent implements OnInit {
       ["/home/appointmentDashboard"],
       navigationExtras
     );
+  }
+
+  isTested(testedFlag) {
+    if (testedFlag == 1) {
+      return true
+    }
+    return false
   }
 }
 

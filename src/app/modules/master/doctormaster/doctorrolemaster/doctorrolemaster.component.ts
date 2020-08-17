@@ -46,7 +46,6 @@ export class DoctorrolemasterComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       }
-      // console.log(this.departmentDetailsList);
     });
   }
   customFilter() {
@@ -72,7 +71,6 @@ export class DoctorrolemasterComponent implements OnInit {
         if (doctorRoleNameFormGroup.valid) {
           if (this.btnFlag) {
             if (!isNullOrUndefined(this.doctorRoleDetailsListExceptOne)) {
-              // console.log(this.departmentDetailsListExceptOne);
               this.doctorRoleDetailsListExceptOne.forEach((data: any) => {
                 if (data.doctorRoleName.toLowerCase() == doctorRoleNameFormGroup.value.trim().toLowerCase().replace(/\s+/g, ' ')) {
                   this.doctorRoleName = data.doctorRoleName.toLowerCase();
@@ -155,7 +153,6 @@ export class DoctorrolemasterComponent implements OnInit {
         doctorRoleName: doctorRoleDetails.doctorRoleName,
         doctorRoleId: doctorRoleDetails.doctorRoleId
       });
-      // console.log(this.doctorRoleDetailsListExceptOne);
     });
   }
 
@@ -163,7 +160,6 @@ export class DoctorrolemasterComponent implements OnInit {
     let doctorRoleName = this.addDoctorRoleMasterForm.get('doctorRoleName').value;
     this.addDoctorRoleMasterForm.patchValue({ doctorRoleName: doctorRoleName.trim().replace(/\s+/g, ' ') });
     if (this.addDoctorRoleMasterForm.valid) {
-      console.log(this.addDoctorRoleMasterForm.value);
       this.doctorRoleMasterService.updateDoctorRoleMasterDetails(this.addDoctorRoleMasterForm.value).subscribe((resp: any) => {
         if (resp.success) {
           alert(resp.message);

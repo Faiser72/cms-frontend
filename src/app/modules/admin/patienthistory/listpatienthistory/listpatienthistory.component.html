@@ -126,7 +126,8 @@
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header class="table_header"
                                     style="width: 10%">
                                     Sl.no</th>
-                                <td mat-cell *matCellDef="let row">{{dataSourceDiagnosis.filteredData.indexOf(row) + 1}}.</td>
+                                <td mat-cell *matCellDef="let row">
+                                    {{dataSourceDiagnosis.filteredData.indexOf(row) + 1}}.</td>
                             </ng-container>
 
                             <!-- drugName Column -->
@@ -234,10 +235,14 @@
                     <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-25">
                         <div class="col-2 text-center">1 . </div>
                         <div class="col-lg-6 col-sm-12 col-md-6">
-                            <button type="reset" mat-raised-button color="primary" class="float-left">
+                            <!-- <button type="reset" mat-raised-button color="primary" class="float-left">
                                 <mat-icon class="mr-2">cloud_download</mat-icon>Download
                             </button>
-                            <p>nofiles</p>
+                            <p>nofiles</p> -->
+
+                            <p class="label-header">Test Reports</p>
+                            <button type="button" mat-stroked-button (click)="downloadTestReport()"
+                                class="download-btn" color='primary'>Download</button>
                         </div>
                     </div>
 
@@ -250,9 +255,9 @@
                             <!-- <button type="submit" mat-raised-button color="primary">
                                 <mat-icon class="mr-2">save</mat-icon>Submit
                             </button> -->
-                            <!-- <button  mat-raised-button color="accent" (click)="back()">
+                            <button type="button" mat-raised-button color="accent" (click)="back()">
                                 <mat-icon class="mr-2">360</mat-icon>Back
-                            </button> -->
+                            </button>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12">
 
