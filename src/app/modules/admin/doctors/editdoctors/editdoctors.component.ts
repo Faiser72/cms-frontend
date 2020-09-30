@@ -16,7 +16,8 @@ import { Location } from '@angular/common';
 })
 export class EditdoctorsComponent implements OnInit {
   editDoctorDetailsForm: FormGroup;
-  phonePattern = "^[0-9_-]{10,12}$";
+  // phonePattern = "^[0-9_-]{10,12}$";
+  phonePattern = "^[1-9]{1}[0-9]{9}$";
   doctorId: any;
   doctorList;
   doctors;
@@ -37,6 +38,8 @@ export class EditdoctorsComponent implements OnInit {
   doctorRoleList: any;
   userId: any;
   userDetailsList: any;
+  minDate: any;
+  maxDate: any;
 
   constructor(private fb: FormBuilder,
     private doctorRoleMasterService: DoctorrolemasterserviceService,
@@ -59,6 +62,13 @@ export class EditdoctorsComponent implements OnInit {
         console.log(error, "Error Caught");
       }
     );
+
+    // for date validation starts
+    var minCurrentDate = new Date();
+    var maxNewDate = new Date();
+    this.minDate = minCurrentDate;
+    this.maxDate = maxNewDate.setMonth(maxNewDate.getMonth() + 1);
+    // for date validation ends
   }
 
 
@@ -130,7 +140,7 @@ export class EditdoctorsComponent implements OnInit {
       experience: [null, [Validators.required]],
       joiningDate: [null, [Validators.required]],
       leavingDate: "",
-      registerNo:[null, [Validators.required]],
+      registerNo: [null, [Validators.required]],
       morningVisitFrom: [null, [Validators.required]],
       morningVisitTo: [null, [Validators.required]],
       eveningVisitFrom: [null, [Validators.required]],
@@ -350,7 +360,7 @@ export class EditdoctorsComponent implements OnInit {
     };
   }
 
-  gotoBack(){
+  gotoBack() {
     this.location.back();
   }
 }

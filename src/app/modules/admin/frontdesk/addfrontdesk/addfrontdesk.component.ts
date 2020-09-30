@@ -22,6 +22,8 @@ export class AddfrontdeskComponent implements OnInit {
   userTypeList: any;
   age: number;
   frontDeskDetailsList: any;
+  minDate: any;
+  maxDate: any;
 
   constructor(private formBuilder: FormBuilder,
     private doctorService: DoctorserviceService,
@@ -32,6 +34,13 @@ export class AddfrontdeskComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.doctorId = params.doctorId;
     });
+
+    // for date validation starts
+    var minCurrentDate = new Date();
+    var maxNewDate = new Date();
+    this.minDate = minCurrentDate;
+    this.maxDate = maxNewDate.setMonth(maxNewDate.getMonth() + 1);
+    // for date validation ends
   }
 
   ngOnInit() {

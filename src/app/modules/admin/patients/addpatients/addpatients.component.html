@@ -29,7 +29,7 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Date Of Birth <sup class="text-danger">*</sup></mat-label>
                         <input matInput [matDatepicker]="picker" placeholder="Ex. 7/2/1995" value="" #dob
-                            (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" />
+                            (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" [max]="minDate" />
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
@@ -94,7 +94,7 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Registered Date <sup class="text-danger">*</sup></mat-label>
                         <input matInput [matDatepicker]="regdate" placeholder="Ex. 7/2/1995" value=""
-                            formControlName="registeredDate" />
+                            formControlName="registeredDate" [max]="minDate" />
                         <mat-datepicker-toggle matSuffix [for]="regdate"></mat-datepicker-toggle>
                         <mat-datepicker #regdate></mat-datepicker>
                     </mat-form-field>

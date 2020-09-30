@@ -21,6 +21,7 @@ export class EditappointmentComponent implements OnInit {
   singlePatient: any;// single patient by id
   appointmentDetailsList: any; //all appointment in db
   appointmentId: any;
+  today: any;
 
   constructor(private fb: FormBuilder,
     private patientService: PatientService,
@@ -29,7 +30,17 @@ export class EditappointmentComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private appComponent: AppComponent) { }
+    private appComponent: AppComponent) {
+
+    // for date validation starts
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.today = yyyy + '-' + mm + '-' + dd;
+    // for date validation ends
+  }
 
 
   ngOnInit() {

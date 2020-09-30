@@ -25,6 +25,8 @@ export class EditfrontdeskComponent implements OnInit {
   frontdeskId: any;
   frontdesk: any;
   userId: any;
+  minDate: any;
+  maxDate: any;
 
   constructor(private formBuilder: FormBuilder,
     private doctorService: DoctorserviceService,
@@ -35,6 +37,13 @@ export class EditfrontdeskComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.doctorId = params.doctorId;
     });
+
+    // for date validation starts
+    var minCurrentDate = new Date();
+    var maxNewDate = new Date();
+    this.minDate = minCurrentDate;
+    this.maxDate = maxNewDate.setMonth(maxNewDate.getMonth() + 1);
+    // for date validation ends
   }
 
   ngOnInit() {
@@ -73,7 +82,7 @@ export class EditfrontdeskComponent implements OnInit {
       ],
       age: "",
       mobileNo: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
-      frontdeskId:""
+      frontdeskId: ""
       // doctor:""
     });
     this.editFrontDeskForm.setValidators(this.customValidation());

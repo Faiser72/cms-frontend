@@ -106,7 +106,7 @@
           <mat-form-field class="field-full-width">
             <mat-label>Date Of Birth <sup class="text-danger">*</sup></mat-label>
             <input matInput [matDatepicker]="picker" placeholder="Ex. 7/2/1995" value="" #dob
-              (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" />
+              (dateChange)='ageFromDateOfBirth($event)' formControlName="dob" [max]="minDate" />
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -166,7 +166,7 @@
                 <mat-label>From</mat-label>
                 <input matInput type="time" placeholder="Ex. Dermatologists" value="" class="time"
                   formControlName="morningVisitFrom" />
-                <mat-icon matSuffix color="primary">access_time</mat-icon>
+                <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
               </mat-form-field>
               <p style="color: red;"
                 *ngIf="editDoctorDetailsForm.get('morningVisitFrom') && editDoctorDetailsForm.get('morningVisitFrom').touched && editDoctorDetailsForm.get('morningVisitFrom').invalid">
@@ -177,7 +177,7 @@
                 <mat-label>To</mat-label>
                 <input matInput type="time" placeholder="Ex. Dermatologists" value="" class="time"
                   formControlName="morningVisitTo" />
-                <mat-icon matSuffix color="primary">access_time</mat-icon>
+                <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
               </mat-form-field>
               <p style="color: red;"
                 *ngIf="editDoctorDetailsForm.get('morningVisitTo') && editDoctorDetailsForm.get('morningVisitTo').touched && editDoctorDetailsForm.get('morningVisitTo').invalid">
@@ -194,7 +194,7 @@
                 <mat-label>From</mat-label>
                 <input matInput type="time" placeholder="Ex. Dermatologists" value="" class="time"
                   formControlName="eveningVisitFrom" />
-                <mat-icon matSuffix color="primary">access_time</mat-icon>
+                <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
               </mat-form-field>
               <p style="color: red;"
                 *ngIf="editDoctorDetailsForm.get('eveningVisitFrom') && editDoctorDetailsForm.get('eveningVisitFrom').touched && editDoctorDetailsForm.get('eveningVisitFrom').invalid">
@@ -205,7 +205,7 @@
                 <mat-label>To</mat-label>
                 <input matInput type="time" placeholder="Ex. Dermatologists" value="" class="time"
                   formControlName="eveningVisitTo" />
-                <mat-icon matSuffix color="primary">access_time</mat-icon>
+                <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
               </mat-form-field>
               <p style="color: red;"
                 *ngIf="editDoctorDetailsForm.get('eveningVisitTo') && editDoctorDetailsForm.get('eveningVisitTo').touched && editDoctorDetailsForm.get('eveningVisitTo').invalid">

@@ -17,7 +17,10 @@ import { UsersService } from 'src/app/modules/service/users/users.service';
 export class AdddoctorsComponent implements OnInit {
 
   addDoctorDetailsForm: FormGroup;
-  phonePattern = "^[0-9_-]{10}$";
+  // phonePattern = "^[0-9_-]{10}$";
+  phonePattern = "^[1-9]{1}[0-9]{9}$";
+  minDate: any;
+  maxDate: any;
 
   age: number;
 
@@ -59,6 +62,14 @@ export class AdddoctorsComponent implements OnInit {
         console.log(error, "Error Caught");
       }
     );
+
+    // for date validation starts
+    var minCurrentDate = new Date();
+    var maxNewDate = new Date();
+    this.minDate = minCurrentDate;
+    this.maxDate = maxNewDate.setMonth(maxNewDate.getMonth() + 1);
+    // for date validation ends
+
   }
 
 
@@ -101,7 +112,7 @@ export class AdddoctorsComponent implements OnInit {
       experience: [null, [Validators.required]],
       joiningDate: [null, [Validators.required]],
       leavingDate: "",
-      registerNo:[null, [Validators.required]],
+      registerNo: [null, [Validators.required]],
       morningVisitFrom: [null, [Validators.required]],
       morningVisitTo: [null, [Validators.required]],
       eveningVisitFrom: [null, [Validators.required]],

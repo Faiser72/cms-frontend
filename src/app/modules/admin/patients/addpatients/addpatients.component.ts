@@ -15,14 +15,24 @@ export class AddpatientsComponent implements OnInit {
   patientDetailsList: any;
 
   addPatientDetailsForm: FormGroup;
-  phonePattern = "^[0-9_-]{10}$";
+  // phonePattern = "^[0-9_-]{10}$";
+  phonePattern = "^[1-9]{1}[0-9]{9}$";
   age: number;
+  minDate: any;
+  maxDate: any;
 
   constructor(private fb: FormBuilder,
     private patientService: PatientService,
     private router: Router,
     private appComponent: AppComponent
-  ) { }
+  ) {
+    // for date validation starts
+    var minCurrentDate = new Date();
+    var maxNewDate = new Date();
+    this.minDate = minCurrentDate;
+    this.maxDate = maxNewDate.setMonth(maxNewDate.getMonth() + 1);
+    // for date validation ends
+  }
 
   ngOnInit() {
     this.addPatientDetailsFormBuilder();

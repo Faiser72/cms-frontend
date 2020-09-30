@@ -22,16 +22,29 @@ export class AddappointmentComponent implements OnInit {
   doctorDetailsList: any; // all doctors in db
   singlePatient: any;// single patient by id
   appointmentDetailsList: any; //all appointment in db
+  minDate: any;
+  maxDate: any;
+  today: any;
 
   constructor(private fb: FormBuilder,
     private patientService: PatientService,
     private doctorService: DoctorserviceService,
     private appointmentService: AppointmentService,
     private router: Router,
-    private appComponent: AppComponent) { }
+    private appComponent: AppComponent) {
+    // for date validation starts
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    this.today = yyyy + '-' + mm + '-' + dd;
+    // for date validation ends
+
+  }
 
   ngOnInit() {
-    
+
     this.addAppointmentFormBuilder();
 
     this.patientService.getPatientList().subscribe((data: any) => {

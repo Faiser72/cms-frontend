@@ -81,7 +81,7 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Appointment Date</mat-label>
                         <input matInput type="date" placeholder="Ex. 7/2/1995" value="" color="primary"
-                            formControlName="appointmentDate" />
+                            formControlName="appointmentDate" min="{{today}}" />
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="editAppointmentForm.get('appointmentDate') && editAppointmentForm.get('appointmentDate').touched && editAppointmentForm.get('appointmentDate').invalid">

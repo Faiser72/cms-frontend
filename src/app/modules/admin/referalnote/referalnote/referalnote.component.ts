@@ -230,6 +230,7 @@ export class PrintReferal {
     window.print();
 
     document.body.innerHTML = originalContents;
+    location.reload();
   }
 
   close() {
