@@ -81,7 +81,8 @@ export class EditfrontdeskComponent implements OnInit {
         ]
       ],
       age: "",
-      mobileNo: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      // mobileNo: [null, [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      mobileNo: [null, [Validators.required, Validators.pattern("^[1-9]{1}[0-9]{9}$")]],
       frontdeskId: ""
       // doctor:""
     });

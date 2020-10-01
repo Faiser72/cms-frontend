@@ -227,7 +227,7 @@ export class AdddoctorsComponent implements OnInit {
               }
             });
           } else {
-            alert("Data saved , when file is option");
+            alert("Data saved. Profile pic pending to be uploaded");
             this.appComponent.stopSpinner();
             // alert('please add the login credintials to this user')
             this.addDoctorDetailsForm.reset();

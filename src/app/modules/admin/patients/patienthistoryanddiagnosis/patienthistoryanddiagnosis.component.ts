@@ -31,7 +31,7 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
   patientName;
   doctorName
   date;
-  thyroidValue: String = "yes";
+  thyroidValue: String = "no";
 
   addDiagnosisForm: FormGroup;
 

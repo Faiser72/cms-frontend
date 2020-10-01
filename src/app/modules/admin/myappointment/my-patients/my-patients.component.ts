@@ -142,12 +142,22 @@ export class MyPatientsComponent implements OnInit {
     this.router.navigate(['/home/appointmenthome/preliminarycheck'])
   }
 
+  // routeToAppointmentDashboard(patient: any, appointment: any) {
+  //   let navigationExtras: NavigationExtras = {
+  //     queryParams: { patient: patient.patientId, appointment: appointment.appointmentId, doctor: this.doctorId },
+  //   };
+  //   this.router.navigate(
+  //     ["/home/appointmentDashboard"],
+  //     navigationExtras
+  //   );
+  // }
+
   routeToAppointmentDashboard(patient: any, appointment: any) {
     let navigationExtras: NavigationExtras = {
       queryParams: { patient: patient.patientId, appointment: appointment.appointmentId, doctor: this.doctorId },
     };
     this.router.navigate(
-      ["/home/appointmentDashboard"],
+      ["/home/listpatienthistory"],
       navigationExtras
     );
   }

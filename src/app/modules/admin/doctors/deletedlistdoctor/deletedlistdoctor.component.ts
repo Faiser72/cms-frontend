@@ -66,7 +66,7 @@ export class DeletedlistdoctorComponent implements OnInit {
 
 
   undoDoctor(id_to_delete: any, doctor: any) {
-    if (confirm(`Undo ${doctor.doctorName} doctor`)) {
+    if (confirm(`Undo deletion of ${doctor.doctorName} `)) {
       let index = this.doctorList.findIndex((data: any) => data.doctorId === doctor.doctorId);
       this.doctorService.undoDoctor(id_to_delete).subscribe((response: any) => {
         if (response.success) {

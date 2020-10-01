@@ -125,6 +125,7 @@ export class AppointmentreportsComponent implements OnInit {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
+    location.reload();
   }
 
   printAppointmentDoctors(cmpName) {
@@ -133,6 +134,7 @@ export class AppointmentreportsComponent implements OnInit {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
+    location.reload();
   }
 
   backToReportsHome() {

@@ -66,7 +66,7 @@ export class DeletedfrontdesklistComponent implements OnInit {
 
 
   routeToUndoFrontDesk(id_to_undo: any, frontdesk: any) {
-    if (confirm(`Undo ${frontdesk.frontDeskName} frontdesk`)) {
+    if (confirm(`Undo deletion of ${frontdesk.frontDeskName} `)) {
       let index = this.frontdeskList.findIndex((data: any) => data.frontdeskId === frontdesk.frontdeskId);
       this.frontdeskService.undoFrontDeskDetails(id_to_undo).subscribe((response: any) => {
         if (response.success) {

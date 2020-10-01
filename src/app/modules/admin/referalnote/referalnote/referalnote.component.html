@@ -3,7 +3,7 @@
 <div class="container-fluid mt-3 p-0">
     <div class="card shadow">
         <div class="card-title">
-            <h4 class="text-center main-bg pt-3 mt-1">- Referals -</h4>
+            <h4 class="text-center main-bg pt-3 mt-1">- Referral -</h4>
         </div>
         <mat-divider class="mx-5"></mat-divider>
         <form action="" class="form-group customhover" [formGroup]="referalForm" (ngSubmit)="saveReferalFormSubmit()">
@@ -32,7 +32,7 @@
 
                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Refered By</mat-label>
+                        <mat-label>Referred By</mat-label>
                         <input matInput placeholder="Ex. Dr. Sudhakar" value="" formControlName="referedBy"
                             readonly="true" />
                     </mat-form-field>
@@ -68,18 +68,21 @@
             </div>
 
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
+                <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                </div> -->
+                <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-around">
                     <button type="submit" mat-raised-button color="primary" [disabled]='referalForm.invalid'>
                         <mat-icon class="mr-2">save</mat-icon>save
                     </button>
                     <button type="button" mat-raised-button color="accent" (click)="openDialog()">
                         <mat-icon class="mr-2">print</mat-icon>Print Preview
                     </button>
+                    <button type="button" mat-raised-button color="accent" (click)="gotoBack()">
+                        <mat-icon class="mr-2">360</mat-icon>Back
+                    </button>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                </div>
+                <!-- <div class="col-lg-4 col-md-6 col-sm-12">
+                </div> -->
             </div>
         </form>
     </div>

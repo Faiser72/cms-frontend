@@ -41,9 +41,7 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.userId = sessionStorage.getItem(this.authenticationService.SESSION_USER_ID_KEY)
-
     // this.userService.getUserDetails(this.userId).subscribe((data: any) => {
     if (!isNullOrUndefined(this.userId)) {
       this.doctorService.getDoctorDetailsByUserId(this.userId).subscribe((data: any) => {
@@ -52,7 +50,6 @@ export class DashboardComponent implements OnInit {
           this.doctorId = this.doctorDetails.doctorId;
         }
         else {
-
         }
 
         if (!isNullOrUndefined(this.doctorId)) {
@@ -64,6 +61,7 @@ export class DashboardComponent implements OnInit {
             }
           })
         }
+
 
         if (!isNullOrUndefined(this.doctorId)) {
           this.appointmentService.getAppointmentDetailsByDoctorId(this.doctorId).subscribe((data: any) => {
@@ -110,7 +108,15 @@ export class DashboardComponent implements OnInit {
       }
     })
 
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
   }
+
+
 
   isAdminRole() {
     if (this.authenticationService.getLoggedUserRole() === "ROLE_ADMIN")

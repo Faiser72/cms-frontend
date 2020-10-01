@@ -21,7 +21,6 @@ export class ReportsComponent implements OnInit {
     WindowPrt.focus();
     WindowPrt.print();
     WindowPrt.close();
-
   }
 
   routeToAppointmentReport() {

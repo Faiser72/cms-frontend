@@ -29,7 +29,7 @@ export class PreliminarycheckComponent implements OnInit {
   patientName: any;
   age: any;
   date: any;
-  thyroidValue: String = "yes";
+  thyroidValue: String = "no";
   diagnosisId: any;
 
   // fileUploads

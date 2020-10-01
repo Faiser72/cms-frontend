@@ -125,6 +125,7 @@ export class PrintreferalnoteComponent implements OnInit {
     window.print();
 
     document.body.innerHTML = originalContents;
+    location.reload();
   }
 
   backToPrintHome() {
