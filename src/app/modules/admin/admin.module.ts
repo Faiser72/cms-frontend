@@ -96,6 +96,7 @@ import { RevenuereportComponent } from './reports/revenuereport/revenuereport.co
     MatPaginatorModule,
     MatSnackBarModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
     FormsModule,
     MatSelectModule,
     MatCheckboxModule,

@@ -19,7 +19,7 @@ import {
   MatRadioModule,
   MatButtonModule,
   MatSelectModule,
-  MatSnackBarModule,
+  MatSnackBarModule, MatAutocompleteModule
 } from "@angular/material";
 import { SharedModule } from "src/app/shared/shared.module";
 import { RouterModule } from "@angular/router";
@@ -102,7 +102,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     Ng2OdometerModule,
     MatSnackBarModule,
     FormsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatAutocompleteModule
+
  
   ],
 })

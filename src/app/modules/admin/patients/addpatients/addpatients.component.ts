@@ -46,7 +46,7 @@ export class AddpatientsComponent implements OnInit {
   addPatientDetailsFormBuilder() {
     this.addPatientDetailsForm = this.fb.group({
       patientName: [null, [Validators.required, Validators.minLength(3)]],
-      patientNumber: [null, [Validators.required]],
+      patientNumber: [null, [Validators.required, Validators.pattern("^[1-9]+$")]],
       dob: [null, [Validators.required]],
       phoneNumber: [null, [Validators.required, Validators.pattern(this.phonePattern)]],
       emailId: [
@@ -160,7 +160,7 @@ export class AddpatientsComponent implements OnInit {
           }
         }
       } else {
-        this.patientNumberInputMsg = "Please enter this field.";
+        this.patientNumberInputMsg = "Please enter this field and it should not start with 0";
       }
 
       const phoneNumberFormGroup = formGroup.controls["phoneNumber"];
