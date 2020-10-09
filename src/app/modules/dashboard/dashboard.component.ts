@@ -108,12 +108,14 @@ export class DashboardComponent implements OnInit {
       }
     })
 
-    // if (!localStorage.getItem('foo')) { 
-    //   localStorage.setItem('foo', 'no reload') 
-    //   location.reload() 
-    // } else {
-    //   localStorage.removeItem('foo') 
-    // }
+    if (this.isUserRole()) {
+      if (!localStorage.getItem('foo')) {
+        localStorage.setItem('foo', 'no reload')
+        location.reload()
+      } else {
+        localStorage.removeItem('foo')
+      }
+    }
   }
 
 

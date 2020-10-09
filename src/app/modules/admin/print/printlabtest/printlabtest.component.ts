@@ -150,7 +150,10 @@ export class PrintlabtestComponent implements OnInit {
           (resp: any) => {
             if (resp.success) {
               this.LabTestDetailsList = resp.object;
-              this.addLabTestForm.patchValue(resp.object)
+              console.log(resp.object.problemSuspected);
+
+              this.addLabTestForm.patchValue(resp.object);
+              this.addLabTestForm.patchValue({ problemSuspected: resp.object.problemSuspected })
               alert(resp.message);
               this.appComponent.stopSpinner();
               setTimeout(() => {

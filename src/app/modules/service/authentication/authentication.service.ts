@@ -17,7 +17,7 @@ export class AuthenticationService {
   constructor(private httpClient: HttpClient) { }
 
   authenticate(username: string, password: string) {
-    return this.httpClient.post<any>('http://localhost:8080/authenticate', { username, password }).pipe(map((data) => {
+    return this.httpClient.post<any>('http://localhost:8086/authenticate', { username, password }).pipe(map((data) => {
       if (!isNull(data)) {
         let jwtToken = 'Bearer ' + data.jwtToken;
         // alert(jwtToken)

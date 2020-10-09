@@ -11,6 +11,7 @@ import { PrescriptionService } from 'src/app/modules/service/prescription/prescr
 import { LabtestService } from 'src/app/modules/service/labtest/labtest.service';
 import { TestreportService } from 'src/app/modules/service/testreport/testreport.service';
 import { Location } from '@angular/common';
+import { Api } from 'src/app/api.enum';
 
 @Component({
   selector: 'app-listpatienthistory',
@@ -19,6 +20,7 @@ import { Location } from '@angular/common';
 })
 export class ListpatienthistoryComponent implements OnInit {
 
+  private baseUrl = Api.baseUrl;
 
   // qp
   appointmentId: any; //from query params
@@ -62,6 +64,7 @@ export class ListpatienthistoryComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   patientHistoryDiagnosisDetailsList: any;
   diagnosisId: any;
+  testReportsList: any;
 
   constructor(
     private fb: FormBuilder,
@@ -84,6 +87,7 @@ export class ListpatienthistoryComponent implements OnInit {
 
       this.patientDiagnosisService.getPatientDiagnosisDetailsByAppointmentId(this.appointmentId).subscribe((data:any)=>{
         this.diagnosisId=data.object.diagnosisId;
+        this.getTestReportDetails(data.object.diagnosisId);
       })
 
       // for prescription
@@ -173,6 +177,15 @@ export class ListpatienthistoryComponent implements OnInit {
   back(){
     this.location.back();
   }
+
+getTestReportDetails(diagnosisId){
+  this.testreportService.getAllTestReportsDetails(diagnosisId).subscribe((data:any)=>{
+    if(data.success){
+      this.testReportsList=data['listObject'];
+      console.log(this.testReportsList);
+    }
+  })
+}
 
   downloadTestReport() {
     this.testreportService.getTestReportsFile(this.diagnosisId).subscribe((response: any) => {      

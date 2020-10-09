@@ -138,7 +138,7 @@ export class MyappointmentComponent implements OnInit {
     this.router.navigate(['/home/appointmenthome/addappointment'])
   }
 
-  routeToPreliminaryCheck() {
+  routeToPreliminarycheck(a,b) {
     this.router.navigate(['/home/appointmenthome/preliminarycheck'])
   }
 

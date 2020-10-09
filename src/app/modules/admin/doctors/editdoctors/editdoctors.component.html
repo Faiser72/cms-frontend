@@ -67,7 +67,7 @@
             <input type="file" name="photoUpload" accept="image/*" id="photoUpload" #photoUpload
               (change)="getPhotoFile(photoUpload, $event)" hidden formControlName="avatar" />
             <div>
-              <span class="candidate-photo-name">&nbsp;{{ candidatePhotoName }}&nbsp;</span>
+              <span class="candidate-photo-name">&nbsp;{{ doctorPhotoName }}&nbsp;</span>
               <span style="color: red;" *ngIf="photoMessage">{{
                   photoMessage
                 }}</span>

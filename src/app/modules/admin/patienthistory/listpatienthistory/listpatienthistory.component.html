@@ -232,19 +232,59 @@
                     <!-- table ends -->
 
                     <h5 class="text-center main-bg-2"> Test Reports</h5>
-                    <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-25">
+                    <!-- <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-25">
                         <div class="col-2 text-center">1 . </div>
-                        <div class="col-lg-6 col-sm-12 col-md-6">
+                        <div class="col-lg-6 col-sm-12 col-md-6"> -->
                             <!-- <button type="reset" mat-raised-button color="primary" class="float-left">
                                 <mat-icon class="mr-2">cloud_download</mat-icon>Download
                             </button>
                             <p>nofiles</p> -->
-
+<!-- 
                             <p class="label-header">Test Reports</p>
                             <button type="button" mat-stroked-button (click)="downloadTestReport()"
                                 class="download-btn" color='primary'>Download</button>
                         </div>
-                    </div>
+                    </div> -->
+
+                    <table id="paginationSimpleNumbers" class="display text-center" style="width:100%">
+                        <thead class="main-bg">
+                            <tr>
+                                <th class="th-sm">Sl No.
+                                </th>
+                                <th class="th-sm">Test Name
+                                </th>
+                                <th class="th-sm">File
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let testReports of testReportsList ; let i = index;">
+                                <td>{{i+1}}</td>
+                                <td>{{testReports.testName}}</td>
+                                <td>
+                                    <!-- <img src="{{baseUrl}}/{{verification.verificationFile}}" alt="" style="max-width: 5rem;"> -->
+                                    <button type="button" mat-stroked-button class="download-btn" color='primary'><a href="{{baseUrl}}/downloadreports/{{testReports.testReportFileName}}" class="" style="text-decoration: none;">Download</a></button>  
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot class="orange">
+                            <!-- <tr>
+                                <th class="th-sm">Sl No
+                                </th>
+                                <th class="th-sm">KnokTalk ID
+                                <th class="th-sm">First Name
+                                </th>
+                                <th class="th-sm">Last Name
+                                </th>
+                                <th class="th-sm">Attachment
+                                </th>
+                                <th class="th-sm">Created Date
+                                </th>
+                                <th class="th-sm">Action
+                                </th>
+                            </tr> -->
+                        </tfoot>
+                    </table>
 
 
                     <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">

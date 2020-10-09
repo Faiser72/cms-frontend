@@ -43,6 +43,10 @@ export class TestreportService {
     return this.http.get(`${this.baseUrl}/testreports/getTestReportsFile`, { params: { "diagnosisId": diagnosisId } });
   }
 
+  getAllTestReportsDetails(diagnosisId: any) {
+    return this.http.get(`${this.baseUrl}/testreports/getAllTestReportsDetails/${diagnosisId}`)
+  }
+
   // getTestReportsFile(diagnosisId: any) {
   //   return this.http.get(`${this.baseUrl}/labtest/getTestReportsFile`, { params: { "diagnosisId": diagnosisId } });
   // }
