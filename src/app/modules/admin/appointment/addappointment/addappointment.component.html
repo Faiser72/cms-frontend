@@ -91,14 +91,18 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Appointment Time <sup class="text-danger">*</sup></mat-label>
                         <input matInput type="time" placeholder="Ex. xyz" value="" class="time"
-                            formControlName="appointmentTime" (change)='checkAppointmentTime()' />
+                            formControlName="appointmentTime"
+                            (change)='checkAppointmentTime(); ' />
                         <mat-icon matSuffix color="primary">access_time</mat-icon>
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="addAppointmentForm.get('appointmentTime') && addAppointmentForm.get('appointmentTime').touched && addAppointmentForm.get('appointmentTime').invalid">
-                        Please enter this field</p>
+                        {{appointmentTimeInputMsg}}</p>
                     <p style="color: red;" *ngIf="!appointmentmentTimeValidation">
                         {{appointmentTimeValidMsg}}</p>
+
+                    <!-- <p style="color: red;" *ngIf="!appointmentmentTimeValidation1">
+                        {{appointmentTimeValidMsg1}}</p> -->
                 </div>
             </div>
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">

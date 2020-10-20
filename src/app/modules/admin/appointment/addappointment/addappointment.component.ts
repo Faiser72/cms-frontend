@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
 import { Observable } from 'rxjs';
 import { startWith, map } from 'rxjs/operators';
@@ -47,6 +47,13 @@ export class AddappointmentComponent implements OnInit {
 
     this.addAppointmentFormBuilder();
 
+    // this.appointmentService.getAppointmentList().subscribe((data: any) => {
+    //   if (data.success) {
+    //     this.appointmentDetailsList = data['listObject'];
+    //   } 
+    // });
+
+
     this.patientService.getPatientList().subscribe((data: any) => {
       if (data.success) {
         this.patientDetailsList = data['listObject'];
@@ -66,6 +73,8 @@ export class AddappointmentComponent implements OnInit {
     // all appointmnet list
     this.appointmentService.getAppointmentList().subscribe((data: any) => {
       this.appointmentDetailsList = data.listObject;
+      console.log(this.appointmentDetailsList);
+
     });
   }
 
@@ -86,10 +95,11 @@ export class AddappointmentComponent implements OnInit {
         [Validators.required, Validators.pattern(this.phonePattern)],
       ],
     });
+    // this.addAppointmentForm.setValidators(this.customValidation());
   }
 
   addAppointmentFormSubmit() {
-    if (this.addAppointmentForm.valid && this.appointmentmentTimeValidation) {
+    if (this.addAppointmentForm.valid && this.appointmentmentTimeValidation ) {
       this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
       this.appointmentService
         .saveAppointmentDetails(this.addAppointmentForm.value)
@@ -157,4 +167,78 @@ export class AddappointmentComponent implements OnInit {
       return this.appointmentmentTimeValidation = false;
     }
   }
+
+  // appointmentTimeValidMsg1: string;
+  // appointmentmentTimeValidation1: boolean;
+  // checkAppointmentTimeValidation() {
+  //   var appointmentTime;
+  //   var appointmentDate;
+  //   if (!isNullOrUndefined(this.addAppointmentForm.value.doctorName)) {
+  //     appointmentTime = this.addAppointmentForm.value.appointmentTime;
+  //     appointmentDate = this.addAppointmentForm.value.appointmentDate;
+  //   }
+
+  //     this.appointmentDetailsList.forEach(function (appointment) {
+  //       console.log(appointment.appointmentDate);
+        
+  //       if(appointmentDate==appointment.appointmentDate){
+  //         if (appointmentTime != appointment.appointmentTime) {
+  //           return this.appointmentmentTimeValidation1 = true;
+  //         } else {
+  //           this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
+  //           return this.appointmentmentTimeValidation1 = false;
+  //         }
+  //       }
+  //       console.log(appointment.appointmentTime);
+  //   });
+
+
+    // for (var i = 0; i <= this.appointmentDetailsList.length; i++) {      
+    //   if (this.appointmentDetailsList[i].appointmentDate == appointmentDate) { 
+    //     if ((appointmentTime != this.appointmentDetailsList[i].appointmentTime)) {
+    //       return this.appointmentmentTimeValidation1 = true;
+    //     } else {
+    //       this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
+    //       return this.appointmentmentTimeValidation1 = false;
+    //     }
+    //   }
+    // }
+  // }
+
+
+  // custom validation starts
+
+  // appointmentTimeInputMsg: string;
+  // appointmentTime: string;
+
+  // customValidation(): ValidatorFn {
+  //   return (formGroup: FormGroup): ValidationErrors => {
+  //     //patientNumber
+  //     const appointmentTimeFormGroup = formGroup.controls["appointmentTime"];
+  //     const appointmentDateFormGroup = formGroup.controls[""]
+  //     if (appointmentTimeFormGroup.value !== "" && appointmentTimeFormGroup.value !== null) {
+  //       if (appointmentTimeFormGroup.valid) {
+  //         if (!isNullOrUndefined(this.appointmentDetailsList)) {
+  //           this.appointmentDetailsList.forEach((data: any) => {
+  //             if (data.appointmentDate == appointmentDateFormGroup.value) {
+  //               if (data.appointmentTime == appointmentTimeFormGroup.value){
+  //               this.appointmentTime = data.appointmentTime;
+  //               this.appointmentTimeInputMsg = "Appointment already exist for this time, choose a differnet time";
+  //               appointmentTimeFormGroup.setErrors({});
+  //             }
+  //           }
+  //           });
+  //         }
+  //       } else {
+  //         if (this.appointmentTime == appointmentTimeFormGroup.value) {
+  //           this.appointmentTimeInputMsg = "Appointment already exist for this time, choose a differnet time";
+  //         }
+  //       }
+  //     } else {
+  //       this.appointmentTimeInputMsg = "Please enter this field and it should not start with 0";
+  //     }
+  //     return;
+  //   };
+  // }
+  // // custom validation ends
 }
