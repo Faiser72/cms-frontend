@@ -9,7 +9,7 @@
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
-                        <mat-select formControlName="patientNumber" (selectionChange)="patientDetailsById($event)">
+                        <mat-select formControlName="patientNumber" (selectionChange)="patientDetailsById($event)" >
                             <mat-option *ngFor="let patient of patientDetailsList" [value]="patient">
                                 {{patient.patientNumber}}
                             </mat-option>
@@ -72,42 +72,42 @@
                 <h4 class="text-center main-bg-2 mt-5">Test Suggested</h4>
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="completeheamogram" aria-readonly="True" >
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="completeheamogram"  >
                             Complete
                             Heamogram</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="bloodGrouprhtype">Blood
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="bloodGrouprhtype">Blood
                             group
                             & RH Type</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="postPrandialBloodSugar">
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="postPrandialBloodSugar">
                             Post
                             Prandial Blood Sugar</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="bloodUrea">Blood Urea
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="bloodUrea">Blood Urea
                         </mat-checkbox>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="bloodUreaNitrogen">Blood
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="bloodUreaNitrogen">Blood
                             Urea
                             Nitrogen</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="serumCreatinine">Serum
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="serumCreatinine">Serum
                             Creatinine</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="uricAcid">Uric Acid
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="uricAcid">Uric Acid
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="lipidProfile">Lipid
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="lipidProfile">Lipid
                             Profile
                         </mat-checkbox>
                     </div>
@@ -115,116 +115,116 @@
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="liverFunctionTest">Liver
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="liverFunctionTest">Liver
                             Function Test</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="tsh">TSH</mat-checkbox>
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="tsh">TSH</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="serumCalcium">Serum
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="serumCalcium">Serum
                             Calcium
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="hivElisa">Hiv Elisa
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="hivElisa">Hiv Elisa
                         </mat-checkbox>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="hbsagElisa">HBSAG Elisa
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="hbsagElisa">HBSAG Elisa
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="urineRoutine">Urine
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="urineRoutine">Urine
                             Routine
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="chestXRay">Chest X-Ray
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="chestXRay">Chest X-Ray
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="Echocardiogram">2D
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="Echocardiogram">2D
                             Echocardiogram</mat-checkbox>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="treadmillTest">Treadmill
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="treadmillTest">Treadmill
                             Test
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary"
+                        <mat-checkbox class="example-margin" disabled='true' color="primary"
                             formControlName="ultraSoundAbdomenAndPelvis">
                             Ultra Sound Abdomen And Pelvis</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="urineCompleteAnalysis">
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="urineCompleteAnalysis">
                             Urine
                             Complete Analysis</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="ecg">ECG</mat-checkbox>
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="ecg">ECG</mat-checkbox>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="glycatedHb">Glycated
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="glycatedHb">Glycated
                             HB(HBA1C)
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="electrolytes">Electrolytes
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="electrolytes">Electrolytes
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="urineCompleteAnalysis">
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="urineCompleteAnalysis">
                             Urine
                             Microalbumin</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="ecg">ECG</mat-checkbox>
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="ecg">ECG</mat-checkbox>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="esr">ESR</mat-checkbox>
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="esr">ESR</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="asloQuantitative">ASLO
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="asloQuantitative">ASLO
                             Quantitative</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="raQuantitative">RA
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="raQuantitative">RA
                             Quantitative</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="crpQuantitative">CRP
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="crpQuantitative">CRP
                             Quantitative</mat-checkbox>
                     </div>
                 </div>
 
                 <div class="row d-flex justify-content-around  ml-5 mr-5 w-100 mx-auto mt-3 ">
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="anaElisa">ANA Elisa
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="anaElisa">ANA Elisa
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="lh">LH</mat-checkbox>
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="lh">LH</mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="prolactin">Prolactin
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="prolactin">Prolactin
                         </mat-checkbox>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-12 ">
-                        <mat-checkbox class="example-margin" color="primary" formControlName="fshLHRatio">FSH LH Ratio
+                        <mat-checkbox class="example-margin" disabled='true' color="primary" formControlName="fshLHRatio">FSH LH Ratio
                         </mat-checkbox>
                     </div>
                 </div>
