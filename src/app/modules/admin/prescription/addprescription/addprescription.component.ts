@@ -40,7 +40,7 @@ export class AddprescriptionComponent implements OnInit {
   allPrescriptionDetailsList: any;
   prescriptionId: any;
   checkedPrescriptionDetails: any;
-  rowValidate:any;
+  rowValidate: any;
 
   constructor(private route: Router,
     private fb: FormBuilder,
@@ -73,13 +73,13 @@ export class AddprescriptionComponent implements OnInit {
       if (data.success) {
         this.checkedPrescriptionDetails = data.object;
         this.prescriptionId = this.checkedPrescriptionDetails.prescriptionId;
-        if(!isNullOrUndefined(this.checkedPrescriptionDetails.drugName)){
+        if (!isNullOrUndefined(this.checkedPrescriptionDetails.drugName)) {
           this.getRowDetails(data);
         }
         if (isNullOrUndefined(this.checkedPrescriptionDetails.drugName)) {
           this.addMoreRow(); //to display add row
         }
-        this.addPrescriptionForm.patchValue(data.object);        
+        this.addPrescriptionForm.patchValue(data.object);
       } else {
         // console.log("Operation failed");
       }
@@ -111,8 +111,8 @@ export class AddprescriptionComponent implements OnInit {
       this.doctorName = this.doctorDetails.doctorName;
     })
 
-    
-   
+
+
   }
 
   addMoreRow() {

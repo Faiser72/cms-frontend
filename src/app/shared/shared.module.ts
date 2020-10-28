@@ -34,4 +34,4 @@ import { FlexLayoutModule } from "@angular/flex-layout";
   exports: [HeaderComponent, FooterComponent, SidebarComponent],
   entryComponents: [AboutUser]
 })
-export class SharedModule {}
+export class SharedModule { }

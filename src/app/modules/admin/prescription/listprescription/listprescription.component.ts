@@ -50,5 +50,5 @@ export class ListprescriptionComponent implements OnInit {
   }
 
 
-  
+
 }

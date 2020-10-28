@@ -32,13 +32,13 @@ export class ListpatienthistoryComponent implements OnInit {
   age: any;
   doctorDetails: any;
   // qp
-  patientHistoryDetailsList:any;
+  patientHistoryDetailsList: any;
 
   patientNumber;
-  patientName; 
+  patientName;
   doctorName
   date;
-  
+
   isShown: boolean = false; // hidden by default
 
   dataSource: any;
@@ -76,7 +76,7 @@ export class ListpatienthistoryComponent implements OnInit {
     private patientDiagnosisService: PatientdiagnosisService,
     private doctorService: DoctorserviceService,
     private appointmentService: AppointmentService,
-    private prescriptionService:PrescriptionService,
+    private prescriptionService: PrescriptionService,
     private testreportService: TestreportService) { }
 
   ngOnInit() {
@@ -85,14 +85,14 @@ export class ListpatienthistoryComponent implements OnInit {
       this.appointmentId = params.appointment;
       this.doctorId = params.doctor;
 
-      this.patientDiagnosisService.getPatientDiagnosisDetailsByAppointmentId(this.appointmentId).subscribe((data:any)=>{
-        this.diagnosisId=data.object.diagnosisId;
+      this.patientDiagnosisService.getPatientDiagnosisDetailsByAppointmentId(this.appointmentId).subscribe((data: any) => {
+        this.diagnosisId = data.object.diagnosisId;
         this.getTestReportDetails(data.object.diagnosisId);
       })
 
       // for prescription
       this.prescriptionService.getPrescriptionListByPatientId(this.patientId).subscribe((data: any) => {
-        if (data.success) {          
+        if (data.success) {
           this.patientHistoryDetailsList = data['listObject'];
           this.dataSource = new MatTableDataSource(data['listObject']);
           this.dataSource.paginator = this.paginator;
@@ -107,11 +107,11 @@ export class ListpatienthistoryComponent implements OnInit {
 
       // for diagnosis
       this.patientDiagnosisService.getPatientDiagnosisListByPatientId(this.patientId).subscribe((data: any) => {
-        if (data.success) {          
+        if (data.success) {
           this.patientHistoryDiagnosisDetailsList = data['listObject'];
           // var x=this.patientHistoryDiagnosisDetailsList.slice(1,3);
           // console.log(x);
-          this.dataSourceDiagnosis = new MatTableDataSource(data['listObject']);          
+          this.dataSourceDiagnosis = new MatTableDataSource(data['listObject']);
           this.dataSourceDiagnosis.paginator = this.paginator;
           this.dataSourceDiagnosis.sort = this.sort;
           // this.customFilter();
@@ -136,7 +136,7 @@ export class ListpatienthistoryComponent implements OnInit {
     // for appointment details
     this.appointmentService.getAppointmentDetails(this.appointmentId).subscribe((data: any) => {
       this.appointmentDetails = data.object;
-      this.date=data.object.appointmentDate;
+      this.date = data.object.appointmentDate;
       // this.addDiagnosisForm.patchValue({ appointment: data.object })
     })
 
@@ -144,10 +144,10 @@ export class ListpatienthistoryComponent implements OnInit {
     this.doctorService.getDoctorDetails(this.doctorId).subscribe((data: any) => {
       this.doctorDetails = data.object;
       // this.addDiagnosisForm.patchValue({ doctorName: data.object })
-      this.doctorName=this.doctorDetails.doctorName;
+      this.doctorName = this.doctorDetails.doctorName;
     })
 
-    
+
 
 
   }
@@ -174,21 +174,21 @@ export class ListpatienthistoryComponent implements OnInit {
     this.isShown = !this.isShown;
   }
 
-  back(){
+  back() {
     this.location.back();
   }
 
-getTestReportDetails(diagnosisId){
-  this.testreportService.getAllTestReportsDetails(diagnosisId).subscribe((data:any)=>{
-    if(data.success){
-      this.testReportsList=data['listObject'];
-      console.log(this.testReportsList);
-    }
-  })
-}
+  getTestReportDetails(diagnosisId) {
+    this.testreportService.getAllTestReportsDetails(diagnosisId).subscribe((data: any) => {
+      if (data.success) {
+        this.testReportsList = data['listObject'];
+        console.log(this.testReportsList);
+      }
+    })
+  }
 
   downloadTestReport() {
-    this.testreportService.getTestReportsFile(this.diagnosisId).subscribe((response: any) => {      
+    this.testreportService.getTestReportsFile(this.diagnosisId).subscribe((response: any) => {
       if (response.success) {
         let base64Data = response.byteArray;
         fetch("data:application/pdf;base64," + base64Data)

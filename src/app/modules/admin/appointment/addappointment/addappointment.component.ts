@@ -99,7 +99,7 @@ export class AddappointmentComponent implements OnInit {
   }
 
   addAppointmentFormSubmit() {
-    if (this.addAppointmentForm.valid && this.appointmentmentTimeValidation ) {
+    if (this.addAppointmentForm.valid && this.appointmentmentTimeValidation) {
       this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
       this.appointmentService
         .saveAppointmentDetails(this.addAppointmentForm.value)
@@ -180,7 +180,7 @@ export class AddappointmentComponent implements OnInit {
 
   //     this.appointmentDetailsList.forEach(function (appointment) {
   //       console.log(appointment.appointmentDate);
-        
+
   //       if(appointmentDate==appointment.appointmentDate){
   //         if (appointmentTime != appointment.appointmentTime) {
   //           return this.appointmentmentTimeValidation1 = true;
@@ -193,16 +193,16 @@ export class AddappointmentComponent implements OnInit {
   //   });
 
 
-    // for (var i = 0; i <= this.appointmentDetailsList.length; i++) {      
-    //   if (this.appointmentDetailsList[i].appointmentDate == appointmentDate) { 
-    //     if ((appointmentTime != this.appointmentDetailsList[i].appointmentTime)) {
-    //       return this.appointmentmentTimeValidation1 = true;
-    //     } else {
-    //       this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
-    //       return this.appointmentmentTimeValidation1 = false;
-    //     }
-    //   }
-    // }
+  // for (var i = 0; i <= this.appointmentDetailsList.length; i++) {      
+  //   if (this.appointmentDetailsList[i].appointmentDate == appointmentDate) { 
+  //     if ((appointmentTime != this.appointmentDetailsList[i].appointmentTime)) {
+  //       return this.appointmentmentTimeValidation1 = true;
+  //     } else {
+  //       this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
+  //       return this.appointmentmentTimeValidation1 = false;
+  //     }
+  //   }
+  // }
   // }
 
 

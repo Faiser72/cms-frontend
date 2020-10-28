@@ -21,7 +21,7 @@ export class AdddoctorsComponent implements OnInit {
   phonePattern = "^[1-9]{1}[0-9]{9}$";
   minDate: any;
   maxDate: any;
- 
+
 
   age: number;
 

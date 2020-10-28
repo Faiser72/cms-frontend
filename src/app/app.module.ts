@@ -48,7 +48,7 @@ import { HttpInterceptorService } from './modules/service/authentication/http_In
     MatGridListModule,
     MatPaginatorModule,
     MatSortModule,
-    HttpClientModule 
+    HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -61,4 +61,4 @@ import { HttpInterceptorService } from './modules/service/authentication/http_In
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

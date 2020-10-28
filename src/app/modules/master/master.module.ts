@@ -12,10 +12,10 @@ import { DoctorrolemasterComponent } from './doctormaster/doctorrolemaster/docto
 
 @NgModule({
   declarations: [
-    ListbillconfigurationComponent, 
-    EditbillconfigurationComponent, 
+    ListbillconfigurationComponent,
+    EditbillconfigurationComponent,
     BillconfigurationhomeComponent,
-    
+
   ],
   imports: [
     CommonModule,

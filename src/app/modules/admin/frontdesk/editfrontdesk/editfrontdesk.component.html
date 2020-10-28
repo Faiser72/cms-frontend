@@ -4,7 +4,8 @@
             <h4 class="text-center main-bg pt-3 mt-1">- Edit Front Desk -</h4>
         </div>
         <mat-divider class="mx-5"></mat-divider>
-        <form action="" class="form-group customhover" [formGroup]="editFrontDeskForm" (ngSubmit)="updateFrontDeskDetails();">
+        <form action="" class="form-group customhover" [formGroup]="editFrontDeskForm"
+            (ngSubmit)="updateFrontDeskDetails();">
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
@@ -44,7 +45,7 @@
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Email Id&nbsp;<sup class="text-danger">*</sup></mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" formControlName="emailId" readonly='true'/>
+                        <input matInput placeholder="Ex. xyz" value="" formControlName="emailId" readonly='true' />
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="editFrontDeskForm.get('emailId')&& editFrontDeskForm.get('emailId').touched && editFrontDeskForm.get('emailId').invalid">

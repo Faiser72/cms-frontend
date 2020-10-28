@@ -11,7 +11,7 @@ export class LabreportsComponent implements OnInit {
   patientName;
   doctorName
   date;
-  
+
   constructor() { }
 
   ngOnInit() {

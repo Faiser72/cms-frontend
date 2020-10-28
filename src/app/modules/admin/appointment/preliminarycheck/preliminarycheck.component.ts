@@ -179,9 +179,6 @@ export class PreliminarycheckComponent implements OnInit {
     })
   }
 
-
-
-
   // getTestReportFile(testReportUpload: HTMLInputElement, event: any) {
   //   const testReportName = event.target.files[0].name;
   //   this.testReportFile = testReportUpload.files;

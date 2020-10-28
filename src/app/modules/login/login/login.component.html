@@ -23,7 +23,7 @@
               <mat-form-field class="login-full-width">
                 <mat-label>User Name</mat-label>
                 <input matInput placeholder="Enter Your Name " value="" name="username" id="username"
-                  [(ngModel)]="username" (input)="validateUsername();" color='primary' >
+                  [(ngModel)]="username" (input)="validateUsername();" color='primary'>
                 <mat-icon matSuffix>person</mat-icon>
               </mat-form-field>
               <p style="color : red" *ngIf='usernameError'>{{usernameError}}</p>
