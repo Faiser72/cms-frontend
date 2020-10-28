@@ -121,8 +121,9 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
             weight: this.checkedDiagnosisDetails.weight, weightUnits: this.checkedDiagnosisDetails.weightUnits,
             bloodPreasure: this.checkedDiagnosisDetails.bloodPreasure, temperature: this.checkedDiagnosisDetails.temperature,
             temperatureUnits: this.checkedDiagnosisDetails.temperatureUnits, thyroid: this.checkedDiagnosisDetails.thyroid,
-            diagnosis: this.checkedDiagnosisDetails.diagnosis
+            diagnosis: this.checkedDiagnosisDetails.diagnosis,
           })
+          this.thyroidValue = this.checkedDiagnosisDetails.thyroid;
         } else {
           // console.log("Operation failed");
         }

@@ -113,6 +113,7 @@ export class PreliminarycheckComponent implements OnInit {
             bloodPreasure: this.checkedDiagnosisDetails.bloodPreasure, temperature: this.checkedDiagnosisDetails.temperature,
             temperatureUnits: this.checkedDiagnosisDetails.temperatureUnits, thyroid: this.checkedDiagnosisDetails.thyroid
           })
+          this.thyroidValue = this.checkedDiagnosisDetails.thyroid;
         } else {
           console.log("Operation failed");
         }
