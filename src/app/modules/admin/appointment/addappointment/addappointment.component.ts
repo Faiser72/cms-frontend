@@ -168,42 +168,99 @@ export class AddappointmentComponent implements OnInit {
     }
   }
 
-  // appointmentTimeValidMsg1: string;
-  // appointmentmentTimeValidation1: boolean;
-  // checkAppointmentTimeValidation() {
-  //   var appointmentTime;
-  //   var appointmentDate;
-  //   if (!isNullOrUndefined(this.addAppointmentForm.value.doctorName)) {
-  //     appointmentTime = this.addAppointmentForm.value.appointmentTime;
-  //     appointmentDate = this.addAppointmentForm.value.appointmentDate;
-  //   }
 
-  //     this.appointmentDetailsList.forEach(function (appointment) {
-  //       console.log(appointment.appointmentDate);
+  // for appointment time validation
+  appointmentTimeValidMsg1: string;
+  appointmentmentTimeValidation1: boolean;
+  checkAppointmentTimeValidation() {
+    var appointmentTime; // time from form value
+    var appointmentDate; // date from form value
+    var doctorId; // doctorId from form value
+    var splitted;
+    var hh: number; //hour splited from appointmentTime of form value
+    var mm: number; //minute splited from appointmentTime of form value
 
-  //       if(appointmentDate==appointment.appointmentDate){
-  //         if (appointmentTime != appointment.appointmentTime) {
-  //           return this.appointmentmentTimeValidation1 = true;
-  //         } else {
-  //           this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
-  //           return this.appointmentmentTimeValidation1 = false;
-  //         }
-  //       }
-  //       console.log(appointment.appointmentTime);
-  //   });
+    //  from db list(appointmentDetailsList) starts here
+    var hhFromDb: number;
+    var mmFromDb: number;
+    var splittedFromDb;
+    //  from db list(appointmentDetailsList) ends here
+
+    if (!isNullOrUndefined(this.addAppointmentForm.value.doctorName)) {
+      appointmentTime = this.addAppointmentForm.value.appointmentTime;
+      appointmentDate = this.addAppointmentForm.value.appointmentDate;
+      doctorId = this.addAppointmentForm.value.doctorName.doctorId;
+      splitted = appointmentTime.split(":");
+      hh = +splitted[0];
+      mm = +splitted[1]
+
+      console.log(this.appointmentDetailsList);
+
+      for (var i = 0; i <= this.appointmentDetailsList.length; i++) {
+        console.log(this.appointmentDetailsList[i].appointmentDate);
+
+        //  from db list(appointmentDetailsList) starts here
+        var hhFromDb: number;
+        var mmFromDb: number;
+        var splittedFromDb;
+        //  from db list(appointmentDetailsList) ends here
+
+        if (this.appointmentDetailsList[i].doctorName.doctorId == doctorId && this.appointmentDetailsList[i].appointmentDate == appointmentDate) {
+          console.log("matching");
+          splittedFromDb = this.appointmentDetailsList[i].appointmentTime.split(":");
+          hhFromDb = +splittedFromDb[0];
+          mmFromDb = +splittedFromDb[1];
+
+          // if(mm+30>=60){
+          //   hh=hh+1;
+          //   var newMin=mm+30;
+          //   mm=newMin-30;
+          // }
+
+          if(hh==hhFromDb){
+            if(mm==mmFromDb){
+              alert('there is appointment at this time')
+            }
+            else if(mm+30==mmFromDb && mm-30==mmFromDb){
+              alert('there is appointment at this time')
+            }
+            console.log(hhFromDb);
+          }
+
+        }
+        // console.log(hhFromDb);
+
+      }
 
 
-  // for (var i = 0; i <= this.appointmentDetailsList.length; i++) {      
-  //   if (this.appointmentDetailsList[i].appointmentDate == appointmentDate) { 
-  //     if ((appointmentTime != this.appointmentDetailsList[i].appointmentTime)) {
-  //       return this.appointmentmentTimeValidation1 = true;
-  //     } else {
-  //       this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
-  //       return this.appointmentmentTimeValidation1 = false;
-  //     }
-  //   }
-  // }
-  // }
+    }
+
+    //   this.appointmentDetailsList.forEach(function (appointment) {
+    //     console.log(appointment.appointmentDate);
+
+    //     if(appointmentDate==appointment.appointmentDate){
+    //       if (appointmentTime != appointment.appointmentTime) {
+    //         return this.appointmentmentTimeValidation1 = true;
+    //       } else {
+    //         this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
+    //         return this.appointmentmentTimeValidation1 = false;
+    //       }
+    //     }
+    //     console.log(appointment.appointmentTime);
+    // });
+
+
+    // for (var i = 0; i <= this.appointmentDetailsList.length; i++) {      
+    //   if (this.appointmentDetailsList[i].appointmentDate == appointmentDate) { 
+    //     if ((appointmentTime != this.appointmentDetailsList[i].appointmentTime)) {
+    //       return this.appointmentmentTimeValidation1 = true;
+    //     } else {
+    //       this.appointmentTimeValidMsg1 = "Appointment already exist for this time, choose a differnet time"
+    //       return this.appointmentmentTimeValidation1 = false;
+    //     }
+    //   }
+    // }
+  }
 
 
   // custom validation starts
