@@ -181,9 +181,9 @@ export class AddappointmentComponent implements OnInit {
     var mm: number; //minute splited from appointmentTime of form value
 
     //  from db list(appointmentDetailsList) starts here
-    var hhFromDb: number;
-    var mmFromDb: number;
-    var splittedFromDb;
+    // var hhFromDb: number;
+    // var mmFromDb: number;
+    // var splittedFromDb;
     //  from db list(appointmentDetailsList) ends here
 
     if (!isNullOrUndefined(this.addAppointmentForm.value.doctorName)) {

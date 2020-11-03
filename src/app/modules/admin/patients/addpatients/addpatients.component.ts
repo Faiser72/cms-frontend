@@ -49,6 +49,7 @@ export class AddpatientsComponent implements OnInit {
       patientNumber: [null, [Validators.required, Validators.pattern("^[1-9]+$")]],
       dob: [null, [Validators.required]],
       phoneNumber: [null, [Validators.required, Validators.pattern(this.phonePattern)]],
+      whatsAppNumber: [null, [Validators.pattern(this.phonePattern)]],
       emailId: [
         null,
         Validators.compose([

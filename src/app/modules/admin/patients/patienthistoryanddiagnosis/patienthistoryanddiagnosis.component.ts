@@ -122,6 +122,8 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
             bloodPreasure: this.checkedDiagnosisDetails.bloodPreasure, temperature: this.checkedDiagnosisDetails.temperature,
             temperatureUnits: this.checkedDiagnosisDetails.temperatureUnits, thyroid: this.checkedDiagnosisDetails.thyroid,
             diagnosis: this.checkedDiagnosisDetails.diagnosis,
+            followUpdate: this.checkedDiagnosisDetails.followUpdate,
+            investigation: this.checkedDiagnosisDetails.investigation,
           })
           this.thyroidValue = this.checkedDiagnosisDetails.thyroid;
         } else {
@@ -200,7 +202,9 @@ export class PatienthistoryanddiagnosisComponent implements OnInit {
       appointment: "",
       doctorName: "",
       patient: "",
-      date: ""
+      date: "",
+      followUpdate: "",
+      investigation: [null, [Validators.required]],
     });
   }
 
