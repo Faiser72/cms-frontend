@@ -21,7 +21,7 @@ export class AdddoctorsComponent implements OnInit {
   phonePattern = "^[1-9]{1}[0-9]{9}$";
   minDate: any;
   maxDate: any;
-
+  flatOrSharingValue: string;
 
   age: number;
 
@@ -138,6 +138,27 @@ export class AdddoctorsComponent implements OnInit {
           Validators.pattern("^[0-9]{12}$"),
         ]),
       ],
+      initialRegCost: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      amtToClinic: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      clinicCost: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      doctorCost: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      flatOrShareLabel:'',
     });
     this.addDoctorDetailsForm.setValidators(this.customValidation());
   }
@@ -307,6 +328,16 @@ export class AdddoctorsComponent implements OnInit {
       }
       return;
     };
+  }
+
+  flatOrShare(value) {
+    console.log(value.value);
+    if (value.value == 'flat') {
+      this.flatOrSharingValue = 'flat';
+    }
+    else {
+      this.flatOrSharingValue = 'sharing';
+    }
   }
 
 }

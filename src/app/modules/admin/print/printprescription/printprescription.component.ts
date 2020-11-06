@@ -18,8 +18,9 @@ export class PrintprescriptionComponent implements OnInit {
 
   patientNumber;
   patientName;
-  doctorName
+  doctorName;
   date;
+  age;
 
   prescriptionForm: FormGroup;
 
@@ -54,7 +55,7 @@ export class PrintprescriptionComponent implements OnInit {
     });
   }
 
-  patientDetailsById(patient) {
+  patientDetailsById(patient) {    
     if (!isNullOrUndefined(patient)) {
       this.patientService.getPatientDetails(patient.value.patientId).subscribe((data: any) => {
         this.patientDetails = data.object;
@@ -73,6 +74,11 @@ export class PrintprescriptionComponent implements OnInit {
           (resp: any) => {
             if (resp.success) {
               this.prescriptionDetailsList = resp.object;
+              console.log(this.prescriptionDetailsList);
+              this.patientName=this.prescriptionDetailsList.patient.patientName;
+              this.doctorName=this.prescriptionDetailsList.doctorName.doctorName;
+              this.age=this.prescriptionDetailsList.patient.age;
+              this.date=this.prescriptionDetailsList.appointment.appointmentDate;
               this.getRowDetails(this.prescriptionDetailsList);
               alert(resp.message);
               this.appComponent.stopSpinner();

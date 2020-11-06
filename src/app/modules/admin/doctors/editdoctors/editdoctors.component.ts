@@ -21,6 +21,8 @@ export class EditdoctorsComponent implements OnInit {
   doctorId: any;
   doctorList;
   doctors;
+  flatOrSharingValue: string;
+
 
   age: number;
 
@@ -87,6 +89,7 @@ export class EditdoctorsComponent implements OnInit {
       this.editDoctorDetailsForm.patchValue({
         doctorRole: doctorRoleName,
       });
+      this.flatOrSharingValue = this.doctors.flatOrShareLabel;
 
       this.userService.getAllUsersExceptOneUser(this.userId).subscribe((data: any) => {
         this.userDetailsList = data.listObject;
@@ -166,6 +169,27 @@ export class EditdoctorsComponent implements OnInit {
           Validators.pattern("^[0-9]{12}$"),
         ]),
       ],
+      initialRegCost: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      amtToClinic: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      clinicCost: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      doctorCost: [
+        null,
+        Validators.compose([Validators.pattern("^[0-9.]+$"),
+        ]),
+      ],
+      flatOrShareLabel: ''
     });
     this.editDoctorDetailsForm.setValidators(this.customValidation());
   }
@@ -362,5 +386,14 @@ export class EditdoctorsComponent implements OnInit {
 
   gotoBack() {
     this.location.back();
+  }
+
+  flatOrShare(value) {
+    if (value.value == 'flat') {
+      this.flatOrSharingValue = 'flat';
+    }
+    else {
+      this.flatOrSharingValue = 'sharing';
+    }
   }
 }

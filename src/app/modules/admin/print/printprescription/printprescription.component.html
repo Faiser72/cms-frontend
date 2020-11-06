@@ -59,6 +59,45 @@
 
     <div *ngIf="isShown">
         <div class="container-fluid mt-3 p-0" id="componentID">
+
+            <div class="head">
+                <p class="text-center referal-text">Advice/ Instruction</p>
+
+                <div class="row d-flex justify-content mt-5 mr-5 w-100">
+                    <div class="col-lg-4 col-md-6 col-sm-12 ">
+                        <h1 class="float-left logo">CMS</h1>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <p class="address">Address And Phone Number Of Clinic</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                        <!-- <p class="float-right date">Date: {{today}}</p> -->
+                    </div>
+                </div>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="section mt-3 mb-5">
+                <div class="row d-flex float-left mt-3 mr-5 w-100">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <p class="float-right date">Date: {{date}}</p>
+                        <h5> <span class="names"> Patient Name :</span> {{patientName}}</h5>
+                    </div>
+
+                </div>
+                <div class="row d-flex float-left mt-3 mr-5 w-100">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <h5> <span class="names">Age/Sex :</span> {{age}}</h5>
+                    </div>
+                </div>
+                <div class="row d-flex float-left mt-3 mr-5 w-100">
+                    <div class="col-lg-12 col-sm-12 col-md-12">
+                        <h5> <span class="names">Referred By :</span> {{doctorName}}</h5>
+                    </div>
+                </div>
+            </div>
+
             <div class="card shadow">
                 <div class="card-title">
                     <h4 class="text-center main-bg pt-3 mt-1">- Prescription -</h4>
