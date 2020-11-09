@@ -8,6 +8,7 @@ import { ReferalService } from 'src/app/modules/service/referal/referal.service'
 import { PrescriptionService } from 'src/app/modules/service/prescription/prescription.service';
 import { isNullOrUndefined } from 'util';
 import { Prescription } from '../../prescription/prescriptionmodel';
+import { PatientdiagnosisService } from 'src/app/modules/service/patientdiagnosis/patientdiagnosis.service';
 
 @Component({
   selector: 'app-printprescription',
@@ -21,6 +22,9 @@ export class PrintprescriptionComponent implements OnInit {
   doctorName;
   date;
   age;
+  investigation;
+  diagnosis;
+  followUpDate;
 
   prescriptionForm: FormGroup;
 
@@ -35,7 +39,8 @@ export class PrintprescriptionComponent implements OnInit {
     private fb: FormBuilder,
     private appComponent: AppComponent,
     private referalService: ReferalService,
-    private prescriptionService: PrescriptionService) { }
+    private prescriptionService: PrescriptionService,
+    private patientDiagnosisService: PatientdiagnosisService) { }
 
   ngOnInit() {
 
@@ -55,7 +60,7 @@ export class PrintprescriptionComponent implements OnInit {
     });
   }
 
-  patientDetailsById(patient) {    
+  patientDetailsById(patient) {
     if (!isNullOrUndefined(patient)) {
       this.patientService.getPatientDetails(patient.value.patientId).subscribe((data: any) => {
         this.patientDetails = data.object;
@@ -74,11 +79,19 @@ export class PrintprescriptionComponent implements OnInit {
           (resp: any) => {
             if (resp.success) {
               this.prescriptionDetailsList = resp.object;
-              console.log(this.prescriptionDetailsList);
-              this.patientName=this.prescriptionDetailsList.patient.patientName;
-              this.doctorName=this.prescriptionDetailsList.doctorName.doctorName;
-              this.age=this.prescriptionDetailsList.patient.age;
-              this.date=this.prescriptionDetailsList.appointment.appointmentDate;
+              console.log(this.prescriptionDetailsList.appointment.appointmentId);
+              this.patientDiagnosisService.getPatientDiagnosisDetailsByAppointmentId(this.prescriptionDetailsList.appointment.appointmentId).subscribe((data: any) => {
+                console.log(data);
+                this.investigation = data.object.investigation;
+                this.diagnosis = data.object.diagnosis;
+                this.followUpDate = data.object.followUpdate
+console.log(data.object.investigation);
+
+              })
+              this.patientName = this.prescriptionDetailsList.patient.patientName;
+              this.doctorName = this.prescriptionDetailsList.doctorName.doctorName;
+              this.age = this.prescriptionDetailsList.patient.age;
+              this.date = this.prescriptionDetailsList.appointment.appointmentDate;
               this.getRowDetails(this.prescriptionDetailsList);
               alert(resp.message);
               this.appComponent.stopSpinner();

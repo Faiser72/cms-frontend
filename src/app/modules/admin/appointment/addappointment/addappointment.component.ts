@@ -217,12 +217,25 @@ export class AddappointmentComponent implements OnInit {
           //   mm=newMin-30;
           // }
 
-          if(hh==hhFromDb){
-            if(mm==mmFromDb){
+          if (hh == hhFromDb) {
+            if (mm == mmFromDb) {
               alert('there is appointment at this time')
             }
-            else if(mm+30==mmFromDb && mm-30==mmFromDb){
-              alert('there is appointment at this time')
+            else if (mm >= mmFromDb || mm <= mmFromDb) {
+              if (mm+30) {
+
+              } else if (mm + 30 >= 60) {
+                var hhh = hh + 1;
+                var newMin = mm + 30;
+                var mmm = newMin - 30;
+                if (hhh == hhFromDb) {
+                  if (mmm == mmFromDb) {
+                    alert('there is appointment at ' + hhFromDb + ':' + mmFromDb + "please select after 30 mins")
+                  }
+                }
+              }
+
+
             }
             console.log(hhFromDb);
           }

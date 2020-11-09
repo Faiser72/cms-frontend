@@ -61,7 +61,7 @@
         <div class="container-fluid mt-3 p-0" id="componentID">
 
             <div class="head">
-                <p class="text-center referal-text">Advice/ Instruction</p>
+                <p class="text-center referal-text"></p>
 
                 <div class="row d-flex justify-content mt-5 mr-5 w-100">
                     <div class="col-lg-4 col-md-6 col-sm-12 ">
@@ -98,11 +98,30 @@
                 </div>
             </div>
 
+            
+
             <div class="card shadow">
+                <div class="card-title">
+                    <h4 class="text-center main-bg pt-3 mt-1">- Advice/ Instruction -</h4>
+                </div>
+                <!-- <mat-divider class="mx-5"></mat-divider> -->
+
+                <div class="section mt-3 mb-5">
+                    <div class="row d-flex mt-3 w-100 ml-3">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <h5> <span class="names"> Investigation :</span> {{investigation}}</h5>
+                        </div>
+                    </div>
+                    <div class="row d-flex  mt-3 w-100 ml-3">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <h5> <span class="names">Diagnosis :</span> {{diagnosis}}</h5>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card-title">
                     <h4 class="text-center main-bg pt-3 mt-1">- Prescription -</h4>
                 </div>
-                <!-- <mat-divider class="mx-5"></mat-divider> -->
 
                 <div class="mt-3">
                     <div class="row d-flex justify-content-center mt-4 ml-5 mr-5 w-100 mx-auto">
@@ -131,6 +150,14 @@
                                     </tr>
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section mt-3 mb-5">
+                    <div class="row d-flex  mt-3 w-100 ml-3">
+                        <div class="col-lg-12 col-sm-12 col-md-12">
+                            <h5> <span class="names"> Follow Up Date :</span> <b>{{followUpDate}}</b></h5>
                         </div>
                     </div>
                 </div>
