@@ -355,6 +355,28 @@
         </div>
       </div>
 
+      <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+        <div class="col-lg-12 col-md-12 col-sm-12 mx-auto text-center">
+          <!-- <p>reports chose file name</p> -->
+
+          <!-- <label for="resumeFile">Resume/CV <sup class="text-danger">*</sup></label> -->
+          <input type="file" class="form-control fileUpload" accept="application/pdf" id="fileUpload" #uploadAgreement
+            hidden (change)="getAgreementFile(uploadAgreement,$event)" formControlName="agreement" />
+          <div>
+            <button type="button" class="upload-resume-btn" mat-raised-button color="primary"
+              (click)="uploadAgreement.click()">
+              Upload Agreement
+            </button>
+            <span class="file-name">&nbsp;{{agreementFileName}}&nbsp;</span>
+            <span style="color:red;" *ngIf="agreementMessage">{{agreementMessage}}</span>
+
+            <!-- <p class="label-header">Thyroid</p>
+            <button type="button" mat-stroked-button (click)="downloadThyroid()" class="download-btn"
+              color='primary'>View Report</button> -->
+          </div>
+        </div>
+      </div>
+
 
       <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
         <div class="col-lg-4 col-md-6 col-sm-12">
@@ -364,7 +386,7 @@
           <button type="submit" mat-raised-button color="primary" [disabled]='addDoctorDetailsForm.invalid'>
             <mat-icon class="mr-2">save</mat-icon>Submit
           </button>
-          <button type="reset" mat-raised-button color="accent">
+          <button type="reset" mat-raised-button color="accent" (click)='reset()'>
             <mat-icon class="mr-2">360</mat-icon>Reset
           </button>
         </div>

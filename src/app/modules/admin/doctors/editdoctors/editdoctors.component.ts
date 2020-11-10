@@ -43,6 +43,12 @@ export class EditdoctorsComponent implements OnInit {
   minDate: any;
   maxDate: any;
 
+  // agreement files
+  agreementFile: FileList;
+  agreementFileName: string;
+  agreementcvFile: string | Blob;
+  agreementMessage: string;
+
   constructor(private fb: FormBuilder,
     private doctorRoleMasterService: DoctorrolemasterserviceService,
     private doctorService: DoctorserviceService,
@@ -53,6 +59,7 @@ export class EditdoctorsComponent implements OnInit {
     private location: Location
   ) {
     this.placeholder_path = "../../../../assets/Placeholder.jpg";
+    this.agreementFileName = "No File Chosen";
     this.editDoctorDetailsFormBuilder();
 
     //DoctorRole - Master
@@ -102,7 +109,17 @@ export class EditdoctorsComponent implements OnInit {
         this.placeholder_path = 'data:image/jpeg;base64,' + base64Data;
         this.doctorPhotoName = response.object.profilePicture;
       } else {
-        console.log("There is no Profile Photo for this candidate.");
+        console.log("There is no Profile Photo for this Doctor.");
+      }
+    }, (error: any) => {
+      console.log(error);
+    });
+
+    this.doctorService.getAgreement(this.doctorId).subscribe((response: any) => {
+      if (response.success) {
+        this.agreementFileName = response.object.agreement;
+      } else {
+        console.log("There is no Agreement for this Doctor.");
       }
     }, (error: any) => {
       console.log(error);
@@ -189,7 +206,8 @@ export class EditdoctorsComponent implements OnInit {
         Validators.compose([Validators.pattern("^[0-9.]+$"),
         ]),
       ],
-      flatOrShareLabel: ''
+      flatOrShareLabel: '',
+      agreement: '',
     });
     this.editDoctorDetailsForm.setValidators(this.customValidation());
   }
@@ -395,5 +413,73 @@ export class EditdoctorsComponent implements OnInit {
     else {
       this.flatOrSharingValue = 'sharing';
     }
+  }
+
+  // for Agreement file starts
+  getAgreementFile(agreementUpload: HTMLInputElement, event: any) {
+    this.agreementFile = agreementUpload.files;
+    if (this.agreementFile.length === 0)
+      return;
+    const agreementName = event.target.files[0].name;
+    let mimeType = this.agreementFile[0].type;
+    if (mimeType.match(/application\/pdf/) == null) {
+      this.agreementMessage = "Only pdf files are supported.";
+      this.agreementFileName = "No File Chosen";
+      return;
+    } else {
+      this.agreementMessage = null;
+      this.agreementFileName = agreementName;
+      // var form_data = new FormData();
+      this.agreementcvFile = event.target.files[0];
+      this.saveAgreementFile();
+      // form_data.append("file", event.target.files[0]);
+      // this.thyroidcvFile = event.target.files[0];
+    }
+  }
+
+  saveAgreementFile() {
+    this.appComponent.startSpinner("Uploading file..\xa0\xa0Please wait ...");
+    const agreementFormData = new FormData();
+    agreementFormData.append('agreementFile', this.agreementcvFile);
+    agreementFormData.append('doctorId', this.doctorId);
+    this.doctorService.saveOrUpdateAgreement(agreementFormData).subscribe((resp: any) => {
+      if (resp.success) {
+        this.appComponent.stopSpinner();
+        if (resp.message == "Already Uploaded") {
+          this._snackBar.open("agreement File", "Already Uploaded", {
+            duration: 2500,
+          });
+        } else {
+          this.appComponent.stopSpinner();
+          this._snackBar.open("agreement File", "Uploaded Successfully", {
+            duration: 2500,
+          });
+        }
+      } else {
+        this.appComponent.stopSpinner();
+        this._snackBar.open("agreement File", "Fails to Upload", {
+          duration: 2500,
+        });
+      }
+    });
+  }
+
+  downloadAgreement() {
+    this.doctorService.getAgreement(this.doctorId).subscribe((response: any) => {
+      if (response.success) {
+        let base64Data = response.byteArray;
+        fetch("data:application/pdf;base64," + base64Data)
+          .then(function (resp) { return resp.blob() })
+          .then(function (blob) {
+            var blobURL = URL.createObjectURL(blob);
+            window.open(blobURL);
+          });
+      } else {
+        this._snackBar.open("Alert !", "Agreement File Not Found", { duration: 2500 });
+        // console.log("testReport File Not Found");
+      }
+    }, (error: any) => {
+      console.log(error);
+    });
   }
 }

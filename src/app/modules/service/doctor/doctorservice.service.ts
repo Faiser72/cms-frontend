@@ -58,4 +58,11 @@ export class DoctorserviceService {
     return this.http.put(`${this.baseUrl}/admin/doctor/undoDoctorDetails`, null, { params: { "doctorId": doctorId } });
   }
 
+  saveOrUpdateAgreement(formData: any) {
+    return this.http.post(`${this.baseUrl}/admin/doctor/saveOrUpdateAgreement`, formData);
+  }
+
+  getAgreement(doctorId: any) {
+    return this.http.get(`${this.baseUrl}/admin/doctor/getAgreement`, { params: { "doctorId": doctorId } });
+  }
 }

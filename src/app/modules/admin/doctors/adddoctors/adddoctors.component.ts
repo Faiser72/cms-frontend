@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material';
+import { MatSnackBar, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { DoctorrolemasterserviceService } from 'src/app/modules/service/doctorrolemaster/doctorrolemasterservice.service';
 import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
@@ -38,6 +38,13 @@ export class AdddoctorsComponent implements OnInit {
   resumeMessage: string;
   doctorRoleList: any;
 
+  doctorId: any;
+  // agreement files
+  agreementFile: FileList;
+  agreementFileName: string;
+  agreementcvFile: string | Blob;
+  agreementMessage: string;
+
   roles = [
     { value: 'consultant-0', viewValue: 'Consultant' },
     { value: 'dutyDoctor-1', viewValue: 'Duty Doctor' },
@@ -50,9 +57,11 @@ export class AdddoctorsComponent implements OnInit {
     private doctorService: DoctorserviceService,
     private appComponent: AppComponent,
     private router: Router,
+    private _snackBar: MatSnackBar,
     private userService: UsersService
   ) {
     this.placeholder_path = "../../../../assets/Placeholder.jpg";
+    this.agreementFileName = "No File Chosen";
 
     //DoctorRole - Master
     this.doctorRoleMasterService.getDoctorRoleMasterList().subscribe(
@@ -158,7 +167,8 @@ export class AdddoctorsComponent implements OnInit {
         Validators.compose([Validators.pattern("^[0-9.]+$"),
         ]),
       ],
-      flatOrShareLabel:'',
+      flatOrShareLabel: '',
+      agreement: '',
     });
     this.addDoctorDetailsForm.setValidators(this.customValidation());
   }
@@ -211,9 +221,13 @@ export class AdddoctorsComponent implements OnInit {
       this.appComponent.startSpinner("Saving data..\xa0\xa0Please wait ...");
       this.doctorService.saveDoctorDetails(this.addDoctorDetailsForm.value).subscribe((data: any) => {
         if (data.success) {
+          this.doctorId = data.object.doctorId;
+          this.saveAgreementFile();
           if (!isNullOrUndefined(this.ppFile)) {
             const profileFormData = new FormData();
             profileFormData.append('profilePicture', this.ppFile);
+            console.log(this.doctorId);
+
             profileFormData.append("doctorId", data.object.doctorId);
             this.doctorService.saveOrUpdateProfilePhoto(profileFormData).subscribe((resp: any) => {
               if (resp.success) {
@@ -331,13 +345,66 @@ export class AdddoctorsComponent implements OnInit {
   }
 
   flatOrShare(value) {
-    console.log(value.value);
     if (value.value == 'flat') {
       this.flatOrSharingValue = 'flat';
     }
     else {
       this.flatOrSharingValue = 'sharing';
     }
+  }
+
+  // for Agreement file starts
+  getAgreementFile(agreementUpload: HTMLInputElement, event: any) {
+    this.agreementFile = agreementUpload.files;
+    if (this.agreementFile.length === 0)
+      return;
+    const agreementName = event.target.files[0].name;
+    let mimeType = this.agreementFile[0].type;
+    if (mimeType.match(/application\/pdf/) == null) {
+      this.agreementMessage = "Only pdf files are supported.";
+      this.agreementFileName = "No File Chosen";
+      return;
+    } else {
+      this.agreementMessage = null;
+      this.agreementFileName = agreementName;
+      // var form_data = new FormData();
+      this.agreementcvFile = event.target.files[0];
+      // this.saveAgreementFile();
+      // form_data.append("file", event.target.files[0]);
+      // this.thyroidcvFile = event.target.files[0];
+    }
+  }
+
+  saveAgreementFile() {
+    this.appComponent.startSpinner("Uploading file..\xa0\xa0Please wait ...");
+    const agreementFormData = new FormData();
+    agreementFormData.append('agreementFile', this.agreementcvFile);
+    agreementFormData.append('doctorId', this.doctorId);
+
+    this.doctorService.saveOrUpdateAgreement(agreementFormData).subscribe((resp: any) => {
+      if (resp.success) {
+        this.appComponent.stopSpinner();
+        if (resp.message == "Already Uploaded") {
+          this._snackBar.open("agreement File", "Already Uploaded", {
+            duration: 2500,
+          });
+        } else {
+          this.appComponent.stopSpinner();
+          this._snackBar.open("agreement File", "Uploaded Successfully", {
+            duration: 2500,
+          });
+        }
+      } else {
+        this.appComponent.stopSpinner();
+        this._snackBar.open("agreement File", "Fails to Upload", {
+          duration: 2500,
+        });
+      }
+    });
+  }
+
+  reset() {
+    this.agreementFileName = "No File Chosen";
   }
 
 }
