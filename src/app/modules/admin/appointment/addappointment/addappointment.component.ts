@@ -222,9 +222,11 @@ export class AddappointmentComponent implements OnInit {
               alert('there is appointment at this time')
             }
             else if (mm >= mmFromDb || mm <= mmFromDb) {
-              if (mm+30) {
+              mm = mm + 30;
+              if (mm <= 60) {
 
-              } else if (mm + 30 >= 60) {
+
+              } else if (mm >= 60) {
                 var hhh = hh + 1;
                 var newMin = mm + 30;
                 var mmm = newMin - 30;
@@ -234,12 +236,9 @@ export class AddappointmentComponent implements OnInit {
                   }
                 }
               }
-
-
             }
             console.log(hhFromDb);
           }
-
         }
         // console.log(hhFromDb);
 

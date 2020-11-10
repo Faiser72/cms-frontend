@@ -91,7 +91,8 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Appointment Time <sup class="text-danger">*</sup></mat-label>
                         <input matInput type="time" placeholder="Ex. xyz" value="" class="time"
-                            formControlName="appointmentTime" (change)='checkAppointmentTime(); checkAppointmentTimeValidation()' />
+                            formControlName="appointmentTime"
+                            (change)='checkAppointmentTime(); checkAppointmentTimeValidation()' />
                         <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
                     </mat-form-field>
                     <p style="color: red;"
