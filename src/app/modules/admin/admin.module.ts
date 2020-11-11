@@ -45,6 +45,7 @@ import { PrintlabtestComponent } from './print/printlabtest/printlabtest.compone
 import { PrintreceiptComponent, PrintReceipt } from './print/printreceipt/printreceipt.component';
 import { DoctorsreportComponent } from './reports/doctorsreport/doctorsreport.component';
 import { RevenuereportComponent } from './reports/revenuereport/revenuereport.component';
+import { AppointmentconformationComponent } from './appointment/appointmentconformation/appointmentconformation.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { RevenuereportComponent } from './reports/revenuereport/revenuereport.co
     PrintreceiptComponent,
     PrintReceipt,
     DoctorsreportComponent,
-    RevenuereportComponent
+    RevenuereportComponent,
+    AppointmentconformationComponent
   ],
   imports: [
     CommonModule,

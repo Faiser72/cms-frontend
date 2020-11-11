@@ -87,9 +87,22 @@
       <mat-icon> local_hotel</mat-icon>Patients
     </a>
 
-    <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/appointmenthome/listappointment">
-      <mat-icon>meeting_room</mat-icon>Appointment
-    </a>
+    <mat-list-item (click)="showappointmentSubmenu = !showappointmentSubmenu" class="parent mb-1" (click)="toggleappointmentSubmenu('appointment_submenu')">
+      <mat-icon>meeting_room</mat-icon>
+      <span class="full-width">Appointment</span>
+      <mat-icon class="menu-button" [ngClass]="{'rotated' : showappointmentSubmenu}">expand_more</mat-icon>
+    </mat-list-item>
+
+    <div class="submenu" [ngClass]="{'expanded' : showappointmentSubmenu}" id="appointment_submenu">
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/appointmenthome/listappointment">
+        <mat-icon>meeting_room</mat-icon>Appointment
+      </a>
+      <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/appointmenthome/appointmentconformation">
+        <mat-icon>meeting_room</mat-icon>Appointment Conformation
+      </a>
+    </div>
+
+
 
     <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/printhome">
       <mat-icon>print</mat-icon>Print

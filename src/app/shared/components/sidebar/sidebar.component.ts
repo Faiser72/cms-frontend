@@ -69,6 +69,8 @@ export class SidebarComponent implements OnInit {
   showCandidatesSubmenu: boolean = false;
   showFrontDeskSubmenu: boolean = false;
   showDoctorSubmenu: boolean = false;
+  showappointmentSubmenu: boolean = false;
+  
 
 
   toggleSubmenu(submenu: string) {
@@ -92,6 +94,16 @@ export class SidebarComponent implements OnInit {
   }
 
   toggleDoctorSubmenu(submenu: string) {
+    let element = document.getElementById(submenu);
+    if (element.style.display == '' || element.style.display == 'none') {
+      element.style.display = 'block';
+    }
+    else {
+      element.style.display = 'none';
+    }
+  }
+
+  toggleappointmentSubmenu(submenu: string) {
     let element = document.getElementById(submenu);
     if (element.style.display == '' || element.style.display == 'none') {
       element.style.display = 'block';

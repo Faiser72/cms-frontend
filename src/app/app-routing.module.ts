@@ -51,6 +51,7 @@ import { PrintlabtestComponent } from './modules/admin/print/printlabtest/printl
 import { PrintreceiptComponent } from './modules/admin/print/printreceipt/printreceipt.component';
 import { DoctorsreportComponent } from './modules/admin/reports/doctorsreport/doctorsreport.component';
 import { RevenuereportComponent } from './modules/admin/reports/revenuereport/revenuereport.component';
+import { AppointmentconformationComponent } from './modules/admin/appointment/appointmentconformation/appointmentconformation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -174,6 +175,7 @@ const routes: Routes = [
           { path: "listappointment", component: ListappointmentComponent },
           { path: "editappointment", component: EditappointmentComponent },
           { path: "preliminarycheck", component: PreliminarycheckComponent },
+          { path: "appointmentconformation", component: AppointmentconformationComponent },
 
         ],
       },

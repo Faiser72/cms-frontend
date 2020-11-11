@@ -74,4 +74,29 @@ export class AppointmentService {
     return this.http.get(`${this.baseUrl}/admin/appointment/getAppointmentDetailsByDate/${date}`)
   }
 
+  // get all appointment details by current date
+  getAllAppointmentDetailsByCurrentDate(date: string) {
+    return this.http.get(`${this.baseUrl}/admin/appointment/getAllAppointmentDetailsByCurrentDate/${date}`)
+  }
+
+  // conformationStatus 
+  conformation(appointmentId: any) {
+    return this.http.put(`${this.baseUrl}/admin/appointment/conformation`, null, { params: { "appointmentId": appointmentId } });
+  }
+
+  // completedStatus 
+  completed(appointmentId: any) {
+    return this.http.put(`${this.baseUrl}/admin/appointment/completed`, null, { params: { "appointmentId": appointmentId } });
+  }
+
+    // cancelconformationStatus 
+    cancelconformation(appointmentId: any) {
+      return this.http.put(`${this.baseUrl}/admin/appointment/cancelconformation`, null, { params: { "appointmentId": appointmentId } });
+    }
+  
+    // unfinishedStatus 
+    unfinished(appointmentId: any) {
+      return this.http.put(`${this.baseUrl}/admin/appointment/unfinished`, null, { params: { "appointmentId": appointmentId } });
+    }
+
 }

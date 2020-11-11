@@ -207,5 +207,15 @@
     font-size: 13px;
   }
 
-  .mat-focused .mat-form-field-label{ color: #ee6e73; } .mat-focused .mat-form-field-underline .mat-form-field-ripple{ background: #ee6e73; }
-  
+  :host ::ng-deep .mat-form-field-underline {
+    background-color: var(--main-font-3-color) !important; 
+ }
+ :host ::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+ background-color: var(--main-font-3-color) !important;
+}
+:host ::ng-deep input {
+color: var(--main-font-3-color) !important;
+}
+:host ::ng-deep input {
+color: var(--main-font-3-color) !important;
+}
