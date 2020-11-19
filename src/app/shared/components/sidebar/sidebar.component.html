@@ -59,7 +59,7 @@
   <span *ngIf="isAdminRole()">
     <mat-list-item (click)="showDoctorSubmenu = !showDoctorSubmenu" class="parent mb-1"
       (click)="toggleDoctorSubmenu('doctor_submenu')">
-      <mat-icon>local_hospital</mat-icon>
+      <mat-icon><i class="fa fa-user-md" aria-hidden="true"></i></mat-icon>
       <span class="full-width">Doctors</span>
       <mat-icon class="menu-button" [ngClass]="{'rotated' : showDoctorSubmenu}">expand_more</mat-icon>
     </mat-list-item>
@@ -70,7 +70,7 @@
     </div> -->
     <div class="submenu" [ngClass]="{'expanded' : showDoctorSubmenu}" id="doctor_submenu">
       <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/doctorshome/listdoctor">
-        <mat-icon> local_hospital</mat-icon>Doctors
+        <mat-icon><i class="fa fa-user-md" aria-hidden="true"></i></mat-icon>Doctors
       </a>
       <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/doctorshome/deletedlistdoctor">
         <mat-icon> delete_sweep</mat-icon>Deleted Doctors List
@@ -98,7 +98,7 @@
         <mat-icon>meeting_room</mat-icon>Appointment
       </a>
       <a mat-list-item routerLinkActive="list-item-active" routerLink="/home/appointmenthome/appointmentconformation">
-        <mat-icon>meeting_room</mat-icon>Appointment Conformation
+        <mat-icon><i class="fa fa-check-circle" aria-hidden="true"></i></mat-icon>Conformation
       </a>
     </div>
 

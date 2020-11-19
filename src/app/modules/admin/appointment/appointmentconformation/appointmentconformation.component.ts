@@ -42,6 +42,10 @@ export class AppointmentconformationComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getAppointments();
+  }
+
+  getAppointments() {
     this.appointmentService.getAllAppointmentDetailsByCurrentDate(this.today).subscribe((data: any) => {
       if (data.success) {
         this.appointmentDetailsList = data['listObject'];
@@ -91,7 +95,6 @@ export class AppointmentconformationComponent implements OnInit {
     }
   }
 
-
   routeToEditDoctor(appointmentDetails: any) {
     let navigationExtras: NavigationExtras = {
       queryParams: { appointmentId: appointmentDetails.appointmentId }
@@ -99,21 +102,23 @@ export class AppointmentconformationComponent implements OnInit {
     this.router.navigate(["/home/appointmenthome/editappointment"], navigationExtras);
   }
 
-  routeToConfirmAppointment(appointmentDetails: any){
+  routeToConfirmAppointment(appointmentDetails: any) {
     if (confirm(`Has the patient confirmed?`)) {
-          this.appointmentService.conformation(appointmentDetails.appointmentId).subscribe((response: any) => {
-            if (response.success) {
-              // this.getAllUserDetails();
-            }
-            this._snackBar.open(appointmentDetails.apointmentId, response.message, { duration: 2500, panelClass: ['mat-primary'] });
-          })
+      this.appointmentService.conformation(appointmentDetails.appointmentId).subscribe((response: any) => {
+        if (response.success) {
+          this.getAppointments();
+          // this.getAllUserDetails();
         }
+        this._snackBar.open(appointmentDetails.apointmentId, response.message, { duration: 2500, panelClass: ['mat-primary'] });
+      })
+    }
   }
 
-  routeToCancleConfirmAppointment(appointmentDetails: any){
+  routeToCancleConfirmAppointment(appointmentDetails: any) {
     if (confirm(`Has the patient canceled appointment?`)) {
       this.appointmentService.cancelconformation(appointmentDetails.appointmentId).subscribe((response: any) => {
         if (response.success) {
+          this.getAppointments();
           // this.getAllUserDetails();
         }
         this._snackBar.open(appointmentDetails.apointmentId, response.message, { duration: 2500, panelClass: ['mat-primary'] });
@@ -121,10 +126,11 @@ export class AppointmentconformationComponent implements OnInit {
     }
   }
 
-  routeToCompleteAppointment(appointmentDetails: any){
+  routeToCompleteAppointment(appointmentDetails: any) {
     if (confirm(`Has the patient completed his test?`)) {
       this.appointmentService.completed(appointmentDetails.appointmentId).subscribe((response: any) => {
         if (response.success) {
+          this.getAppointments();
           // this.getAllUserDetails();
         }
         this._snackBar.open(appointmentDetails.apointmentId, response.message, { duration: 2500, panelClass: ['mat-primary'] });
@@ -132,10 +138,15 @@ export class AppointmentconformationComponent implements OnInit {
     }
   }
 
-  
-
   routeToAddAppointment() {
     this.router.navigate(['/home/appointmenthome/addappointment'])
+  }
+
+  isTested(testedFlag) {
+    if (testedFlag == 1) {
+      return true
+    }
+    return false
   }
 }
 
