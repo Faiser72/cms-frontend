@@ -57,7 +57,8 @@
         </form>
     </div>
 
-    <div *ngIf="isShown">
+    <!-- <div *ngIf="isShown"> -->
+    <div>
         <div class="container-fluid mt-3 p-0" id="componentID">
             <div class="card shadow">
                 <div class="card-title">
@@ -137,7 +138,7 @@
                     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </div>
 
-                <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="row d-flex justify-content-around mt-4 ml-5 mr-5" *ngIf="isShown">
                     <div class="col-lg-4 col-md-6 col-sm-12">
 
                     </div>
@@ -228,7 +229,8 @@
         </form>
     </div>
 
-    <div *ngIf="isShown1">
+    <!-- <div *ngIf="isShown1"> -->
+    <div>
         <div class="container-fluid mt-3 p-0" id="componentID1">
             <div class="card shadow">
                 <div class="card-title">
@@ -308,7 +310,7 @@
                     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </div>
 
-                <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="row d-flex justify-content-around mt-4 ml-5 mr-5" *ngIf="isShown1">
                     <div class="col-lg-4 col-md-6 col-sm-12">
 
                     </div>

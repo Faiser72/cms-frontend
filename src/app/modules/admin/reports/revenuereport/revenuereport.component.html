@@ -57,7 +57,8 @@
         </form>
     </div>
 
-    <div *ngIf="isShown">
+    <!-- <div *ngIf="isShown"> -->
+    <div>
         <div class="container-fluid mt-3 p-0" id="componentID" target="_blank">
             <div class="card shadow">
                 <div class="card-title">
@@ -67,7 +68,7 @@
 
                 <mat-divider class="mx-5"></mat-divider>
 
-                <h5 class="text-center main-bg-2 mt-3">The Total Amount of ₹ <span class="text-danger">{{result}}</span>
+                <h5 class="text-center main-bg-2 mt-3" *ngIf="isShown">The Total Amount of ₹ <span class="text-danger">{{result}}</span>
                     is collected between selected Dates</h5>
 
                 <div class="mat-elevation-z8 mt-5">
@@ -154,7 +155,7 @@
                     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
                 </div>
 
-                <div class="row d-flex justify-content-around mt-4 ml-5 mr-5">
+                <div class="row d-flex justify-content-around mt-4 ml-5 mr-5" *ngIf="isShown">
                     <div class="col-lg-4 col-md-6 col-sm-12">
 
                     </div>
