@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { Api } from "src/app/api.enum";
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: "root",
@@ -8,7 +8,7 @@ import { Api } from "src/app/api.enum";
 
 export class DefaultService {
 
-  baseUrl = Api.baseUrl;
+  baseUrl = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) {
 
