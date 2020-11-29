@@ -95,9 +95,9 @@
                             (change)='checkAppointmentTime();' />
                         <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
                     </mat-form-field>
-                    <p style="color: red;"
+                    <!-- <p style="color: red;"
                         *ngIf="addAppointmentForm.get('appointmentTime') && addAppointmentForm.get('appointmentTime').touched && addAppointmentForm.get('appointmentTime').invalid">
-                        {{appointmentTimeInputMsg}}</p>
+                        {{appointmentTimeInputMsg}}</p> -->
                     <p style="color: red;" *ngIf="!appointmentmentTimeValidation">
                         {{appointmentTimeValidMsg}}</p>
 

@@ -20,7 +20,7 @@ import { Api } from 'src/app/api.enum';
 })
 export class ListpatienthistoryComponent implements OnInit {
 
-  private baseUrl = Api.baseUrl;
+  public baseUrl = Api.baseUrl;
 
   // qp
   appointmentId: any; //from query params
