@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { isNull } from 'util';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,12 @@ export class AuthenticationService {
   SESSION_USER_KEY = 'user';
   SESSION_ROLE_KEY = 'role';
   SESSION_USER_ID_KEY = 'uId'
+  private baseUrl = environment.baseUrl;
 
   constructor(private httpClient: HttpClient) { }
 
   authenticate(username: string, password: string) {
-    return this.httpClient.post<any>('http://localhost:8086/authenticate', { username, password }).pipe(map((data) => {
+    return this.httpClient.post<any>(`${this.baseUrl}/authenticate`, { username, password }).pipe(map((data) => {
       if (!isNull(data)) {
         let jwtToken = 'Bearer ' + data.jwtToken;
         // alert(jwtToken)
