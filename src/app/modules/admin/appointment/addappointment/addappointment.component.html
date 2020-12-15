@@ -12,17 +12,26 @@
                         <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
                         <input matInput placeholder="Ex. xyz" value="" formControlName="patientNumber" />
                     </mat-form-field> -->
-                    <mat-form-field class="field-full-width">
+                    <!-- <mat-form-field class="field-full-width">
                         <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
                         <mat-select formControlName="patientNumber" (selectionChange)="patientDetailsById($event)">
                             <mat-option *ngFor="let patient of patientDetailsList" [value]="patient">
                                 {{patient.patientNumber}}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
+                        <input type="text" matInput formControlName="patientNumber" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="patientDetailsById($event.option)">
+                          <mat-option *ngFor="let patient of filteredPatientOptions | async" [value]="patient">
+                            {{patient.patientNumber}}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </mat-form-field>
                     <p style="color: red;"
                         *ngIf="addAppointmentForm.get('patientNumber') && addAppointmentForm.get('patientNumber').touched && addAppointmentForm.get('patientNumber').invalid">
-                        Please enter this field</p>
+                        {{patientNumberInputMsg}}</p>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">

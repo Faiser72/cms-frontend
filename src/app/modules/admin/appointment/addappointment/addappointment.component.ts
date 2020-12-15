@@ -26,6 +26,9 @@ export class AddappointmentComponent implements OnInit {
   maxDate: any;
   today: any;
 
+  filteredPatientOptions: Observable<any>;
+
+
   constructor(private fb: FormBuilder,
     private patientService: PatientService,
     private doctorService: DoctorserviceService,
@@ -57,6 +60,10 @@ export class AddappointmentComponent implements OnInit {
     this.patientService.getPatientList().subscribe((data: any) => {
       if (data.success) {
         this.patientDetailsList = data['listObject'];
+        this.filteredPatientOptions = this.addAppointmentForm.get('patientNumber').valueChanges.pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.patientNumber),
+          map(patientNumber => patientNumber ? this._filter(patientNumber) : this.patientDetailsList.slice()));
       } else {
         alert('please add patient details, then add appoint')
       }
@@ -79,6 +86,8 @@ export class AddappointmentComponent implements OnInit {
   }
 
   patientDetailsById(patient) {
+    console.log(patient);
+    
     this.singlePatient = patient.value;
     this.addAppointmentForm.patchValue({ patientName: this.singlePatient.patientName, phoneNumber: this.singlePatient.phoneNumber })
   }
@@ -95,7 +104,18 @@ export class AddappointmentComponent implements OnInit {
         [Validators.required, Validators.pattern(this.phonePattern)],
       ],
     });
-    // this.addAppointmentForm.setValidators(this.customValidation());
+    this.addAppointmentForm.setValidators(this.customValidation());
+  }
+
+  displayFn(patientNumber: any): string {
+    console.log(patientNumber);
+    
+    return patientNumber && patientNumber.patientNumber ? patientNumber.patientNumber : '';
+  }
+
+  private _filter(patientNumber: string): any {
+    const filterValue = patientNumber.toLowerCase();
+    return this.patientDetailsList.filter(patient => patient.patientNumber.toLowerCase().indexOf(filterValue) === 0);
   }
 
   addAppointmentFormSubmit() {
@@ -273,6 +293,31 @@ export class AddappointmentComponent implements OnInit {
     //   }
     // }
   }
+
+
+    // custom validation starts
+    patientNumberInputMsg: string; patientNumber: string;
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+       // for patientNumber Autocomplete starts here
+       const patientNumberFormGroup = formGroup.controls["patientNumber"];
+       if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
+         if (typeof (patientNumberFormGroup.value) !== 'object') {
+           console.log(typeof (patientNumberFormGroup.value));
+ 
+           this.patientNumberInputMsg = "Please select from the List";
+           patientNumberFormGroup.setErrors({});
+         }
+       } else {
+         this.patientNumberInputMsg = "Please enter this field.";
+         patientNumberFormGroup.setErrors({});
+       }
+       // for patientNumber Autocomplete ends here
+      return;
+    };
+  }
+  // custom validation ends
 
 
   // custom validation starts

@@ -1,12 +1,14 @@
 import { Component, OnInit } from "@angular/core";
 import { MatSnackBar, MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material';
-import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidatorFn, ValidationErrors, AbstractControl } from '@angular/forms';
 import { DoctorrolemasterserviceService } from 'src/app/modules/service/doctorrolemaster/doctorrolemasterservice.service';
 import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 import { AppComponent } from 'src/app/app.component';
 import { isNullOrUndefined } from 'util';
 import { Router, NavigationExtras } from '@angular/router';
 import { UsersService } from 'src/app/modules/service/users/users.service';
+import { Observable } from "rxjs";
+import { startWith, map } from "rxjs/operators";
 
 @Component({
   selector: "app-adddoctors",
@@ -50,7 +52,9 @@ export class AdddoctorsComponent implements OnInit {
     { value: 'dutyDoctor-1', viewValue: 'Duty Doctor' },
     { value: 'surgen-2', viewValue: 'Surgen' }
   ];
+
   userDetailsList: any;
+  filteredOptions: Observable<any>;
 
   constructor(private fb: FormBuilder,
     private doctorRoleMasterService: DoctorrolemasterserviceService,
@@ -67,6 +71,10 @@ export class AdddoctorsComponent implements OnInit {
     this.doctorRoleMasterService.getDoctorRoleMasterList().subscribe(
       (data: any) => {
         this.doctorRoleList = data.listObject;
+        this.filteredOptions = this.addDoctorDetailsForm.get('doctorRole').valueChanges.pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.doctorRoleName),
+          map(doctorRoleName => doctorRoleName ? this._filter(doctorRoleName) : this.doctorRoleList.slice()));
       },
       (error) => {
         console.log(error, "Error Caught");
@@ -81,7 +89,6 @@ export class AdddoctorsComponent implements OnInit {
     // for date validation ends
 
   }
-
 
   ngOnInit() {
     this.addDoctorDetailsFormBuilder();
@@ -173,6 +180,16 @@ export class AdddoctorsComponent implements OnInit {
     this.addDoctorDetailsForm.setValidators(this.customValidation());
   }
 
+
+
+  displayFn(role: any): string {
+    return role && role.doctorRoleName ? role.doctorRoleName : '';
+  }
+
+  private _filter(roleName: string): any {
+    const filterValue = roleName.toLowerCase();
+    return this.doctorRoleList.filter(role => role.doctorRoleName.toLowerCase().indexOf(filterValue) === 0);
+  }
 
   getPhotoFile(photoUpload: HTMLInputElement, event: any) {
     const fileName = event.target.files[0].name;
@@ -291,6 +308,8 @@ export class AdddoctorsComponent implements OnInit {
 
   phoneNumberInputMsg: string; phoneNumber: string;
 
+  doctorRoleInputMsg: string; doctorRole: string;
+
   customValidation(): ValidatorFn {
     return (formGroup: FormGroup): ValidationErrors => {
       //Email-Id
@@ -316,6 +335,23 @@ export class AdddoctorsComponent implements OnInit {
       } else {
         this.emailIdInputMsg = "Please enter this field.";
       }
+
+      // for Role Autocomplete starts here
+      const doctorRoleFormGroup = formGroup.controls["doctorRole"];
+      if (doctorRoleFormGroup.value !== "" && doctorRoleFormGroup.value !== null) {
+        if (typeof (doctorRoleFormGroup.value) !== 'object') {
+          console.log(typeof (doctorRoleFormGroup.value));
+
+          this.doctorRoleInputMsg = "Please select from the List";
+          doctorRoleFormGroup.setErrors({});
+        }
+      } else {
+        this.doctorRoleInputMsg = "Please enter this field.";
+        doctorRoleFormGroup.setErrors({});
+      }
+      // for Role Autocomplete ends here
+
+
 
       // MobileNo
       const phoneNumberFormGroup = formGroup.controls["phoneNumber"];
@@ -408,3 +444,4 @@ export class AdddoctorsComponent implements OnInit {
   }
 
 }
+
