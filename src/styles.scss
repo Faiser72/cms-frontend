@@ -19,16 +19,14 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-$mat-blue: (
-  50: #7f8e9e,
+$mat-blue: (50: #7f8e9e,
   100: #49657b,
   200: #476c8a,
   300: #4279a3,
   400: #3385c6,
   500: #00539cff,
   600: #32AEB1,
-  contrast: (
-    50: $black-87-opacity,
+  contrast: (50: $black-87-opacity,
     100: $black-87-opacity,
     200: $black-87-opacity,
     300: $black-87-opacity,
@@ -49,18 +47,16 @@ $mat-blue: (
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $crypto-primary: mat-palette($mat-blue, 600);
-$crypto-accent: mat-palette($mat-pink, A200, A100, A400);
+$crypto-accent : mat-palette($mat-pink, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $crypto-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $crypto-theme: mat-light-theme($crypto-primary, $crypto-accent, $crypto-warn);
-$crypto-theme-dark: mat-dark-theme(
-  $crypto-primary,
+$crypto-theme-dark: mat-dark-theme($crypto-primary,
   $crypto-accent,
-  $crypto-warn
-);
+  $crypto-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
@@ -72,33 +68,34 @@ $crypto-theme-dark: mat-dark-theme(
 
 :root {
   /* Brand Logo Color */
-  --main-brand-color: #bd9a36;
+  --main-brand-color  : #bd9a36;
   /* Background Colors */
-  --main-bg-1-color: #3f51b5;
-  --main-bg-2-color: #ee436e;
-  --main-bg-3-color: #32AEB1;
-  --main-bg-4-color: #ffffff;
+  --main-bg-1-color   : #3f51b5;
+  --main-bg-2-color   : #ee436e;
+  --main-bg-3-color   : #32AEB1;
+  --main-bg-4-color   : #ffffff;
   /* Fonts Families*/
   --main-font-1-family: "Montserrat", sans-serif;
   /* Fonts Colors*/
-  --main-font-1-color: #ffffff;
-  --main-font-2-color: #000000;
-  --main-font-3-color: #32AEB1;
-  --main-font-4-color: rgba(250,175,63,1);
-  --main-font-5-color:#137779;
+  --main-font-1-color : #ffffff;
+  --main-font-2-color : #000000;
+  --main-font-3-color : #32AEB1;
+  --main-font-4-color : rgba(250, 175, 63, 1);
+  --main-font-5-color : #137779;
   /* Tiles */
-  --main-tile-1-color: #382f9c;
-  --main-tile-2-color: #f4f4f4;
+  --main-tile-1-color : #382f9c;
+  --main-tile-2-color : #f4f4f4;
 }
 
 html,
 body {
   height: 100%;
 }
+
 body {
-  margin: 0;
+  margin        : 0;
   // font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-family: var(--main-font-1-family);
+  font-family   : var(--main-font-1-family);
 }
 
 
@@ -107,9 +104,9 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  box-shadow        : inset 0 0 6px rgba(0, 0, 0, 0.1);
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-  background-clip: content-box;
+  background-clip   : content-box;
 }
 
 ::-webkit-scrollbar-thumb {
