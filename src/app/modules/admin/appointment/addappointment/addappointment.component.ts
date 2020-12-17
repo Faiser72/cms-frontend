@@ -27,6 +27,7 @@ export class AddappointmentComponent implements OnInit {
   today: any;
 
   filteredPatientOptions: Observable<any>;
+  filteredDoctorOptions: Observable<any>;
 
 
   constructor(private fb: FormBuilder,
@@ -57,6 +58,32 @@ export class AddappointmentComponent implements OnInit {
     // });
 
 
+    this.getPatientList();
+
+    this.getDoctorList();
+
+    // all appointmnet list
+    this.appointmentService.getAppointmentList().subscribe((data: any) => {
+      this.appointmentDetailsList = data.listObject;
+      console.log(this.appointmentDetailsList);
+    });
+  }
+
+  getDoctorList() {
+    this.doctorService.getDoctorList().subscribe((data: any) => {
+      if (data.success) {
+        this.doctorDetailsList = data['listObject'];
+        this.filteredDoctorOptions = this.addAppointmentForm.get('doctorName').valueChanges.pipe(
+          startWith(''),
+          map(docvalue => typeof docvalue === 'string' ? docvalue : docvalue.doctorName),
+          map(doctorName => doctorName ? this._filters(doctorName) : this.doctorDetailsList.slice()));
+      } else {
+        alert('sorry no doctors available')
+      }
+    });
+  }
+
+  getPatientList() {
     this.patientService.getPatientList().subscribe((data: any) => {
       if (data.success) {
         this.patientDetailsList = data['listObject'];
@@ -68,26 +95,9 @@ export class AddappointmentComponent implements OnInit {
         alert('please add patient details, then add appoint')
       }
     });
-
-    this.doctorService.getDoctorList().subscribe((data: any) => {
-      if (data.success) {
-        this.doctorDetailsList = data['listObject'];
-      } else {
-        alert('sorry no doctors available')
-      }
-    });
-
-    // all appointmnet list
-    this.appointmentService.getAppointmentList().subscribe((data: any) => {
-      this.appointmentDetailsList = data.listObject;
-      console.log(this.appointmentDetailsList);
-
-    });
   }
 
   patientDetailsById(patient) {
-    console.log(patient);
-    
     this.singlePatient = patient.value;
     this.addAppointmentForm.patchValue({ patientName: this.singlePatient.patientName, phoneNumber: this.singlePatient.phoneNumber })
   }
@@ -107,9 +117,8 @@ export class AddappointmentComponent implements OnInit {
     this.addAppointmentForm.setValidators(this.customValidation());
   }
 
+  // patientNumber autocomplete starts here
   displayFn(patientNumber: any): string {
-    console.log(patientNumber);
-    
     return patientNumber && patientNumber.patientNumber ? patientNumber.patientNumber : '';
   }
 
@@ -117,6 +126,19 @@ export class AddappointmentComponent implements OnInit {
     const filterValue = patientNumber.toLowerCase();
     return this.patientDetailsList.filter(patient => patient.patientNumber.toLowerCase().indexOf(filterValue) === 0);
   }
+  // patientNumber autocomplete ends here
+
+  // doctorName autocomplete starts here
+  displayDoctorFn(doctorName: any): string {
+    return doctorName && doctorName.doctorName ? doctorName.doctorName : '';
+  }
+
+  private _filters(doctorName: string): any {
+    const filterValues = doctorName.toLowerCase();
+    return this.doctorDetailsList.filter(doctor => doctor.doctorName.toLowerCase().indexOf(filterValues) === 0);
+  }
+  // doctorName autocomplete ends here
+
 
   addAppointmentFormSubmit() {
     if (this.addAppointmentForm.valid && this.appointmentmentTimeValidation) {
@@ -131,6 +153,7 @@ export class AddappointmentComponent implements OnInit {
               setTimeout(() => {
                 if (confirm("Do you want add more appointment ?")) {
                   this.addAppointmentForm.reset();
+                  this.reset();
                   this.appointmentService
                     .getAppointmentList()
                     .subscribe((data: any) => {
@@ -295,25 +318,41 @@ export class AddappointmentComponent implements OnInit {
   }
 
 
-    // custom validation starts
-    patientNumberInputMsg: string; patientNumber: string;
+  // custom validation starts
+  patientNumberInputMsg: string; patientNumber: string;
+  doctorNameInputMsg: string; doctorName: string;
+
 
   customValidation(): ValidatorFn {
     return (formGroup: FormGroup): ValidationErrors => {
-       // for patientNumber Autocomplete starts here
-       const patientNumberFormGroup = formGroup.controls["patientNumber"];
-       if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
-         if (typeof (patientNumberFormGroup.value) !== 'object') {
-           console.log(typeof (patientNumberFormGroup.value));
- 
-           this.patientNumberInputMsg = "Please select from the List";
-           patientNumberFormGroup.setErrors({});
-         }
-       } else {
-         this.patientNumberInputMsg = "Please enter this field.";
-         patientNumberFormGroup.setErrors({});
-       }
-       // for patientNumber Autocomplete ends here
+      // for patientNumber Autocomplete starts here
+      const patientNumberFormGroup = formGroup.controls["patientNumber"];
+      if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
+        if (typeof (patientNumberFormGroup.value) !== 'object') {
+          console.log(typeof (patientNumberFormGroup.value));
+
+          this.patientNumberInputMsg = "Please select from the List";
+          patientNumberFormGroup.setErrors({});
+        }
+      } else {
+        this.patientNumberInputMsg = "Please enter this field.";
+        patientNumberFormGroup.setErrors({});
+      }
+      // for patientNumber Autocomplete ends here
+
+      // for doctorName Autocomplete starts here
+      const doctorNameFormGroup = formGroup.controls["doctorName"];
+      if (doctorNameFormGroup.value !== "" && doctorNameFormGroup.value !== null) {
+        if (typeof (doctorNameFormGroup.value) !== 'object') {
+          console.log(typeof (doctorNameFormGroup.value));
+          this.doctorNameInputMsg = "Please select from the List";
+          doctorNameFormGroup.setErrors({});
+        }
+      } else {
+        this.doctorNameInputMsg = "Please enter this field.";
+        doctorNameFormGroup.setErrors({});
+      }
+      // for doctorName Autocomplete ends here
       return;
     };
   }
@@ -355,4 +394,16 @@ export class AddappointmentComponent implements OnInit {
   //   };
   // }
   // // custom validation ends
+
+  reset() {
+    // for patient number auto complete starts here
+    this.getPatientList
+    // for patient number auto complete ends here
+
+    // for doctorName auto complete starts here
+    this.getDoctorList();
+    // for doctorName auto complete ends here
+
+  }
+
 }

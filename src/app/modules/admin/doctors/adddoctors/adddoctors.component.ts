@@ -441,6 +441,10 @@ export class AdddoctorsComponent implements OnInit {
 
   reset() {
     this.agreementFileName = "No File Chosen";
+    this.filteredOptions = this.addDoctorDetailsForm.get('doctorRole').valueChanges.pipe(
+      startWith(''),
+      map(value => typeof value === 'string' ? value : value.doctorRoleName),
+      map(doctorRoleName => doctorRoleName ? this._filter(doctorRoleName) : this.doctorRoleList.slice()));
   }
 
 }

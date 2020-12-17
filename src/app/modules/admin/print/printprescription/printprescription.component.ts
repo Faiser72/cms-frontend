@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AppComponent } from 'src/app/app.component';
 import { ReferalService } from 'src/app/modules/service/referal/referal.service';
 import { PrescriptionService } from 'src/app/modules/service/prescription/prescription.service';
 import { isNullOrUndefined } from 'util';
 import { Prescription } from '../../prescription/prescriptionmodel';
 import { PatientdiagnosisService } from 'src/app/modules/service/patientdiagnosis/patientdiagnosis.service';
-
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 @Component({
   selector: 'app-printprescription',
   templateUrl: './printprescription.component.html',
@@ -34,6 +35,9 @@ export class PrintprescriptionComponent implements OnInit {
   patientId: any;
   prescriptionDetailsList: any;
 
+  filteredPatientOptions: Observable<any>;
+
+
   constructor(private router: Router,
     private patientService: PatientService,
     private fb: FormBuilder,
@@ -49,6 +53,10 @@ export class PrintprescriptionComponent implements OnInit {
     // for patient details
     this.patientService.getPatientList().subscribe((data: any) => {
       this.patientDetailsList = data['listObject'];
+      this.filteredPatientOptions = this.prescriptionForm.get('patientNumber').valueChanges.pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.patientNumber),
+        map(patientNumber => patientNumber ? this._filter(patientNumber) : this.patientDetailsList.slice()));
     })
   }
 
@@ -58,7 +66,19 @@ export class PrintprescriptionComponent implements OnInit {
       patientName: [null, [Validators.required]],
       appointmentDate: [null, [Validators.required]],
     });
+    this.prescriptionForm.setValidators(this.customValidation());
   }
+
+  // patientNumber autocomplete starts here
+  displayFn(patientNumber: any): string {
+    return patientNumber && patientNumber.patientNumber ? patientNumber.patientNumber : '';
+  }
+
+  private _filter(patientNumber: string): any {
+    const filterValue = patientNumber.toLowerCase();
+    return this.patientDetailsList.filter(patient => patient.patientNumber.toLowerCase().indexOf(filterValue) === 0);
+  }
+  // patientNumber autocomplete ends here
 
   patientDetailsById(patient) {
     if (!isNullOrUndefined(patient)) {
@@ -85,7 +105,7 @@ export class PrintprescriptionComponent implements OnInit {
                 this.investigation = data.object.investigation;
                 this.diagnosis = data.object.diagnosis;
                 this.followUpDate = data.object.followUpdate
-console.log(data.object.investigation);
+                console.log(data.object.investigation);
 
               })
               this.patientName = this.prescriptionDetailsList.patient.patientName;
@@ -162,4 +182,29 @@ console.log(data.object.investigation);
   backToPrintHome() {
     this.router.navigate(['home/printhome'])
   }
+
+  // custom validation starts
+  patientNumberInputMsg: string;
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      // for patientNumber Autocomplete starts here
+      const patientNumberFormGroup = formGroup.controls["patientNumber"];
+      if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
+        if (typeof (patientNumberFormGroup.value) !== 'object') {
+          console.log(typeof (patientNumberFormGroup.value));
+
+          this.patientNumberInputMsg = "Please select from the List";
+          patientNumberFormGroup.setErrors({});
+        }
+      } else {
+        this.patientNumberInputMsg = "Please enter this field.";
+        patientNumberFormGroup.setErrors({});
+      }
+      // for patientNumber Autocomplete ends here
+
+      return;
+    };
+  }
+  // custom validation ends
 }

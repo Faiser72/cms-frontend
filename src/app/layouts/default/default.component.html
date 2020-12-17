@@ -1,6 +1,6 @@
 <app-header (toggleSideBarForMe)="sideBarToggler()" (darkModeSwitched)="switchMode($event)"></app-header>
-<mat-drawer-container class="container-fluid">
-    <mat-drawer mode="side" [opened]="sideBarOpen">
+<mat-drawer-container class="container-fluid" [hasBackdrop]='hasBack()'>
+    <mat-drawer mode="push" [opened]="sideBarOpen">
         <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>

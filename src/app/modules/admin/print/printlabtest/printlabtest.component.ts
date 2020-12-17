@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
 import { AppComponent } from 'src/app/app.component';
@@ -7,6 +7,8 @@ import { ReferalService } from 'src/app/modules/service/referal/referal.service'
 import { PrescriptionService } from 'src/app/modules/service/prescription/prescription.service';
 import { isNullOrUndefined } from 'util';
 import { LabtestService } from 'src/app/modules/service/labtest/labtest.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-printlabtest',
@@ -23,6 +25,9 @@ export class PrintlabtestComponent implements OnInit {
   addLabTestForm: FormGroup;
 
   referalNote: FormGroup;
+
+  filteredPatientOptions: Observable<any>;
+
 
   // checkbox starts
   completeheamogram = false;
@@ -79,6 +84,10 @@ export class PrintlabtestComponent implements OnInit {
     // for patient details
     this.patientService.getPatientList().subscribe((data: any) => {
       this.patientDetailsList = data['listObject'];
+      this.filteredPatientOptions = this.referalNote.get('patientNumber').valueChanges.pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.patientNumber),
+        map(patientNumber => patientNumber ? this._filter(patientNumber) : this.patientDetailsList.slice()));
     })
   }
 
@@ -88,7 +97,20 @@ export class PrintlabtestComponent implements OnInit {
       patientName: [null, [Validators.required]],
       appointmentDate: [null, [Validators.required]],
     });
+    this.referalNote.setValidators(this.customValidation());
+
   }
+
+  // patientNumber autocomplete starts here
+  displayFn(patientNumber: any): string {
+    return patientNumber && patientNumber.patientNumber ? patientNumber.patientNumber : '';
+  }
+
+  private _filter(patientNumber: string): any {
+    const filterValue = patientNumber.toLowerCase();
+    return this.patientDetailsList.filter(patient => patient.patientNumber.toLowerCase().indexOf(filterValue) === 0);
+  }
+  // patientNumber autocomplete ends here
 
   addLabTestFormBuilder() {
     this.addLabTestForm = this.fb.group({
@@ -196,4 +218,29 @@ export class PrintlabtestComponent implements OnInit {
   backToPrintHome() {
     this.router.navigate(['home/printhome'])
   }
+
+  // custom validation starts
+  patientNumberInputMsg: string;
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      // for patientNumber Autocomplete starts here
+      const patientNumberFormGroup = formGroup.controls["patientNumber"];
+      if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
+        if (typeof (patientNumberFormGroup.value) !== 'object') {
+          console.log(typeof (patientNumberFormGroup.value));
+
+          this.patientNumberInputMsg = "Please select from the List";
+          patientNumberFormGroup.setErrors({});
+        }
+      } else {
+        this.patientNumberInputMsg = "Please enter this field.";
+        patientNumberFormGroup.setErrors({});
+      }
+      // for patientNumber Autocomplete ends here
+
+      return;
+    };
+  }
+  // custom validation ends
 }

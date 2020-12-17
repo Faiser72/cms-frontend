@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from 'src/app/modules/service/authentication/authentication.service';
 import { Router } from '@angular/router';
 import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 import { isNullOrUndefined } from 'util';
+import { MatSidenav } from '@angular/material';
 
 @Component({
   selector: 'app-sidebar',
@@ -10,6 +11,7 @@ import { isNullOrUndefined } from 'util';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent implements OnInit {
+
 
   currentUserAvatar;
   currentUserName;
@@ -54,6 +56,7 @@ export class SidebarComponent implements OnInit {
 
 
   }
+
 
 
   isAdminRole() {

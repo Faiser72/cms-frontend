@@ -23,12 +23,13 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
                         <input type="text" matInput formControlName="patientNumber" [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="patientDetailsById($event.option)">
-                          <mat-option *ngFor="let patient of filteredPatientOptions | async" [value]="patient">
-                            {{patient.patientNumber}}
-                          </mat-option>
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                            (optionSelected)="patientDetailsById($event.option)">
+                            <mat-option *ngFor="let patient of filteredPatientOptions | async" [value]="patient">
+                                {{patient.patientNumber}}
+                            </mat-option>
                         </mat-autocomplete>
-                      </mat-form-field>
+                    </mat-form-field>
                     <p style="color: red;"
                         *ngIf="addAppointmentForm.get('patientNumber') && addAppointmentForm.get('patientNumber').touched && addAppointmentForm.get('patientNumber').invalid">
                         {{patientNumberInputMsg}}</p>
@@ -51,17 +52,24 @@
                         <mat-label>Doctor Name <sup class="text-danger">*</sup></mat-label>
                         <input matInput placeholder="Ex. xyz" value="" formControlName="doctorName" />
                     </mat-form-field> -->
-                    <mat-form-field class="field-full-width">
-                        <mat-label>Doctor Name <sup class="text-danger">*</sup></mat-label>
-                        <mat-select formControlName="doctorName">
+
+                    <!-- <mat-select formControlName="doctorName">
                             <mat-option *ngFor="let doctor of doctorDetailsList" [value]="doctor">
                                 {{doctor.doctorName}}
                             </mat-option>
-                        </mat-select>
+                        </mat-select> -->
+                    <mat-form-field class="field-full-width">
+                        <mat-label>Doctor Name <sup class="text-danger">*</sup></mat-label>
+                        <input type="text" matInput formControlName="doctorName" [matAutocomplete]="autos">
+                        <mat-autocomplete #autos="matAutocomplete" [displayWith]="displayDoctorFn">
+                            <mat-option *ngFor="let doctor of filteredDoctorOptions | async" [value]="doctor">
+                                {{doctor.doctorName}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="addAppointmentForm.get('doctorName') && addAppointmentForm.get('doctorName').touched && addAppointmentForm.get('doctorName').invalid">
-                        Please enter this field</p>
+                        {{doctorNameInputMsg}}</p>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                     <mat-form-field class="field-full-width">
@@ -100,8 +108,7 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Appointment Time <sup class="text-danger">*</sup></mat-label>
                         <input matInput type="time" placeholder="Ex. xyz" value="" class="time"
-                            formControlName="appointmentTime"
-                            (change)='checkAppointmentTime();' />
+                            formControlName="appointmentTime" (change)='checkAppointmentTime();' />
                         <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
                     </mat-form-field>
                     <!-- <p style="color: red;"
@@ -123,7 +130,7 @@
                         [disabled]='addAppointmentForm.invalid || !appointmentmentTimeValidation'>
                         <mat-icon class="mr-2">save</mat-icon>Submit
                     </button>
-                    <button type="reset" mat-raised-button color="accent">
+                    <button type="reset" mat-raised-button color="accent" (click)="reset()">
                         <mat-icon class="mr-2">360</mat-icon>Reset
                     </button>
                 </div>

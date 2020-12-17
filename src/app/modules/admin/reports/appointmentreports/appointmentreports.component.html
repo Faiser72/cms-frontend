@@ -178,12 +178,19 @@
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-100">
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
-                        <mat-label>Doctor Name</mat-label>
+                        <!-- <mat-label>Doctor Name</mat-label>
                         <mat-select formControlName="doctorName">
                             <mat-option *ngFor="let doctor of doctorDetailsList" [value]="doctor">
                                 {{doctor.doctorName}}
                             </mat-option>
-                        </mat-select>
+                        </mat-select> -->
+                        <mat-label>Doctor Name</mat-label>
+                        <input type="text" matInput formControlName="doctorName" [matAutocomplete]="autos">
+                        <mat-autocomplete #autos="matAutocomplete" [displayWith]="displayDoctorFn">
+                            <mat-option *ngFor="let doctor of filteredDoctorOptions | async" [value]="doctor">
+                                {{doctor.doctorName}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="appointmentReportOfDoctorsForm.get('doctorName') && appointmentReportOfDoctorsForm.get('doctorName').touched && appointmentReportOfDoctorsForm.get('doctorName').invalid">

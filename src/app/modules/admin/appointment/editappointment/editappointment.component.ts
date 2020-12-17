@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
 import { DoctorserviceService } from 'src/app/modules/service/doctor/doctorservice.service';
 import { AppointmentService } from 'src/app/modules/service/appointment/appointment.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { Location } from '@angular/common';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-editappointment',
@@ -22,6 +24,9 @@ export class EditappointmentComponent implements OnInit {
   appointmentDetailsList: any; //all appointment in db
   appointmentId: any;
   today: any;
+
+  filteredPatientOptions: Observable<any>;
+  filteredDoctorOptions: Observable<any>;
 
   constructor(private fb: FormBuilder,
     private patientService: PatientService,
@@ -49,6 +54,10 @@ export class EditappointmentComponent implements OnInit {
     this.patientService.getPatientList().subscribe((data: any) => {
       if (data.success) {
         this.patientDetailsList = data['listObject'];
+        this.filteredPatientOptions = this.editAppointmentForm.get('patientNumber').valueChanges.pipe(
+          startWith(''),
+          map(value => typeof value === 'string' ? value : value.patientNumber),
+          map(patientNumber => patientNumber ? this._filter(patientNumber) : this.patientDetailsList.slice()));
       } else {
         alert('please add patient details, then add appoint')
       }
@@ -57,6 +66,10 @@ export class EditappointmentComponent implements OnInit {
     this.doctorService.getDoctorList().subscribe((data: any) => {
       if (data.success) {
         this.doctorDetailsList = data['listObject'];
+        this.filteredDoctorOptions = this.editAppointmentForm.get('doctorName').valueChanges.pipe(
+          startWith(''),
+          map(docvalue => typeof docvalue === 'string' ? docvalue : docvalue.doctorName),
+          map(doctorName => doctorName ? this._filters(doctorName) : this.doctorDetailsList.slice()));
       } else {
         alert('sorry no doctors available')
       }
@@ -110,7 +123,30 @@ export class EditappointmentComponent implements OnInit {
         [Validators.required, Validators.pattern(this.phonePattern)],
       ],
     });
+    this.editAppointmentForm.setValidators(this.customValidation());
   }
+
+  // patientNumber autocomplete starts here
+  displayFn(patientNumber: any): string {
+    return patientNumber && patientNumber.patientNumber ? patientNumber.patientNumber : '';
+  }
+
+  private _filter(patientNumber: string): any {
+    const filterValue = patientNumber.toLowerCase();
+    return this.patientDetailsList.filter(patient => patient.patientNumber.toLowerCase().indexOf(filterValue) === 0);
+  }
+  // patientNumber autocomplete ends here
+
+  // doctorName autocomplete starts here
+  displayDoctorFn(doctorName: any): string {
+    return doctorName && doctorName.doctorName ? doctorName.doctorName : '';
+  }
+
+  private _filters(doctorName: string): any {
+    const filterValues = doctorName.toLowerCase();
+    return this.doctorDetailsList.filter(doctor => doctor.doctorName.toLowerCase().indexOf(filterValues) === 0);
+  }
+  // doctorName autocomplete ends here
 
   updateAppointmentDetailsFormSubmit() {
     if (this.editAppointmentForm.valid) {
@@ -133,6 +169,46 @@ export class EditappointmentComponent implements OnInit {
       // this._snackBar.open("Error", "Invalid data", { duration: 2500 });
     }
   }
+
+  // custom validation starts
+  patientNumberInputMsg: string; patientNumber: string;
+  doctorNameInputMsg: string; doctorName: string;
+
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      // for patientNumber Autocomplete starts here
+      const patientNumberFormGroup = formGroup.controls["patientNumber"];
+      if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
+        if (typeof (patientNumberFormGroup.value) !== 'object') {
+          console.log(typeof (patientNumberFormGroup.value));
+
+          this.patientNumberInputMsg = "Please select from the List";
+          patientNumberFormGroup.setErrors({});
+        }
+      } else {
+        this.patientNumberInputMsg = "Please enter this field.";
+        patientNumberFormGroup.setErrors({});
+      }
+      // for patientNumber Autocomplete ends here
+
+      // for doctorName Autocomplete starts here
+      const doctorNameFormGroup = formGroup.controls["doctorName"];
+      if (doctorNameFormGroup.value !== "" && doctorNameFormGroup.value !== null) {
+        if (typeof (doctorNameFormGroup.value) !== 'object') {
+          console.log(typeof (doctorNameFormGroup.value));
+          this.doctorNameInputMsg = "Please select from the List";
+          doctorNameFormGroup.setErrors({});
+        }
+      } else {
+        this.doctorNameInputMsg = "Please enter this field.";
+        doctorNameFormGroup.setErrors({});
+      }
+      // for doctorName Autocomplete ends here
+      return;
+    };
+  }
+  // custom validation ends
 
   gotoBack() {
     this.location.back();

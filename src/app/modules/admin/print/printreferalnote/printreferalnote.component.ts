@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
 import { AppComponent } from 'src/app/app.component';
 import { ReferalService } from 'src/app/modules/service/referal/referal.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-printreferalnote',
@@ -32,6 +34,9 @@ export class PrintreferalnoteComponent implements OnInit {
   patientId: any;
   referenceDetails: any;
 
+  filteredPatientOptions: Observable<any>;
+
+
   constructor(private router: Router,
     private patientService: PatientService,
     private fb: FormBuilder,
@@ -50,6 +55,10 @@ export class PrintreferalnoteComponent implements OnInit {
     // for patient details
     this.patientService.getPatientList().subscribe((data: any) => {
       this.patientDetailsList = data['listObject'];
+      this.filteredPatientOptions = this.referalNote.get('patientNumber').valueChanges.pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.patientNumber),
+        map(patientNumber => patientNumber ? this._filter(patientNumber) : this.patientDetailsList.slice()));
     })
   }
 
@@ -59,7 +68,19 @@ export class PrintreferalnoteComponent implements OnInit {
       patientName: [null, [Validators.required]],
       appointmentDate: [null, [Validators.required]],
     });
+    this.referalNote.setValidators(this.customValidation());
   }
+
+  // patientNumber autocomplete starts here
+  displayFn(patientNumber: any): string {
+    return patientNumber && patientNumber.patientNumber ? patientNumber.patientNumber : '';
+  }
+
+  private _filter(patientNumber: string): any {
+    const filterValue = patientNumber.toLowerCase();
+    return this.patientDetailsList.filter(patient => patient.patientNumber.toLowerCase().indexOf(filterValue) === 0);
+  }
+  // patientNumber autocomplete ends here
 
   patientDetailsById(patient) {
     if (!isNullOrUndefined(patient)) {
@@ -131,5 +152,30 @@ export class PrintreferalnoteComponent implements OnInit {
   backToPrintHome() {
     this.router.navigate(['home/printhome'])
   }
+
+  // custom validation starts
+  patientNumberInputMsg: string;
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      // for patientNumber Autocomplete starts here
+      const patientNumberFormGroup = formGroup.controls["patientNumber"];
+      if (patientNumberFormGroup.value !== "" && patientNumberFormGroup.value !== null) {
+        if (typeof (patientNumberFormGroup.value) !== 'object') {
+          console.log(typeof (patientNumberFormGroup.value));
+
+          this.patientNumberInputMsg = "Please select from the List";
+          patientNumberFormGroup.setErrors({});
+        }
+      } else {
+        this.patientNumberInputMsg = "Please enter this field.";
+        patientNumberFormGroup.setErrors({});
+      }
+      // for patientNumber Autocomplete ends here
+
+      return;
+    };
+  }
+  // custom validation ends
 
 }
