@@ -73,7 +73,7 @@ export class SidebarComponent implements OnInit {
   showFrontDeskSubmenu: boolean = false;
   showDoctorSubmenu: boolean = false;
   showappointmentSubmenu: boolean = false;
-  
+
 
 
   toggleSubmenu(submenu: string) {

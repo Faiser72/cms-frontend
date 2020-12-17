@@ -87,7 +87,8 @@
       <mat-icon> local_hotel</mat-icon>Patients
     </a>
 
-    <mat-list-item (click)="showappointmentSubmenu = !showappointmentSubmenu" class="parent mb-1" (click)="toggleappointmentSubmenu('appointment_submenu')">
+    <mat-list-item (click)="showappointmentSubmenu = !showappointmentSubmenu" class="parent mb-1"
+      (click)="toggleappointmentSubmenu('appointment_submenu')">
       <mat-icon>meeting_room</mat-icon>
       <span class="full-width">Appointment</span>
       <mat-icon class="menu-button" [ngClass]="{'rotated' : showappointmentSubmenu}">expand_more</mat-icon>

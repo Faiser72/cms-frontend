@@ -48,7 +48,7 @@ import { DoctorsappointmentdashboardComponent } from 'src/app/modules/admin/myap
 import { DoctorrolemasterComponent } from 'src/app/modules/master/doctormaster/doctorrolemaster/doctorrolemaster.component';
 import { MyPatientsComponent } from 'src/app/modules/admin/myappointment/my-patients/my-patients.component';
 import { FrontdeskhomeComponent } from 'src/app/modules/admin/frontdesk/frontdeskhome/frontdeskhome.component';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   declarations: [
@@ -105,7 +105,7 @@ import {MatBadgeModule} from '@angular/material/badge';
     MatBadgeModule,
     MatAutocompleteModule
 
- 
+
   ],
 })
 export class DefaultModule { }

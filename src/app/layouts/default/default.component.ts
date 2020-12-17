@@ -19,7 +19,7 @@ export class DefaultComponent implements OnInit {
   isLoggedIn = false;
   loggedUser: string = '';
   showSpinner: boolean;
-  hasBackValue:boolean=true;
+  hasBackValue: boolean = true;
 
   constructor(
     private router: Router,
@@ -31,23 +31,23 @@ export class DefaultComponent implements OnInit {
   ) {
     if (!this.isSmallMobileDevice.matches) {
       this.sideBarOpen = true;
-this.hasBackValue=true;
+      this.hasBackValue = true;
 
     }
     else {
       this.sideBarOpen = false;
-      this.hasBackValue=false;
+      this.hasBackValue = false;
 
     }
   }
 
-  hasBack(){
+  hasBack() {
     if (!this.isSmallMobileDevice.matches) {
-        return this.hasBackValue=false;
+      return this.hasBackValue = false;
 
     }
     else {
-     return this.hasBackValue=true;
+      return this.hasBackValue = true;
 
     }
   }

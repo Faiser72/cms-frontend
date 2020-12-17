@@ -29,7 +29,7 @@
                 <div class="col-lg-4 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Name</mat-label>
-                        <input matInput placeholder="Ex. xyz" value="" formControlName="patientName" />
+                        <input matInput placeholder="Ex. xyz" value="" formControlName="patientName" readonly/>
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="referalNote.get('patientName') && referalNote.get('patientName').touched && referalNote.get('patientName').invalid">

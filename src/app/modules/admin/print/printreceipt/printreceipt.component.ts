@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { PatientService } from 'src/app/modules/service/patient/patient.service';
@@ -10,6 +10,8 @@ import { AppointmentService } from 'src/app/modules/service/appointment/appointm
 import { ReferalService } from 'src/app/modules/service/referal/referal.service';
 import { Location } from '@angular/common';
 import { ReceiptService } from 'src/app/modules/service/receipt/receipt.service';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-printreceipt',
@@ -22,6 +24,9 @@ export class PrintreceiptComponent implements OnInit {
   today: string;
   testedAppointmentList: any;
   receiptDetails: any;
+
+  filteredPatientOptions: Observable<any>;
+
 
   constructor(public dialog: MatDialog,
     private fb: FormBuilder,
@@ -47,6 +52,10 @@ export class PrintreceiptComponent implements OnInit {
 
     this.appointmentService.getAllTestedDetailsList().subscribe((data: any) => {
       this.testedAppointmentList = data['listObject'];
+      this.filteredPatientOptions = this.receiptForm.get('appointment').valueChanges.pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.appointment),
+        map(appointment => appointment ? this._filter(appointment) : this.testedAppointmentList.slice()));
     })
   }
 
@@ -58,7 +67,19 @@ export class PrintreceiptComponent implements OnInit {
       amount: [null, [Validators.required, Validators.pattern("^[0-9 -]+$")]],
       date: "",
     });
+    this.receiptForm.setValidators(this.customValidation());
   }
+
+  // patientNumber autocomplete starts here
+  displayFn(appointment: any): string {
+    return appointment && appointment.patientNumber.patientName ? appointment.patientNumber.patientName : '';
+  }
+
+  private _filter(appointment: string): any {
+    const filterValue = appointment.toLowerCase();
+    return this.testedAppointmentList.filter(appointment => appointment.patientNumber.patientName.toLowerCase().indexOf(filterValue) === 0);
+  }
+  // patientNumber autocomplete ends here
 
   savereceiptFormSubmit() {
     if (this.receiptForm.valid) {
@@ -112,6 +133,28 @@ export class PrintreceiptComponent implements OnInit {
     });
   }
 
+  // custom validation starts
+  appointmentInputMsg: string;
+
+  customValidation(): ValidatorFn {
+    return (formGroup: FormGroup): ValidationErrors => {
+      // for patientNumber Autocomplete starts here
+      const appointmentFormGroup = formGroup.controls["appointment"];
+      if (appointmentFormGroup.value !== "" && appointmentFormGroup.value !== null) {
+        if (typeof (appointmentFormGroup.value) !== 'object') {
+          this.appointmentInputMsg = "Please select from the List";
+          appointmentFormGroup.setErrors({});
+        }
+      } else {
+        this.appointmentInputMsg = "Please enter this field.";
+        appointmentFormGroup.setErrors({});
+      }
+      // for patientNumber Autocomplete ends here
+
+      return;
+    };
+  }
+  // custom validation ends
 }
 
 //PopUp of View Rounds

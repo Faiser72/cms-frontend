@@ -11,15 +11,22 @@
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Name <sup class="text-danger">*</sup></mat-label>
-                        <mat-select formControlName="appointment">
+                        <!-- <mat-select formControlName="appointment">
                             <mat-option *ngFor="let appointment of testedAppointmentList" [value]="appointment">
                                 {{appointment.patientNumber.patientName}}
                             </mat-option>
-                        </mat-select>
+                        </mat-select> -->
+                        <input type="text" matInput formControlName="appointment" [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                            <mat-option *ngFor="let appointment of filteredPatientOptions | async"
+                                [value]="appointment">
+                                {{appointment.patientNumber.patientName}}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                     <p style="color: red;"
                         *ngIf="receiptForm.get('appointment') && receiptForm.get('appointment').touched && receiptForm.get('appointment').invalid">
-                        Please enter this field</p>
+                        {{appointmentInputMsg}}</p>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
