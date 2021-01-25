@@ -4,8 +4,7 @@
             <h4 class="text-center main-bg pt-3 mt-1">- Add Appointment -</h4>
         </div>
         <mat-divider class="mx-5"></mat-divider>
-        <form action="" class="form-group customhover" [formGroup]="addAppointmentForm"
-            (ngSubmit)="addAppointmentFormSubmit()">
+        <form action="" class="form-group customhover" [formGroup]="addAppointmentForm" (ngSubmit)="addAppointmentFormSubmit()">
             <div class="row d-flex justify-content-around mt-4 ml-5 mr-5 w-50 mx-auto">
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <!-- <mat-form-field class="field-full-width">
@@ -23,15 +22,13 @@
                     <mat-form-field class="field-full-width">
                         <mat-label>Patient Number <sup class="text-danger">*</sup></mat-label>
                         <input type="text" matInput formControlName="patientNumber" [matAutocomplete]="auto">
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
-                            (optionSelected)="patientDetailsById($event.option)">
+                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="patientDetailsById($event.option)">
                             <mat-option *ngFor="let patient of filteredPatientOptions | async" [value]="patient">
                                 {{patient.patientNumber}}
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
-                    <p style="color: red;"
-                        *ngIf="addAppointmentForm.get('patientNumber') && addAppointmentForm.get('patientNumber').touched && addAppointmentForm.get('patientNumber').invalid">
+                    <p style="color: red;" *ngIf="addAppointmentForm.get('patientNumber') && addAppointmentForm.get('patientNumber').touched && addAppointmentForm.get('patientNumber').invalid">
                         {{patientNumberInputMsg}}</p>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-md-6">
@@ -39,8 +36,7 @@
                         <mat-label>Patient Name <sup class="text-danger">*</sup></mat-label>
                         <input matInput placeholder="Ex. xyz" value="" formControlName="patientName" readonly="true" />
                     </mat-form-field>
-                    <p style="color: red;"
-                        *ngIf="addAppointmentForm.get('patientName') && addAppointmentForm.get('patientName').touched && addAppointmentForm.get('patientName').invalid">
+                    <p style="color: red;" *ngIf="addAppointmentForm.get('patientName') && addAppointmentForm.get('patientName').touched && addAppointmentForm.get('patientName').invalid">
                         Please enter this field</p>
                 </div>
             </div>
@@ -67,20 +63,17 @@
                             </mat-option>
                         </mat-autocomplete>
                     </mat-form-field>
-                    <p style="color: red;"
-                        *ngIf="addAppointmentForm.get('doctorName') && addAppointmentForm.get('doctorName').touched && addAppointmentForm.get('doctorName').invalid">
+                    <p style="color: red;" *ngIf="addAppointmentForm.get('doctorName') && addAppointmentForm.get('doctorName').touched && addAppointmentForm.get('doctorName').invalid">
                         {{doctorNameInputMsg}}</p>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
                     <mat-form-field class="field-full-width">
                         <mat-label>Telephone <sup class="text-danger">*</sup></mat-label>
                         <span matPrefix>+91 &nbsp;</span>
-                        <input type="tel" matInput placeholder="555-555-1234" formControlName="phoneNumber"
-                            readonly="true">
+                        <input type="tel" matInput placeholder="555-555-1234" formControlName="phoneNumber" readonly="true">
                         <mat-icon matSuffix color="primary">phone</mat-icon>
                     </mat-form-field>
-                    <p style="color: red;"
-                        *ngIf="addAppointmentForm.get('phoneNumber') && addAppointmentForm.get('phoneNumber').touched && addAppointmentForm.get('phoneNumber').invalid">
+                    <p style="color: red;" *ngIf="addAppointmentForm.get('phoneNumber') && addAppointmentForm.get('phoneNumber').touched && addAppointmentForm.get('phoneNumber').invalid">
                         Please enter valid phone number</p>
                 </div>
 
@@ -97,18 +90,15 @@
                     </mat-form-field> -->
                     <mat-form-field class="field-full-width">
                         <mat-label>Appointment Date</mat-label>
-                        <input matInput type="date" placeholder="Ex. 7/2/1995" value="" color="primary"
-                            formControlName="appointmentDate" id='from' min="{{today}}" />
+                        <input matInput type="date" placeholder="Ex. 7/2/1995" value="" color="primary" formControlName="appointmentDate" id='from' min="{{today}}" />
                     </mat-form-field>
-                    <p style="color: red;"
-                        *ngIf="addAppointmentForm.get('appointmentDate') && addAppointmentForm.get('appointmentDate').touched && addAppointmentForm.get('appointmentDate').invalid">
+                    <p style="color: red;" *ngIf="addAppointmentForm.get('appointmentDate') && addAppointmentForm.get('appointmentDate').touched && addAppointmentForm.get('appointmentDate').invalid">
                         Please enter this field</p>
                 </div>
                 <div class="col-lg-6 col-sm-12 col-md-6">
                     <mat-form-field class="field-full-width">
                         <mat-label>Appointment Time <sup class="text-danger">*</sup></mat-label>
-                        <input matInput type="time" placeholder="Ex. xyz" value="" class="time"
-                            formControlName="appointmentTime" (change)='checkAppointmentTime();' />
+                        <input matInput type="time" placeholder="Ex. xyz" value="" class="time" formControlName="appointmentTime" (change)='checkAppointmentTime();' />
                         <!-- <mat-icon matSuffix color="primary">access_time</mat-icon> -->
                     </mat-form-field>
                     <!-- <p style="color: red;"
@@ -126,8 +116,7 @@
 
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 d-flex justify-content-around">
-                    <button type="submit" mat-raised-button color="primary"
-                        [disabled]='addAppointmentForm.invalid || !appointmentmentTimeValidation'>
+                    <button type="submit" mat-raised-button color="primary" [disabled]='addAppointmentForm.invalid || !appointmentmentTimeValidation'>
                         <mat-icon class="mr-2">save</mat-icon>Submit
                     </button>
                     <button type="reset" mat-raised-button color="accent" (click)="reset()">
